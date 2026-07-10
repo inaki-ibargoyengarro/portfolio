@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iñaki Ibargoyen Garro — Comunicación Digital</title>
+<meta name="description" content="Portfolio de Iñaki Ibargoyen Garro. Comunicación Digital, Internal Comms & Employer Branding.">
+<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/favicon-inaki-1.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FFFFFF;
+    --bg-dark: #0D0D0D;
+    --bg-dark-2: #141414;
+    --ink: #0F0F0F;
+    --ink-soft: #57575B;
+    --paper: #F6F6F4;
+    --line: #E4E4E1;
+    --line-dark: #2A2A2A;
+    --white: #FFFFFF;
+    --blue: #2E6BFF;
+    --blue-soft: #EAF0FF;
+    --max: 1180px;
+    --pad: clamp(24px, 5vw, 72px);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter', -apple-system, sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4,.display{
+    font-family:'Archivo', 'Inter', sans-serif;
+    letter-spacing:-0.02em;
+    line-height:1.02;
+  }
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:var(--max); margin:0 auto; padding-left:var(--pad); padding-right:var(--pad);}
+  .eyebrow{
+    font-size:12px; text-transform:uppercase; letter-spacing:0.28em;
+    font-weight:600; color:var(--ink-soft);
+  }
+  .eyebrow .dot{color:var(--blue);}
+  section{position:relative;}
+  .section-pad{padding:96px 0;}
+  @media(max-width:720px){ .section-pad{padding:64px 0;} }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(255,255,255,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    transition:background .3s, border-color .3s;
+  }
+  header.on-dark{
+    background:rgba(13,13,13,0.86);
+    border-bottom:1px solid var(--line-dark);
+  }
+  .nav-inner{
+    max-width:var(--max); margin:0 auto; padding:0 var(--pad);
+    display:flex; align-items:center; justify-content:space-between;
+    height:64px;
+  }
+  .logo-mark{
+    font-family:'Archivo'; font-weight:800; font-size:19px; letter-spacing:-0.03em;
+    color:var(--ink);
+  }
+  header.on-dark .logo-mark{color:var(--white);}
+  .logo-mark .dot{color:var(--blue);}
+  nav.links{display:flex; align-items:center; gap:32px;}
+  nav.links a{
+    font-size:13px; font-weight:500; color:var(--ink-soft);
+    padding:6px 0; border-bottom:1px solid transparent;
+    transition:color .2s, border-color .2s;
+  }
+  header.on-dark nav.links a{color:#B7B7B7;}
+  nav.links a:hover{color:var(--ink); border-color:var(--blue);}
+  header.on-dark nav.links a:hover{color:var(--white);}
+  .lang-toggle{
+    display:flex; align-items:center; gap:2px;
+    border:1px solid var(--line); border-radius:20px; padding:3px;
+  }
+  header.on-dark .lang-toggle{border-color:var(--line-dark);}
+  .lang-toggle button{
+    font-size:11px; font-weight:700; letter-spacing:0.04em;
+    padding:5px 12px; border-radius:16px; border:none; background:transparent;
+    color:var(--ink-soft); cursor:pointer; transition:all .2s;
+    font-family:'Inter';
+  }
+  header.on-dark .lang-toggle button{color:#999;}
+  .lang-toggle button.active{background:var(--ink); color:var(--white);}
+  header.on-dark .lang-toggle button.active{background:var(--white); color:var(--ink);}
+  .nav-burger{display:none; flex-direction:column; gap:4px; background:none; border:none; cursor:pointer; padding:8px;}
+  .nav-burger span{width:20px; height:2px; background:var(--ink);}
+  header.on-dark .nav-burger span{background:var(--white);}
+
+  @media(max-width:860px){
+    nav.links{
+      position:fixed; top:64px; left:0; right:0; background:var(--white);
+      flex-direction:column; align-items:flex-start; gap:0;
+      max-height:0; overflow:hidden; transition:max-height .3s ease;
+      border-bottom:1px solid var(--line);
+    }
+    header.on-dark nav.links{background:var(--bg-dark);}
+    nav.links.open{max-height:320px;}
+    nav.links a{width:100%; padding:14px var(--pad);}
+    .nav-burger{display:flex;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:168px 0 96px;
+    display:grid; grid-template-columns:1.2fr 1fr; gap:56px; align-items:center;
+  }
+  .hero-name{font-size:15px; color:var(--ink-soft); font-weight:500; margin-bottom:18px;}
+  .hero h1{
+    font-size:clamp(52px, 8vw, 104px); font-weight:800; margin-bottom:6px;
+  }
+  .hero h1 .dot{color:var(--blue);}
+  .hero-tagline{margin:22px 0 34px; max-width:460px;}
+  .hero-tagline p{margin:0 0 6px;}
+  .hero-tagline .tag-a{
+    font-family:'Archivo'; font-weight:700; font-size:clamp(20px,2.6vw,26px); color:var(--ink);
+  }
+  .hero-tagline .tag-b{
+    font-size:clamp(15px,1.8vw,17px); font-weight:600; color:var(--ink-soft);
+  }
+  .hero-tagline .tag-c{
+    font-size:14px; font-weight:400; color:var(--ink-soft); opacity:0.85; margin-top:10px;
+  }
+  .hero-cta{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:13px 26px; border-radius:100px; font-size:13px; font-weight:600;
+    border:1px solid var(--ink); transition:all .2s; cursor:pointer;
+  }
+  .btn-solid{background:var(--ink); color:var(--white);}
+  .btn-solid:hover{background:var(--blue); border-color:var(--blue);}
+  .btn-outline{background:transparent; color:var(--ink);}
+  .btn-outline:hover{background:var(--ink); color:var(--white);}
+  .hero-img{
+    aspect-ratio:4/5; border-radius:6px; overflow:hidden; background:var(--paper);
+    border:1px solid var(--line);
+  }
+  .hero-img img{width:100%; height:100%; object-fit:cover;}
+  @media(max-width:860px){
+    .hero{grid-template-columns:1fr; padding-top:128px;}
+    .hero-img{max-width:320px; order:-1;}
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid; grid-template-columns:0.9fr 1.1fr; gap:64px; align-items:start;}
+  .about-poster{
+    aspect-ratio:3/4; background:var(--paper); border-radius:6px;
+    overflow:hidden;
+  }
+  .about-poster img{width:100%; height:100%; object-fit:cover;}
+  .about-body p{font-size:16px; line-height:1.7; color:var(--ink-soft); margin-bottom:18px;}
+  .about-body strong{color:var(--ink); font-weight:600;}
+  .certs-label{font-size:12px; text-transform:uppercase; letter-spacing:0.14em; font-weight:600; color:var(--ink-soft); margin:36px 0 16px;}
+  .cert-list{display:flex; flex-direction:column; gap:0; border-top:1px solid var(--line);}
+  .cert-row{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:14px 0; border-bottom:1px solid var(--line); font-size:14px;
+  }
+  .cert-row .org{font-weight:600;}
+  .cert-row .org-logo{display:flex; align-items:center; gap:12px;}
+  .cert-row .org-logo img{width:26px; height:26px; object-fit:contain; flex-shrink:0;}
+  .cert-row .year{color:var(--ink-soft); font-size:13px;}
+
+  /* ---------- HOW I WORK ---------- */
+  .work-top{display:grid; grid-template-columns:0.8fr 1.2fr; gap:48px; align-items:center; margin-bottom:48px;}
+  .work-media{aspect-ratio:4/3; border-radius:6px; overflow:hidden; background:var(--paper); border:1px solid var(--line);}
+  .work-media img{width:100%; height:100%; object-fit:cover;}
+  .work-header{max-width:640px; margin-bottom:0;}
+  @media(max-width:860px){ .work-top{grid-template-columns:1fr;} }
+  .work-header h2{font-size:clamp(30px,4vw,44px); font-weight:700; margin:14px 0 18px;}
+  .work-header p{font-size:16px; color:var(--ink-soft); line-height:1.7;}
+  .pillars{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+  .pillar{background:var(--white); padding:32px;}
+  .pillar h3{font-size:18px; font-weight:700; margin-bottom:10px;}
+  .pillar p{font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:16px;}
+  .tool-chips{display:flex; flex-wrap:wrap; gap:6px;}
+  .chip{
+    font-size:11px; font-weight:600; padding:5px 10px; border-radius:20px;
+    background:var(--paper); border:1px solid var(--line); color:var(--ink-soft);
+  }
+  @media(max-width:720px){ .pillars{grid-template-columns:1fr;} }
+
+  /* ---------- EXPERIENCE ---------- */
+  .exp{background:transparent; color:var(--ink);}
+  .exp .eyebrow{color:var(--ink-soft);}
+  .exp .eyebrow .dot{color:var(--blue);}
+  .exp-title{font-size:clamp(30px,4vw,44px); font-weight:700; margin:14px 0 48px;}
+  .exp-card{
+    border-top:1px solid var(--line);
+    padding:36px 0;
+    display:grid; grid-template-columns:220px 1fr; gap:40px;
+  }
+  .exp-card:last-child{border-bottom:1px solid var(--line);}
+  .exp-meta .company{font-family:'Archivo'; font-weight:700; font-size:17px; margin-bottom:4px; display:flex; align-items:center; gap:10px; color:var(--ink);}
+  .exp-meta .company-logo{height:22px; width:auto; max-width:80px; object-fit:contain;}
+  .exp-meta .logo-chip{background:var(--white); border:1px solid var(--line); border-radius:5px; padding:4px 7px; display:inline-flex; align-items:center;}
+  .exp-meta .logo-chip .company-logo{height:16px;}
+  .exp-media{margin-top:20px; border-radius:8px; overflow:hidden; border:1px solid var(--line); max-width:340px;}
+  .exp-media img{width:100%; display:block;}
+  .exp-media-row{display:flex; gap:16px; flex-wrap:wrap; margin-top:20px;}
+  .exp-media-row .exp-media{margin-top:0;}
+  .exp-media.vertical{max-width:200px;}
+  .exp-media.vertical video{width:100%; aspect-ratio:9/16; display:block; object-fit:cover; background:#000;}
+  .exp-meta .dates{font-size:13px; color:var(--ink-soft);}
+  .exp-meta .role{font-size:14px; color:var(--ink-soft); margin-top:10px; font-weight:600;}
+  .exp-desc p.lede{font-size:15px; color:var(--ink-soft); line-height:1.7; margin-bottom:18px;}
+  .exp-block{margin-bottom:18px;}
+  .exp-block h4{font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-soft); margin-bottom:10px; font-weight:600;}
+  .exp-block ul{display:flex; flex-direction:column; gap:9px;}
+  .exp-block li{
+    font-size:14.5px; color:var(--ink); line-height:1.6; padding-left:16px; position:relative;
+  }
+  .exp-block li::before{content:"—"; position:absolute; left:0; color:var(--blue);}
+  .stat-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:20px;}
+  .stat{
+    border:1px solid var(--line); border-radius:8px; padding:12px 16px;
+  }
+  .stat .num{font-family:'Archivo'; font-weight:800; font-size:22px; color:var(--blue);}
+  .stat .label{font-size:11px; color:var(--ink-soft); margin-top:2px;}
+  @media(max-width:720px){ .exp-card{grid-template-columns:1fr; gap:16px;} }
+
+  /* ---------- PROJECTS ---------- */
+  .proj-header{max-width:640px; margin-bottom:48px;}
+  .proj-header h2{font-size:clamp(30px,4vw,44px); font-weight:700; margin:14px 0 18px;}
+  .proj-header p{font-size:16px; color:var(--ink-soft); line-height:1.7;}
+  .proj-list{display:flex; flex-direction:column; gap:64px;}
+  .proj{display:grid; grid-template-columns:0.85fr 1.15fr; gap:48px; align-items:start;}
+  .proj:nth-child(even){grid-template-columns:1.15fr 0.85fr;}
+  .proj:nth-child(even) .proj-media{order:2;}
+  .proj-media{
+    aspect-ratio:4/3.4; background:var(--bg-dark); border-radius:8px; overflow:hidden;
+    display:flex; align-items:center; justify-content:center; position:relative;
+  }
+  .proj-media img{width:100%; height:100%; object-fit:contain;}
+  .proj-media.large{aspect-ratio:3/4; padding:32px; box-sizing:border-box;}
+  .proj-media.on-light{background:var(--paper);}
+  .proj-media .tag{
+    position:absolute; top:16px; left:16px; background:rgba(255,255,255,0.1);
+    color:#fff; font-size:11px; padding:5px 12px; border-radius:20px; backdrop-filter:blur(6px);
+  }
+  .proj-media.on-light .tag{background:rgba(0,0,0,0.06); color:var(--ink);}
+  .proj-tag-holder{color:#666; font-family:'Archivo'; font-weight:700; font-size:14px; letter-spacing:0.02em;}
+  .proj-body .brand{display:flex; align-items:center; gap:8px; margin-bottom:10px;}
+  .proj-body .brand-logo{height:16px; width:auto; max-width:70px; object-fit:contain;}
+  .proj-body .brand span{font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-soft);}
+  .proj-body h3{font-size:24px; font-weight:700; margin-bottom:6px;}
+  .proj-stack{font-size:12px; color:var(--ink-soft); margin-bottom:20px; font-family:'Inter'; font-weight:500;}
+  .proj-body h4{font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-soft); font-weight:700; margin:16px 0 8px;}
+  .proj-body p.plain{font-size:14.5px; line-height:1.65; color:var(--ink-soft);}
+  .proj-body ul{display:flex; flex-direction:column; gap:8px;}
+  .proj-body ul li{font-size:14.5px; line-height:1.6; color:var(--ink-soft); padding-left:16px; position:relative;}
+  .proj-body ul li::before{content:"+"; position:absolute; left:0; color:var(--blue); font-weight:700;}
+  .proj-link{margin-top:22px;}
+  @media(max-width:860px){
+    .proj, .proj:nth-child(even){grid-template-columns:1fr;}
+    .proj:nth-child(even) .proj-media{order:0;}
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact{background:var(--paper); border-top:1px solid var(--line);}
+  .contact-inner{
+    display:grid; grid-template-columns:auto 1fr auto; gap:40px; align-items:center;
+  }
+  .contact-portrait{width:110px; aspect-ratio:4/5; border-radius:6px; overflow:hidden; border:1px solid var(--line); flex-shrink:0; background:var(--paper);}
+  .contact-portrait img{width:100%; height:100%; object-fit:cover;}
+  .contact h2{font-size:clamp(34px,5vw,58px); font-weight:800; margin-bottom:14px;}
+  .contact h2 .dot{color:var(--blue);}
+  .contact p{color:var(--ink-soft); font-size:15px; max-width:420px;}
+  .contact-actions{display:flex; flex-direction:column; gap:12px; align-items:flex-start;}
+  .contact-actions .btn{width:220px; justify-content:center;}
+  .contact-email{font-size:13px; color:var(--ink-soft); margin-top:4px;}
+  @media(max-width:720px){ .contact-inner{grid-template-columns:1fr; text-align:left;} }
+
+  footer{padding:28px var(--pad); display:flex; justify-content:space-between; font-size:12px; color:var(--ink-soft); border-top:1px solid var(--line); flex-wrap:wrap; gap:8px;}
+
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="nav-inner">
+    <a href="#top" class="logo-mark">inaki<span class="dot">.</span>ar</a>
+    <nav class="links" id="navLinks">
+      <a href="#about" class="i18n" data-es="Sobre mí" data-en="About">Sobre mí</a>
+      <a href="#work" class="i18n" data-es="Cómo trabajo" data-en="How I work">Cómo trabajo</a>
+      <a href="#experience" class="i18n" data-es="Experiencia" data-en="Experience">Experiencia</a>
+      <a href="#projects" class="i18n" data-es="Soluciones" data-en="Solutions">Soluciones</a>
+      <a href="#contact" class="i18n" data-es="Contacto" data-en="Contact">Contacto</a>
+    </nav>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div class="lang-toggle">
+        <button id="btnEs" class="active" onclick="setLang('es')">ES</button>
+        <button id="btnEn" onclick="setLang('en')">EN</button>
+      </div>
+      <button class="nav-burger" id="burger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="top" class="hero wrap">
+  <div>
+    <p class="eyebrow"><span class="dot">●</span> &nbsp;<span class="i18n" data-es="PORTFOLIO" data-en="PORTFOLIO">PORTFOLIO</span></p>
+    <h1>iñaki<span class="dot">.</span></h1>
+    <p class="hero-name">Iñaki Ibargoyen Garro</p>
+    <div class="hero-tagline">
+      <p class="tag-a i18n" data-es="Comunicación Digital" data-en="Digital Communication">Comunicación Digital</p>
+      <p class="tag-b i18n" data-es="Internal Comms &amp; Employer Branding." data-en="Internal Comms &amp; Employer Branding.">Internal Comms &amp; Employer Branding.</p>
+      <p class="tag-c i18n" data-es="Diseño sistemas de comunicación que resuelven y conectan." data-en="I design communication systems that solve and connect.">Diseño sistemas de comunicación que resuelven y conectan.</p>
+    </div>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-solid i18n" data-es="Contactarme" data-en="Get in touch">Contactarme</a>
+      <a href="#projects" class="btn btn-outline i18n" data-es="Ver soluciones" data-en="View solutions">Ver soluciones</a>
+    </div>
+  </div>
+  <div class="hero-img">
+    <img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/foto-header-inaki.png" alt="Iñaki Ibargoyen Garro">
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section-pad wrap reveal">
+  <div class="about-grid">
+    <div class="about-poster">
+      <img id="posterImg" class="lang-img"
+        data-es-src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/aboutme-dise%C3%B1ocomunicacin%C3%B3n-espa%C3%B1ol.png"
+        data-en-src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/aboutme-dise%C3%B1ocomunicacin%C3%B3n-ingles.png"
+        src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/aboutme-dise%C3%B1ocomunicacin%C3%B3n-espa%C3%B1ol.png"
+        alt="diseño comunicación que resuelve y conecta">
+    </div>
+    <div class="about-body">
+      <p class="eyebrow" style="margin-bottom:16px;"><span class="dot">●</span> &nbsp;<span class="i18n" data-es="SOBRE MÍ" data-en="ABOUT ME">SOBRE MÍ</span></p>
+      <p class="i18n" data-es="Soy un profesional de la <strong>Comunicación</strong> (UNLP) con especialización en <strong>Comunicación Interna y Marca Empleadora</strong> (UBA)." data-en="I'm a Communication professional (UNLP) specialized in <strong>Internal Communication and Employer Branding</strong> (UBA).">Soy un profesional de la <strong>Comunicación</strong> (UNLP) con especialización en <strong>Comunicación Interna y Marca Empleadora</strong> (UBA).</p>
+      <p class="i18n" data-es="A lo largo de mi experiencia en empresas, agencias y proyectos freelance, trabajé en roles de Community Manager, Analista de Comunicación, E-commerce Manager y Responsable de Comunicación." data-en="Across companies, agencies and freelance projects, I've worked as Community Manager, Communications Analyst, E-commerce Manager and Head of Communications.">A lo largo de mi experiencia en empresas, agencias y proyectos freelance, trabajé en roles de Community Manager, Analista de Comunicación, E-commerce Manager y Responsable de Comunicación.</p>
+      <p class="i18n" data-es="Me motiva <strong>transformar la comunicación en soluciones concretas</strong> que reduzcan tiempos, fortalezcan la cultura organizacional y potencien la marca. Creo mensajes atractivos, pero también me encargo de que sean medibles y generen impacto real." data-en="I'm driven to <strong>turn communication into concrete solutions</strong> that reduce time, strengthen organizational culture and grow the brand. I create compelling messages — and make sure they're measurable and generate real impact.">Me motiva <strong>transformar la comunicación en soluciones concretas</strong> que reduzcan tiempos, fortalezcan la cultura organizacional y potencien la marca. Creo mensajes atractivos, pero también me encargo de que sean medibles y generen impacto real.</p>
+
+      <p class="certs-label i18n" data-es="Certificaciones y especializaciones" data-en="Certifications & specializations">Certificaciones y especializaciones</p>
+      <div class="cert-list">
+        <div class="cert-row"><span class="org-logo"><img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-coderhouse.png" alt="Coderhouse"><span class="org">AI Automation — Coderhouse</span></span><span class="year">2026</span></div>
+        <div class="cert-row"><span class="org-logo"><img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-educacionIT.png" alt="Educación IT"><span class="org i18n" data-es="Human Resources Business Partner (HRBP) — Educación IT" data-en="Human Resources Business Partner (HRBP) — Educación IT">Human Resources Business Partner (HRBP) — Educación IT</span></span><span class="year">2025</span></div>
+        <div class="cert-row"><span class="org-logo"><img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-UBA.png" alt="UBA"><span class="org i18n" data-es="Comunicación Interna y Marca Empleadora — UBA" data-en="Internal Communication & Employer Branding — UBA">Comunicación Interna y Marca Empleadora — UBA</span></span><span class="year">2025</span></div>
+        <div class="cert-row"><span class="org-logo"><img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-UTN.png" alt="UTN"><span class="org i18n" data-es="Prensa y Comunicación Interna — UTN" data-en="Press and Internal Communication — UTN">Prensa y Comunicación Interna — UTN</span></span><span class="year">2023</span></div>
+        <div class="cert-row"><span class="org-logo"><img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-Rucula.png" alt="Rúcula"><span class="org">Employer Branding</span></span><span class="year">2023</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW I WORK -->
+<section id="work" class="section-pad wrap reveal">
+  <div class="work-top">
+    <div class="work-media">
+      <img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/gif-AboutMe.gif" alt="Cómo trabajo">
+    </div>
+    <div class="work-header">
+      <p class="eyebrow"><span class="dot">●</span> &nbsp;<span class="i18n" data-es="CÓMO TRABAJO" data-en="HOW I WORK">CÓMO TRABAJO</span></p>
+      <h2 class="i18n" data-es="Comunicación, personas y procesos." data-en="Communication, people and process.">Comunicación, personas y procesos.</h2>
+      <p class="i18n" data-es="Mi trabajo suele ubicarse en la intersección entre comunicación, necesidades comerciales, personas y procesos. No me enfoco solo en producir contenido: me interesa diseñar sistemas de comunicación para que los equipos trabajen mejor, los procesos sean más simples y la comunicación acompañe los objetivos del negocio." data-en="My work sits at the intersection of communication, business needs, people and process. I don't just focus on producing content — I design communication systems so teams work better, processes get simpler, and communication supports business goals.">Mi trabajo suele ubicarse en la intersección entre comunicación, necesidades comerciales, personas y procesos. No me enfoco solo en producir contenido: me interesa diseñar sistemas de comunicación para que los equipos trabajen mejor, los procesos sean más simples y la comunicación acompañe los objetivos del negocio.</p>
+    </div>
+  </div>
+  <div class="pillars">
+    <div class="pillar">
+      <h3>People &amp; Culture</h3>
+      <p class="i18n" data-es="Trabajo en la claridad de procesos, recursos y mensajes que reciben los equipos." data-en="I work on the clarity of processes, resources and messages that teams receive.">Trabajo en la claridad de procesos, recursos y mensajes que reciben los equipos.</p>
+      <div class="tool-chips"><span class="chip">Notion</span><span class="chip">Slack</span><span class="chip">Google Workspace</span></div>
+    </div>
+    <div class="pillar">
+      <h3 class="i18n" data-es="Comunicación Corporativa" data-en="Corporate Communication">Comunicación Corporativa</h3>
+      <p class="i18n" data-es="Me encargo de que los contenidos y mensajes logren alinearse con la identidad de la organización, interna y externamente." data-en="I make sure content and messaging align with the organization's identity, both internally and externally.">Me encargo de que los contenidos y mensajes logren alinearse con la identidad de la organización, interna y externamente.</p>
+      <div class="tool-chips"><span class="chip">Adobe CC</span><span class="chip">Canva</span><span class="chip">LinkedIn</span><span class="chip">HubSpot</span></div>
+    </div>
+    <div class="pillar">
+      <h3 class="i18n" data-es="Contenido Digital" data-en="Digital Content">Contenido Digital</h3>
+      <p class="i18n" data-es="Planifico contenidos pensando en el canal, la audiencia y el objetivo de comunicación." data-en="I plan content with the channel, audience and communication goal in mind.">Planifico contenidos pensando en el canal, la audiencia y el objetivo de comunicación.</p>
+      <div class="tool-chips"><span class="chip">Buffer</span><span class="chip">Meta</span><span class="chip">Instagram</span><span class="chip">Analytics</span></div>
+    </div>
+    <div class="pillar">
+      <h3 class="i18n" data-es="Diseño de Procesos" data-en="Process Design">Diseño de Procesos</h3>
+      <p class="i18n" data-es="Busco ordenar la información y simplificar procesos para que el trabajo del equipo sea más ágil y efectivo." data-en="I organize information and simplify processes so the team can work faster and more effectively.">Busco ordenar la información y simplificar procesos para que el trabajo del equipo sea más ágil y efectivo.</p>
+      <div class="tool-chips"><span class="chip">Typeform</span><span class="chip">ChatGPT</span><span class="chip">n8n</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="exp section-pad">
+  <div class="wrap reveal">
+    <p class="eyebrow"><span class="dot">●</span> &nbsp;<span class="i18n" data-es="EXPERIENCIA" data-en="EXPERIENCE">EXPERIENCIA</span></p>
+    <div style="margin-bottom:48px;"></div>
+
+    <div class="exp-card">
+      <div class="exp-meta">
+        <div class="company"><img class="company-logo" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-glofy-negro.png" alt="Glofy">Glofy</div>
+        <div class="role i18n" data-es="Head of Communications" data-en="Head of Communications">Head of Communications</div>
+        <div class="dates i18n" data-es="Junio 2024 — Presente" data-en="June 2024 — Present">Junio 2024 — Presente</div>
+      </div>
+      <div class="exp-desc">
+        <p class="lede i18n" data-es="Mi rol combina liderazgo de comunicación y diseño de sistemas orientados a mejorar procesos y experiencia organizacional." data-en="My role combines communications leadership with systems design aimed at improving processes and organizational experience.">Mi rol combina liderazgo de comunicación y diseño de sistemas orientados a mejorar procesos y experiencia organizacional.</p>
+        <div class="exp-block">
+          <h4 class="i18n" data-es="Marca y liderazgo" data-en="Brand & leadership">Marca y liderazgo</h4>
+          <ul>
+            <li class="i18n" data-es="Lidero el equipo creativo, compuesto por 3 personas (diseño, video y marketing), asegurando alineación estratégica, calidad de contenidos y coherencia de marca en todos los canales." data-en="I lead a 3-person creative team (design, video, marketing), ensuring strategic alignment, content quality and brand consistency across every channel.">Lidero el equipo creativo, compuesto por 3 personas (diseño, video y marketing), asegurando alineación estratégica, calidad de contenidos y coherencia de marca en todos los canales.</li>
+            <li class="i18n" data-es="Lideré el rebranding de Glofy y el desarrollo de nuevos activos digitales orientados a mejorar la experiencia de clientes, recruiters y colaboradores." data-en="Led Glofy's rebranding and the development of new digital assets aimed at improving the experience for clients, recruiters and employees.">Lideré el rebranding de Glofy y el desarrollo de nuevos activos digitales orientados a mejorar la experiencia de clientes, recruiters y colaboradores.</li>
+            <li class="i18n" data-es="Produje campañas y eventos de Employer Branding que fortalecieron la participación interna y el posicionamiento externo como marca empleadora." data-en="Produced Employer Branding campaigns and events that strengthened internal participation and external positioning as an employer brand.">Produje campañas y eventos de Employer Branding que fortalecieron la participación interna y el posicionamiento externo como marca empleadora.</li>
+            <li class="i18n" data-es="Lancé un programa de embajadores en LinkedIn que amplificó el engagement externo y mejoró la percepción interna de la comunicación corporativa." data-en="Launched a LinkedIn ambassador program that amplified external engagement and improved the internal perception of corporate communication.">Lancé un programa de embajadores en LinkedIn que amplificó el engagement externo y mejoró la percepción interna de la comunicación corporativa.</li>
+          </ul>
+        </div>
+        <div class="exp-block">
+          <h4 class="i18n" data-es="Sistemas y operaciones" data-en="Systems & operations">Sistemas y operaciones</h4>
+          <ul>
+            <li class="i18n" data-es="Implementé un Branding Kit y manuales de procesos que redujeron tiempos de onboarding y mejoraron la consistencia institucional." data-en="Implemented a Branding Kit and process manuals that reduced onboarding time and improved institutional consistency.">Implementé un Branding Kit y manuales de procesos que redujeron tiempos de onboarding y mejoraron la consistencia institucional.</li>
+            <li class="i18n" data-es="Diseñé e implementé soluciones internas para optimizar procesos de comunicación y RR.HH. mediante automatización e IA: sistemas de incorporación, herramientas para selección de personal y automatizaciones internas." data-en="Designed and implemented internal solutions to optimize communication and HR processes through automation and AI: onboarding systems, recruiting tools and internal automations.">Diseñé e implementé soluciones internas para optimizar procesos de comunicación y RR.HH. mediante automatización e IA: sistemas de incorporación, herramientas para selección de personal y automatizaciones internas.</li>
+            <li class="i18n" data-es="Desarrollé activos y sistemas digitales orientados a simplificar flujos de trabajo, reducir tareas repetitivas y mejorar la escalabilidad de procesos internos." data-en="Developed digital assets and systems to simplify workflows, reduce repetitive tasks and improve the scalability of internal processes.">Desarrollé activos y sistemas digitales orientados a simplificar flujos de trabajo, reducir tareas repetitivas y mejorar la escalabilidad de procesos internos.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-meta">
+        <div class="company"><span class="logo-chip"><img class="company-logo" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-Prosumia.png" alt="Prosumia"></span>Prosumia</div>
+        <div class="role i18n" data-es="Analista de Comunicación" data-en="Communications Analyst">Analista de Comunicación</div>
+        <div class="dates i18n" data-es="Noviembre 2022 — Mayo 2024" data-en="November 2022 — May 2024">Noviembre 2022 — Mayo 2024</div>
+      </div>
+      <div class="exp-desc">
+        <div class="exp-block">
+          <ul>
+            <li class="i18n" data-es="Diseñé e implementé un calendario de comunicación interna que aumentó la participación en eventos y la percepción de marca, en un 60%, según la encuesta anual de Great Place to Work® (GPTW)." data-en="Designed and implemented an internal communication calendar that increased event participation and brand perception by 60%, per the annual Great Place to Work® (GPTW) survey.">Diseñé e implementé un calendario de comunicación interna que aumentó la participación en eventos y la percepción de marca, en un 60%, según la encuesta anual de Great Place to Work® (GPTW).</li>
+            <li class="i18n" data-es="En comunicación externa, produje contenidos y realicé la cobertura de más de 2 eventos internos por mes, asegurando siempre consistencia con la voz institucional." data-en="On external communication, I produced content and covered 2+ internal events per month, always ensuring consistency with the institutional voice.">En comunicación externa, produje contenidos y realicé la cobertura de más de 2 eventos internos por mes, asegurando siempre consistencia con la voz institucional.</li>
+          </ul>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><div class="num">+60%</div><div class="label i18n" data-es="percepción de marca (GPTW)" data-en="brand perception (GPTW)">percepción de marca (GPTW)</div></div>
+          <div class="stat"><div class="num">85%</div><div class="label i18n" data-es="orgullo de pertenencia" data-en="pride in belonging">orgullo de pertenencia</div></div>
+        </div>
+        <div class="exp-media-row">
+          <div class="exp-media">
+            <img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/Gif-Prosumia-GPTW.gif" alt="Great Place to Work — Prosumia">
+          </div>
+          <div class="exp-media vertical">
+            <video controls playsinline preload="metadata">
+              <source src="https://github.com/inaki-ibargoyengarro/portfolio/raw/refs/heads/main/Video-Prosumia.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-meta">
+        <div class="company"><span class="logo-chip"><img class="company-logo" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-estrategia-cm-1.png" alt="Estrategia CM"></span>Estrategia CM</div>
+        <div class="role i18n" data-es="Community Manager" data-en="Community Manager">Community Manager</div>
+        <div class="dates i18n" data-es="Diciembre 2021 — Octubre 2022" data-en="December 2021 — October 2022">Diciembre 2021 — Octubre 2022</div>
+      </div>
+      <div class="exp-desc">
+        <div class="exp-block">
+          <ul>
+            <li class="i18n" data-es="Gestioné hasta 6 cuentas en simultáneo, adaptando estrategias de contenido a distintos rubros y públicos." data-en="Managed up to 6 accounts simultaneously, adapting content strategy to different industries and audiences.">Gestioné hasta 6 cuentas en simultáneo, adaptando estrategias de contenido a distintos rubros y públicos.</li>
+            <li class="i18n" data-es="Planifiqué y coordiné grillas mensuales, copys y producción de piezas con el equipo de diseño." data-en="Planned and coordinated monthly content grids, copy and asset production with the design team.">Planifiqué y coordiné grillas mensuales, copys y producción de piezas con el equipo de diseño.</li>
+            <li class="i18n" data-es="Programé contenidos y elaboré reportes mensuales, facilitando el análisis de performance y la toma de decisiones." data-en="Scheduled content and produced monthly reports, supporting performance analysis and decision-making.">Programé contenidos y elaboré reportes mensuales, facilitando el análisis de performance y la toma de decisiones.</li>
+            <li class="i18n" data-es="Prioricé clientes y contenidos clave, lo que permitió mejorar la visibilidad y el engagement orgánico de las marcas." data-en="Prioritized key clients and content, improving visibility and organic engagement for the brands.">Prioricé clientes y contenidos clave, lo que permitió mejorar la visibilidad y el engagement orgánico de las marcas.</li>
+          </ul>
+        </div>
+        <div class="exp-media vertical">
+          <video controls playsinline preload="metadata">
+            <source src="https://github.com/inaki-ibargoyengarro/portfolio/raw/refs/heads/main/Video-Agencia.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-meta">
+        <div class="company i18n" data-es="Freelance" data-en="Freelance">Freelance</div>
+        <div class="role i18n" data-es="E-commerce Manager" data-en="E-commerce Manager">E-commerce Manager</div>
+        <div class="dates i18n" data-es="Junio 2020 — Marzo 2021" data-en="June 2020 — March 2021">Junio 2020 — Marzo 2021</div>
+      </div>
+      <div class="exp-desc">
+        <p class="lede i18n" data-es="A partir de mi trabajo freelance como Community Manager, impulsé a un cliente a lanzar su propia tienda online y asumí un nuevo rol como E-commerce Manager." data-en="Starting from my freelance work as Community Manager, I pushed a client to launch their own online store and took on a new role as E-commerce Manager.">A partir de mi trabajo freelance como Community Manager, impulsé a un cliente a lanzar su propia tienda online y asumí un nuevo rol como E-commerce Manager.</p>
+        <div class="exp-block">
+          <ul>
+            <li class="i18n" data-es="Mantuve la producción de contenido y sumé tareas operativas: carga y categorización de productos, actualización de stock, promociones, email marketing y atención al cliente digital." data-en="Kept content production going and added operational tasks: product upload and categorization, stock updates, promotions, email marketing and digital customer service.">Mantuve la producción de contenido y sumé tareas operativas: carga y categorización de productos, actualización de stock, promociones, email marketing y atención al cliente digital.</li>
+            <li class="i18n" data-es="Elaboré reportes mensuales de contenido y ventas, articulando lo comercial con la estrategia de comunicación." data-en="Produced monthly content and sales reports, linking the commercial side with communication strategy.">Elaboré reportes mensuales de contenido y ventas, articulando lo comercial con la estrategia de comunicación.</li>
+            <li class="i18n" data-es="Implementé una campaña de Reels con foco en humor y oferta directa, para maximizar el engagement con inversión mínima." data-en="Implemented a Reels campaign focused on humor and direct offers to maximize engagement with minimal spend.">Implementé una campaña de Reels con foco en humor y oferta directa, para maximizar el engagement con inversión mínima.</li>
+          </ul>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><div class="num">36k+</div><div class="label i18n" data-es="seguidores en Instagram" data-en="Instagram followers">seguidores en Instagram</div></div>
+        </div>
+        <div class="exp-media">
+          <img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/ecommerce-m%C3%A9tricas.png" alt="Métricas Instagram — Rúcula">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="section-pad wrap reveal">
+  <div class="proj-header">
+    <p class="eyebrow"><span class="dot">●</span> &nbsp;<span class="i18n" data-es="SOLUCIONES" data-en="SOLUTIONS">SOLUCIONES</span></p>
+  </div>
+
+  <div class="proj-list">
+
+    <div class="proj">
+      <div class="proj-media">
+        <img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/gif-glofy-checker.gif" alt="CV/Resume Checker" onerror="this.parentElement.innerHTML='<span class=proj-tag-holder>CV / RESUME CHECKER</span>';">
+        <span class="tag">HTML · CSS · n8n · LLMs</span>
+      </div>
+      <div class="proj-body">
+        <div class="brand"><img class="brand-logo" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-glofy-negro.png" alt="Glofy"><span>Glofy</span></div>
+        <h3>CV / Resume Checker</h3>
+        <h4 class="i18n" data-es="Problema" data-en="Problem">Problema</h4>
+        <p class="plain i18n" data-es="Glofy no contaba con activos digitales propios orientados a generar interacción y acercar la marca a candidatos de una manera alineada a su identidad tecnológica." data-en="Glofy had no owned digital assets designed to drive interaction and bring the brand closer to candidates in a way aligned with its tech identity.">Glofy no contaba con activos digitales propios orientados a generar interacción y acercar la marca a candidatos de una manera alineada a su identidad tecnológica.</p>
+        <h4 class="i18n" data-es="Solución" data-en="Solution">Solución</h4>
+        <p class="plain i18n" data-es="Diseñé y desarrollé el primer activo digital de la empresa: una herramienta interactiva para ampliar la presencia digital de Glofy y generar una experiencia más participativa para usuarios y candidatos. Participé en todo el proceso: conceptualización, estructura del flujo, experiencia de usuario y desarrollo." data-en="Designed and developed the company's first digital asset: an interactive tool to expand Glofy's digital presence and create a more participatory experience for users and candidates. I was involved end to end: concept, flow structure, UX and development.">Diseñé y desarrollé el primer activo digital de la empresa: una herramienta interactiva para ampliar la presencia digital de Glofy y generar una experiencia más participativa para usuarios y candidatos. Participé en todo el proceso: conceptualización, estructura del flujo, experiencia de usuario y desarrollo.</p>
+        <h4 class="i18n" data-es="Resultados" data-en="Results">Resultados</h4>
+        <ul>
+          <li class="i18n" data-es="Mayor alineación entre marca y propuesta tecnológica del servicio" data-en="Stronger alignment between the brand and the service's tech proposition">Mayor alineación entre marca y propuesta tecnológica del servicio</li>
+          <li class="i18n" data-es="Nueva instancia de interacción con potenciales candidatos" data-en="A new interaction touchpoint with potential candidates">Nueva instancia de interacción con potenciales candidatos</li>
+          <li class="i18n" data-es="Optimización del acceso a talento calificado mediante ranking automatizado de CVs" data-en="Optimized access to qualified talent through automated CV ranking">Optimización del acceso a talento calificado mediante ranking automatizado de CVs</li>
+        </ul>
+        <div class="proj-link"><a href="https://glofy.co/checker" target="_blank" class="btn btn-outline i18n" data-es="Probar herramienta" data-en="Try the tool">Probar herramienta</a></div>
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-media">
+        <img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/GIF.gif" alt="Onboarding Hub" onerror="this.parentElement.innerHTML='<span class=proj-tag-holder>ONBOARDING HUB</span>';">
+        <span class="tag">HTML · CSS · JS · Anthropic API</span>
+      </div>
+      <div class="proj-body">
+        <div class="brand"><img class="brand-logo" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-glofy-negro.png" alt="Glofy"><span>Glofy</span></div>
+        <h3 class="i18n" data-es="Onboarding Hub" data-en="Onboarding Hub">Onboarding Hub</h3>
+        <h4 class="i18n" data-es="Problema" data-en="Problem">Problema</h4>
+        <p class="plain i18n" data-es="La curva de aprendizaje de los nuevos Glofers era lenta. El equipo de People dedicaba demasiado tiempo a responder dudas repetitivas, y las políticas llegaban en PDFs dispersos sin formato estandarizado." data-en="New Glofers had a slow learning curve. The People team spent too much time answering repetitive questions, and policies arrived as scattered PDFs with no standard format.">La curva de aprendizaje de los nuevos Glofers era lenta. El equipo de People dedicaba demasiado tiempo a responder dudas repetitivas, y las políticas llegaban en PDFs dispersos sin formato estandarizado.</p>
+        <h4 class="i18n" data-es="Solución" data-en="Solution">Solución</h4>
+        <p class="plain i18n" data-es="Diseñé y desarrollé un hub de onboarding con un asistente conversacional basado en IA, entrenado con el knowledge base real de Glofy: políticas, procesos, herramientas y equipo." data-en="Designed and built an onboarding hub with an AI-powered conversational assistant, trained on Glofy's real knowledge base: policies, processes, tools and team.">Diseñé y desarrollé un hub de onboarding con un asistente conversacional basado en IA, entrenado con el knowledge base real de Glofy: políticas, procesos, herramientas y equipo.</p>
+        <h4 class="i18n" data-es="Resultados" data-en="Results">Resultados</h4>
+        <ul>
+          <li class="i18n" data-es="Reduje la dependencia del equipo de People durante las primeras semanas de cada Glofer" data-en="Reduced dependency on the People team during each Glofer's first weeks">Reduje la dependencia del equipo de People durante las primeras semanas de cada Glofer</li>
+          <li class="i18n" data-es="Centralicé toda la documentación en un solo punto de acceso" data-en="Centralized all documentation in a single access point">Centralicé toda la documentación en un solo punto de acceso</li>
+          <li class="i18n" data-es="Sumé un nuevo canal de consulta disponible 24/7, en dos idiomas" data-en="Added a new 24/7 support channel, available in two languages">Sumé un nuevo canal de consulta disponible 24/7, en dos idiomas</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-media">
+        <img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/CV-generator.png" alt="CV Generator ATS Optimized">
+        <span class="tag">Frontend + AI (HTML · CSS · LLMs)</span>
+      </div>
+      <div class="proj-body">
+        <div class="brand"><img class="brand-logo" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-glofy-negro.png" alt="Glofy"><span>Glofy</span></div>
+        <h3 class="i18n" data-es="CV Generator (ATS Optimized)" data-en="CV Generator (ATS Optimized)">CV Generator (ATS Optimized)</h3>
+        <h4 class="i18n" data-es="Problema" data-en="Problem">Problema</h4>
+        <p class="plain i18n" data-es="La creación de CVs para clientes era manual, desordenada y sin consistencia en formato ni branding." data-en="Creating CVs for clients was manual, messy and inconsistent in format and branding.">La creación de CVs para clientes era manual, desordenada y sin consistencia en formato ni branding.</p>
+        <h4 class="i18n" data-es="Solución" data-en="Solution">Solución</h4>
+        <p class="plain i18n" data-es="Diseñé un sistema que permite generar CVs con identidad de la empresa, formato estandarizado y optimizado para ATS. Los recruiters cargan la información en una interfaz estructurada y obtienen un PDF exportable. Además, desarrollé un asistente con LLM que organiza la información automáticamente." data-en="Designed a system to generate CVs with the company's identity, a standardized, ATS-optimized format. Recruiters enter information in a structured interface and get an exportable PDF. I also built an LLM assistant that organizes the information automatically.">Diseñé un sistema que permite generar CVs con identidad de la empresa, formato estandarizado y optimizado para ATS. Los recruiters cargan la información en una interfaz estructurada y obtienen un PDF exportable. Además, desarrollé un asistente con LLM que organiza la información automáticamente.</p>
+        <h4 class="i18n" data-es="Resultados" data-en="Results">Resultados</h4>
+        <ul>
+          <li class="i18n" data-es="Estandarización de CVs y mejora en la presentación hacia clientes" data-en="Standardized CVs and improved presentation to clients">Estandarización de CVs y mejora en la presentación hacia clientes</li>
+          <li class="i18n" data-es="De plantilla manual a sistema automatizado" data-en="From manual template to automated system">De plantilla manual a sistema automatizado</li>
+          <li class="i18n" data-es="Reducción del tiempo de armado" data-en="Reduced build time per CV">Reducción del tiempo de armado</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-media large on-light">
+        <img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/poder-judicial.png" alt="Comunicación Pública Digital">
+        <span class="tag i18n" data-es="Brief institucional" data-en="Institutional brief">Brief institucional</span>
+      </div>
+      <div class="proj-body">
+        <div class="brand"><img class="brand-logo" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/poder-judicial.png" alt="Ministerio Público"><span class="i18n" data-es="Ministerio Público — Pcia. de Buenos Aires" data-en="Ministerio Público — Buenos Aires Province">Ministerio Público — Pcia. de Buenos Aires</span></div>
+        <h3 class="i18n" data-es="Comunicación Pública Digital" data-en="Digital Public Communication">Comunicación Pública Digital</h3>
+        <h4 class="i18n" data-es="Sobre esto" data-en="About this">Sobre esto</h4>
+        <p class="plain i18n" data-es="Trabajé en una propuesta para el área en formación de Comunicación Digital dentro del Poder Judicial bonaerense. El resultado: construí comunicaciones estatales con una mirada ciudadana, sin perder rigurosidad ni impacto en redes sociales. Diseñé una estrategia adaptable, analicé los canales existentes y propuse mejoras digitales, implementación de IA y contenidos concretos." data-en="I worked on a proposal for the newly-forming Digital Communication area within the Buenos Aires judicial system. The result: state communications built with a citizen-first lens, without losing rigor or social impact. I designed an adaptable strategy, analyzed existing channels and proposed digital improvements, AI implementation and concrete content.">Trabajé en una propuesta para el área en formación de Comunicación Digital dentro del Poder Judicial bonaerense. El resultado: construí comunicaciones estatales con una mirada ciudadana, sin perder rigurosidad ni impacto en redes sociales. Diseñé una estrategia adaptable, analicé los canales existentes y propuse mejoras digitales, implementación de IA y contenidos concretos.</p>
+        <p class="plain" style="margin-top:12px;"><span class="i18n" data-es="Para el ejemplo audiovisual del Plan C presentado, realicé una selección de videos de banco, generé una voz en off con IA por ElevenLabs y propuse una edición atractiva e institucional." data-en="For the audiovisual example of the Plan C presented, I selected stock footage, generated an AI voiceover with ElevenLabs, and proposed an engaging, institutional edit.">Para el ejemplo audiovisual del Plan C presentado, realicé una selección de videos de banco, generé una voz en off con IA por ElevenLabs y propuse una edición atractiva e institucional.</span></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact section-pad">
+  <div class="wrap contact-inner reveal">
+    <div class="contact-portrait">
+      <img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/foto-footer-inaki.png" alt="Iñaki Ibargoyen Garro">
+    </div>
+    <div>
+      <p class="eyebrow" style="margin-bottom:16px;"><span class="dot">●</span> &nbsp;<span class="i18n" data-es="CONTACTO" data-en="CONTACT">CONTACTO</span></p>
+      <h2>iñaki<span class="dot">.</span></h2>
+    </div>
+    <div class="contact-actions">
+      <a href="https://www.linkedin.com/in/inakiibargoyengarro/" target="_blank" class="btn btn-solid">LinkedIn</a>
+      <a href="https://api.whatsapp.com/send?phone=5492216775197" target="_blank" class="btn btn-outline">WhatsApp</a>
+      <a href="https://drive.google.com/file/d/1wzMw8b7pDEEVsPcZqlDudQcW8b1dAyHp/view?usp=sharing" target="_blank" class="btn btn-outline lang-link i18n"
+        data-es-href="https://drive.google.com/file/d/1wzMw8b7pDEEVsPcZqlDudQcW8b1dAyHp/view?usp=sharing"
+        data-en-href="https://drive.google.com/file/d/1fHdNLTkc3VpMS8YcPfZ-mrkgJfFBnr6B/view?usp=sharing"
+        data-es="Ver CV" data-en="View resume">Ver CV</a>
+      <span class="contact-email">inaki.iig@gmail.com</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Iñaki Ibargoyen Garro</span>
+  <span class="i18n" data-es="Buenos Aires, Argentina" data-en="Buenos Aires, Argentina">Buenos Aires, Argentina</span>
+</footer>
+
+<script>
+  // ---- Language toggle ----
+  function setLang(lang){
+    document.documentElement.lang = lang;
+    document.querySelectorAll('.i18n').forEach(el=>{
+      const val = el.getAttribute('data-'+lang);
+      if(val !== null) el.innerHTML = val;
+    });
+    document.querySelectorAll('.lang-img').forEach(img=>{
+      const src = img.getAttribute('data-'+lang+'-src');
+      if(src) img.src = src;
+    });
+    document.querySelectorAll('.lang-link').forEach(a=>{
+      const href = a.getAttribute('data-'+lang+'-href');
+      if(href) a.href = href;
+    });
+    document.getElementById('btnEs').classList.toggle('active', lang==='es');
+    document.getElementById('btnEn').classList.toggle('active', lang==='en');
+    localStorage.setItem('inaki_lang', lang); // best-effort; ignored where unavailable
+  }
+  try{
+    const saved = localStorage.getItem('inaki_lang');
+    if(saved) setLang(saved);
+  }catch(e){}
+
+  const header = document.getElementById('siteHeader');
+
+  // ---- Mobile nav ----
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', ()=> navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>navLinks.classList.remove('open')));
+
+  // ---- Reveal on scroll ----
+  const reveals = document.querySelectorAll('.reveal');
+  const ro = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){ entry.target.classList.add('in'); ro.unobserve(entry.target); }
+    });
+  }, {threshold:0.12});
+  reveals.forEach(r=>ro.observe(r));
+</script>
+
+</body>
+</html>
