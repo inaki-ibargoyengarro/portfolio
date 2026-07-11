@@ -175,6 +175,10 @@
   .cert-row .org-logo{display:flex; align-items:center; gap:12px;}
   .cert-row .org-logo img{width:26px; height:26px; object-fit:contain; flex-shrink:0;}
   .cert-row .year{color:var(--ink-soft); font-size:13px;}
+  @media(max-width:860px){
+    .about-grid{grid-template-columns:1fr; gap:32px;}
+    .about-poster{max-width:280px;}
+  }
 
   /* ---------- HOW I WORK ---------- */
   .work-top{display:grid; grid-template-columns:0.8fr 1.2fr; gap:48px; align-items:center; margin-bottom:48px;}
