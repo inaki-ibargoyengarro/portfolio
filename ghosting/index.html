@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f5b5c8">
+<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/favicon-inaki-1.png">
+<title>Ghosting Detector | Metodología Cuantitativa</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap');
+:root{
+  --ink:#321c2b;--cream:#fff8e9;--pink:#f5b5c8;--hot:#d84269;--red:#a92f4f;
+  --blue:#9fc6df;--mint:#b9d6c6;--lav:#d8c2e7;--gold:#f1c86a;--paper:#fffdf7;
+  --shadow:0 22px 60px rgba(70,32,53,.18);--r:28px
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:"DM Sans",system-ui,sans-serif;overflow-x:hidden}
+a{color:inherit}.noise{position:fixed;inset:0;pointer-events:none;z-index:99;opacity:.055;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E")}
+nav{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:20;display:flex;gap:8px;align-items:center;padding:8px;background:rgba(255,248,233,.82);backdrop-filter:blur(16px);border:1px solid rgba(50,28,43,.12);border-radius:999px;box-shadow:0 8px 30px rgba(50,28,43,.08)}
+nav a{font-size:12px;text-decoration:none;padding:9px 12px;border-radius:999px;white-space:nowrap}nav a:hover{background:#fff}
+section{position:relative;padding:110px max(24px,calc((100vw - 1180px)/2))}
+.hero{min-height:100vh;display:grid;place-items:center;padding:0;background:#e6b2bc}
+.hero-bg{position:absolute;inset:0;background:url("https://raw.githubusercontent.com/inaki-ibargoyengarro/ghosting/refs/heads/main/assets/Detector%20de%20Fantasmas%20Retro.png") center/cover no-repeat;filter:saturate(.92)}
+.hero-bg:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(40,15,29,.62) 0%,rgba(40,15,29,.12) 48%,rgba(40,15,29,.18))}
+.hero-copy{position:relative;z-index:2;width:min(1180px,calc(100% - 48px));color:#fff;margin-top:60px}
+.kicker,.eyebrow{font-family:"DM Mono",monospace;text-transform:uppercase;letter-spacing:.12em;font-size:12px;font-weight:500}
+.hero h1{font-family:"Fraunces",serif;font-size:clamp(68px,10vw,150px);line-height:.77;letter-spacing:-.055em;margin:18px 0 26px;max-width:800px;text-shadow:0 6px 0 rgba(103,36,61,.22)}
+.hero p{font-size:clamp(20px,2.2vw,30px);max-width:570px;line-height:1.2;margin:0 0 28px}
+.btn{display:inline-flex;align-items:center;gap:12px;background:var(--hot);color:#fff;border:0;border-radius:999px;padding:16px 22px;font-weight:700;text-decoration:none;box-shadow:0 8px 0 var(--red);cursor:pointer}
+.btn:hover{transform:translateY(-2px)}.academic{position:absolute;bottom:28px;right:28px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#fff;z-index:3;text-align:right}
+.problem{background:var(--paper);display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.problem-visual{display:flex;flex-direction:column;gap:26px;align-self:stretch;justify-content:center;padding-top:42px}
+.problem-visual .messages{margin:0;max-width:100%;width:100%;padding:4px 12px 0}
+.problem-visual .bubble{max-width:72%}
+.problem-visual .bubble.me{margin-left:auto}
+.problem-visual .silence{padding:10px 8px 0}
+.problem img{width:100%;border-radius:var(--r);box-shadow:var(--shadow);display:block}
+.display{font-family:"Fraunces",serif;font-size:clamp(46px,6vw,86px);line-height:.95;letter-spacing:-.045em;margin:14px 0 24px}
+.lede{font-size:20px;line-height:1.55;max-width:720px}.definition{padding:24px;border:1px solid rgba(50,28,43,.14);border-radius:20px;background:#fff;margin-top:30px}
+.definition strong{display:block;margin-bottom:8px}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}.chip{border:1px solid var(--ink);border-radius:999px;padding:8px 11px;font-family:"DM Mono";font-size:11px}
+.messages{margin:34px 0 0;display:grid;gap:10px;max-width:440px}.bubble{padding:13px 16px;border-radius:18px 18px 18px 5px;background:#f0ece7;width:max-content;max-width:90%}.bubble.me{margin-left:auto;border-radius:18px 18px 5px 18px;background:#d7efc9}.silence{font-family:"DM Mono";font-size:12px;opacity:.55;text-align:center;padding:8px}
+.machine{background:var(--pink);overflow:hidden}.machine:before{content:"";position:absolute;width:480px;height:480px;border:1px solid rgba(255,255,255,.35);border-radius:50%;right:-140px;top:-160px;box-shadow:0 0 0 45px rgba(255,255,255,.08),0 0 0 90px rgba(255,255,255,.06)}
+.center{text-align:center;max-width:820px;margin:0 auto 55px}.center .lede{margin:auto}
+.sensors{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;position:relative}
+.sensor{background:var(--paper);border:1px solid rgba(50,28,43,.14);border-radius:24px;padding:24px 20px;min-height:310px;box-shadow:0 8px 0 rgba(121,54,77,.12);transition:.25s}
+.sensor.reveal{transition:opacity .7s ease,transform .7s ease,box-shadow .25s ease}.sensor.reveal:nth-child(1){transition-delay:.04s}.sensor.reveal:nth-child(2){transition-delay:.14s}.sensor.reveal:nth-child(3){transition-delay:.24s}.sensor.reveal:nth-child(4){transition-delay:.34s}.sensor.reveal:nth-child(5){transition-delay:.44s}.sensor:hover{transform:translateY(-8px) rotate(-.5deg)}.sensor .num{font-family:"Fraunces";font-size:48px;color:var(--hot);line-height:1}.sensor h3{font-size:20px;margin:16px 0 10px}.sensor p{font-size:14px;line-height:1.45}.measure{margin-top:20px;display:inline-block;font:500 10px "DM Mono";letter-spacing:.08em;border-radius:999px;background:var(--ink);color:#fff;padding:7px 9px}
+.demo{background:#2e1c2b;color:#fff}.demo-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:start}.demo .display{color:#ffe8ef}
+.form-card{background:var(--paper);color:var(--ink);border-radius:30px;padding:30px;box-shadow:0 24px 80px rgba(0,0,0,.22)}
+.q{padding:20px 0;border-bottom:1px solid #e8dfdf}.q:first-child{padding-top:0}.q label.title{display:block;font-weight:700;margin-bottom:12px}.options{display:flex;flex-wrap:wrap;gap:8px}
+.options label{cursor:pointer}.options input{display:none}.options span{display:block;padding:10px 12px;border:1px solid #d7c9ce;border-radius:12px;font-size:13px}.options input:checked+span{background:var(--pink);border-color:var(--hot)}
+input[type=range]{width:100%;accent-color:var(--hot)}.days{font-family:"Fraunces";font-size:40px;color:var(--hot)}
+.result{display:none;margin-top:24px;padding:24px;border-radius:20px;background:#f7d7e1;text-align:center}.result.show{display:block;animation:pop .45s ease}.result .level{font:900 42px "Fraunces";margin:6px 0}.meter{height:14px;border-radius:999px;background:linear-gradient(90deg,#b9d6c6,#f1c86a,#d84269);position:relative;margin:18px 0}.needle{position:absolute;top:-5px;width:4px;height:24px;background:var(--ink);left:50%;transition:.6s}
+.disclaimer{font-size:11px;line-height:1.4;opacity:.68;margin-top:14px}.break{margin-top:28px;padding:18px;border-left:3px solid var(--gold);font-size:14px;line-height:1.5}
+.demo-expression{margin-top:26px;width:100%;max-width:520px;border-radius:22px;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.24);border:1px solid rgba(255,255,255,.12)}.demo-expression img{display:block;width:100%;height:auto}
+.twoq{background:var(--paper)}.split{display:grid;grid-template-columns:1fr 1fr;gap:22px}.study{border-radius:30px;padding:38px;min-height:430px;position:relative;overflow:hidden}.study:first-child{background:var(--blue)}.study:last-child{background:var(--lav)}.study h3{font:900 clamp(36px,4vw,60px) "Fraunces";line-height:.95;margin:12px 0}.study .type{font:500 12px "DM Mono";letter-spacing:.12em;margin:26px 0 18px}.flow{font-size:17px;line-height:1.8}.arrow{font-size:32px}
+.findings{background:var(--mint)}.finding-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.finding{background:var(--paper);padding:32px;border-radius:26px;min-height:270px}.finding.big{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}.finding h3{font:900 30px "Fraunces";margin:0 0 15px}.bar{height:20px;background:#eadde1;border-radius:99px;overflow:hidden;margin:10px 0}.bar span{display:block;height:100%;width:0;background:var(--hot);border-radius:99px;transition:width 1.15s cubic-bezier(.22,.8,.25,1)}.finding.big.in .bar.short span{width:34%}.finding.big.in .bar.long span{width:82%}.small{font-size:12px;opacity:.68}
+.final{min-height:92vh;background:url("https://raw.githubusercontent.com/inaki-ibargoyengarro/ghosting/refs/heads/main/assets/Detector%20de%20Fantasmas%20Retro.png") center/cover no-repeat;display:flex;align-items:flex-end;color:#fff}.final:before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(37,16,30,.8),rgba(37,16,30,.06) 75%)}.final-copy{position:relative;z-index:2;max-width:900px}.final h2{font:900 clamp(60px,9vw,130px) "Fraunces";line-height:.8;letter-spacing:-.05em;margin:10px 0 22px}.final p{font-size:22px}.credits{margin-top:34px;font:11px "DM Mono";text-transform:uppercase;letter-spacing:.1em}
+.reveal{opacity:0;transform:translateY(24px);transition:.75s ease}.reveal.in{opacity:1;transform:none}
+@keyframes pop{0%{transform:scale(.94);opacity:0}100%{transform:scale(1);opacity:1}}
+#analyze.is-analyzing{pointer-events:none;opacity:.86;transform:translateY(2px);box-shadow:0 5px 0 var(--red)}
+
+.audio-control{position:fixed;right:22px;bottom:22px;z-index:40;display:flex;align-items:center;gap:10px;padding:11px 15px;border:1px solid rgba(50,28,43,.14);border-radius:999px;background:rgba(255,248,233,.92);color:var(--ink);box-shadow:0 10px 34px rgba(50,28,43,.18);backdrop-filter:blur(14px);font:500 11px "DM Mono",monospace;letter-spacing:.05em;cursor:pointer;transition:.25s}.audio-control:hover{transform:translateY(-2px)}.audio-control .audio-icon{font-size:15px}.audio-control.playing{background:var(--pink)}
+@media(max-width:900px){
+ nav{display:none}.problem,.demo-grid,.split,.finding.big{grid-template-columns:1fr}.sensors{grid-template-columns:1fr 1fr}.hero-copy{margin-top:0}.academic{left:24px;right:auto;text-align:left}.problem{gap:36px}.problem-visual{padding-top:0;gap:22px}.study{min-height:auto}
+}
+@media(max-width:600px){.audio-control{right:14px;bottom:14px;padding:10px 12px}.audio-control .audio-label{display:none}section{padding:80px 20px}.sensors{grid-template-columns:1fr}.hero h1{font-size:64px}.hero p{font-size:19px}.hero-bg{background-position:58% center}.hero-bg:after{background:rgba(40,15,29,.48)}.finding-grid{grid-template-columns:1fr}.finding.big{grid-column:auto}.form-card{padding:22px}.display{font-size:48px}}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+<audio id="ghostingTheme" loop preload="auto">
+ <source src="https://github.com/inaki-ibargoyengarro/ghosting/raw/refs/heads/main/assets/Magical%20Transition.mp3" type="audio/mpeg">
+</audio>
+<button class="audio-control" id="audioControl" type="button" aria-label="Activar experiencia sonora" aria-pressed="false"><span class="audio-icon">♫</span><span class="audio-label">ACTIVAR EXPERIENCIA SONORA</span></button>
+<nav>
+  <a href="#problema">El problema</a><a href="#detector">El detector</a><a href="#demo">Demo</a><a href="#preguntas">Preguntas</a><a href="#hallazgos">Hipótesis</a>
+</nav>
+
+<section class="hero">
+ <div class="hero-bg"></div>
+ <div class="hero-copy">
+  <div class="kicker">FPyCS (UNLP)</div>
+  <h1>No es magia,<br>son datos.</h1>
+  <p>¿Se demoró en contestar… o te está ghosteando?</p>
+  <a class="btn" href="#problema">INICIAR DETECCIÓN ↓</a>
+ </div>
+ <div class="academic">Metodología Cuantitativa · TP 1<br>Iñaki Ibargoyen Garro</div>
+</section>
+
+<section class="problem" id="problema">
+ <div class="reveal">
+  <div class="eyebrow">01 · Concepto + definición teórica</div>
+  <h2 class="display">A todos nos ghostearon alguna vez...</h2>
+  <p class="lede">El <strong>ghosting</strong> es el cese de toda comunicación y contacto con otra persona sin advertencia o justificación aparente. El trabajo parte de dos preguntas: <strong>¿cómo saber si me están ghosteando?</strong> y <strong>¿por qué ocurre?</strong></p>
+  <div class="definition"><strong>Definición teórica</strong>Una forma de ostracismo realizada predominantemente mediante tecnología digital: cese unilateral, repentino o gradual de la comunicación, sin explicación, con el fin de terminar definitivamente una relación significativa. <span class="small">Schokkenbroek, Telari, Pancani y Riva (2025).</span></div>
+  <div class="chips"><span class="chip">UNILATERAL</span><span class="chip">DIGITAL</span><span class="chip">SIN EXPLICACIÓN</span><span class="chip">CESE</span><span class="chip">RUPTURA</span></div>
+ </div>
+ <div class="problem-visual reveal">
+   <div class="messages">
+     <div class="bubble">La pasé re bien ayer :)</div>
+     <div class="bubble me">Yo también 💗</div>
+     <div class="silence">1 DÍA ··· 3 DÍAS ··· 7 DÍAS ···</div>
+   </div>
+   <img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/ghosting/refs/heads/main/assets/waiting.png" alt="Mujer esperando una llamada frente a un teléfono rosa">
+ </div>
+</section>
+
+<section class="machine" id="detector">
+ <div class="center reveal"><div class="eyebrow">02 · Definición operacional</div><h2 class="display">5 dimensiones para un solo silencio </h2><p class="lede">Para estudiar un concepto abstracto, Ghosting Detector lo desarma en dimensiones observables y medibles.</p></div>
+ <div class="sensors">
+  <article class="sensor reveal"><div class="num">01</div><h3>Profundidad del vínculo</h3><p>Grado de contacto y encuentros presenciales previos.</p><p><strong>Bajo:</strong> chats, audios, fotos, llamadas.<br><strong>Medio:</strong> 1–5 citas.<br><strong>Alto:</strong> +5 citas.</p><span class="measure">ORDINAL</span></article>
+  <article class="sensor reveal"><div class="num">02</div><h3>Umbral temporal</h3><p>Cantidad exacta de días de silencio ininterrumpido requeridos para confirmar ghosting.</p><p><strong>0 → ∞ días</strong></p><span class="measure">ESCALA DE RAZÓN</span></article>
+  <article class="sensor reveal"><div class="num">03</div><h3>Transición al silencio</h3><p>Patrón o ritmo de respuesta previo al corte definitivo.</p><p><strong>Abrupto</strong> / <strong>Progresivo</strong></p><span class="measure">NOMINAL</span></article>
+  <article class="sensor reveal"><div class="num">04</div><h3>Motivo atribuido</h3><p>Evitación del conflicto · pérdida de interés · otra opción vincular · sobrecarga o motivos personales.</p><span class="measure">NOMINAL</span></article>
+  <article class="sensor reveal"><div class="num">05</div><h3>Expectativas</h3><p>Grado de simetría en el tipo de relación buscada.</p><p>Casual · discrepancia · relación seria.</p><span class="measure">ORDINAL</span></article>
+ </div>
+</section>
+
+<section class="demo" id="demo">
+ <div class="demo-grid">
+  <div class="reveal">
+   <div class="eyebrow">03 · Índice interactivo</div>
+   <h2 class="display">Probá el detector.</h2>
+   <p class="lede">Esta demo convierte las cinco dimensiones del trabajo en un <strong>índice exploratorio interactivo</strong>. Cada respuesta modifica el puntaje y la clasificación resultante. La ponderación sirve para visualizar la propuesta metodológica y no constituye todavía una escala científicamente validada.</p>
+   <div class="break"><strong>¿Qué estamos haciendo?</strong><br>Operacionalizar: transformar un concepto abstracto en dimensiones, indicadores y categorías susceptibles de medición.</div>
+   <div class="demo-expression"><img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/ghosting/283f7fa06957694f05edf45b678e398e176a3487/assets/expresiones%20(2).gif" alt="Expresiones animadas de Ghosting Detector"></div>
+  </div>
+  <div class="form-card reveal">
+   <div class="q"><label class="title">¿Qué profundidad tuvo el vínculo?</label><div class="options">
+    <label><input type="radio" name="depth" value="1" checked><span>Solo digital</span></label>
+    <label><input type="radio" name="depth" value="2"><span>1–5 citas</span></label>
+    <label><input type="radio" name="depth" value="3"><span>+5 citas</span></label>
+   </div></div>
+   <div class="q"><label class="title">¿Cuántos días lleva sin responder?</label><div class="days"><span id="daysOut">7</span> días</div><input id="days" type="range" min="0" max="30" value="7"></div>
+   <div class="q"><label class="title">Antes del silencio…</label><div class="options">
+    <label><input type="radio" name="cut" value="2" checked><span>Desapareció de golpe</span></label>
+    <label><input type="radio" name="cut" value="1"><span>Respondía cada vez menos</span></label>
+   </div></div>
+   <div class="q"><label class="title">¿Qué motivo atribuís al corte?</label><div class="options">
+    <label><input type="radio" name="why" value="2" checked><span>Evitación</span></label><label><input type="radio" name="why" value="3"><span>Pérdida de interés</span></label><label><input type="radio" name="why" value="3"><span>Otra opción</span></label><label><input type="radio" name="why" value="1"><span>Motivos personales</span></label>
+   </div></div>
+   <div class="q"><label class="title">¿Coincidían sus expectativas?</label><div class="options">
+    <label><input type="radio" name="expect" value="1" checked><span>Casual</span></label><label><input type="radio" name="expect" value="3"><span>Discrepancia</span></label><label><input type="radio" name="expect" value="1"><span>Relación seria</span></label>
+   </div></div>
+   <button class="btn" id="analyze" style="margin-top:24px">ANALIZAR MI CASO ✦</button>
+   <div class="result" id="result"><div class="eyebrow">Índice exploratorio</div><div class="level" id="level">MODERADO</div><div class="meter"><i class="needle" id="needle"></i></div><div id="explain"></div><div class="disclaimer">No es un diagnóstico psicológico ni una escala científicamente validada. Es un índice exploratorio construido para visualizar cómo las cinco dimensiones propuestas pueden combinarse en un único dato.</div></div>
+  </div>
+ </div>
+</section>
+
+<section class="twoq" id="preguntas">
+ <div class="center reveal"><div class="eyebrow">04 · Relación entre indicadores</div><h2 class="display">Preguntas base</h2></div>
+ <div class="split">
+  <article class="study reveal"><div class="eyebrow">Pregunta 01</div><h3>¿Me están ghosteando?</h3><div class="type">ESTUDIO DESCRIPTIVO</div><div class="flow">Profundidad del vínculo<br>+ días de silencio<br>+ dinámica del corte<br><span class="arrow">↓</span><br><strong>ÍNDICE DE GHOSTING</strong><br><span class="small">Leve · Moderado · Severo</span></div></article>
+  <article class="study reveal"><div class="eyebrow">Pregunta 02</div><h3>¿Por qué ocurre?</h3><div class="type">ESTUDIO EXPLICATIVO</div><div class="flow">Clasificación del índice<br>+ motivos atribuidos<br>+ expectativas vinculares<br><span class="arrow">↓</span><br><strong>RELACIONES ENTRE VARIABLES</strong></div></article>
+ </div>
+</section>
+
+<section class="findings" id="hallazgos">
+ <div class="center reveal"><div class="eyebrow">05 · Resultados esperados</div><h2 class="display">¿Qué esperamos encontrar?</h2><p class="lede"> Relaciones que la investigación buscaría observar al cruzar los datos.</p></div>
+ <div class="finding-grid">
+  <article class="finding big reveal"><div><h3>Más vínculo → mayor umbral de silencio</h3><p>Cuanto mayor sea la profundidad del vínculo previo, mayor podría ser la cantidad de días que una persona espera antes de definir la situación como ghosting.</p></div><div><div class="small">VÍNCULO EXCLUSIVAMENTE DIGITAL</div><div class="bar short"><span></span></div><div class="small">VÍNCULO DE MAYOR PROFUNDIDAD</div><div class="bar long"><span></span></div></div></article>
+  <article class="finding reveal"><h3>Baja intensidad</h3><p><strong>Solo chats</strong></p><p class="arrow">→</p><p>Corte posiblemente <strong>abrupto</strong>, asociado a evitación del conflicto o incomodidad.</p></article>
+  <article class="finding reveal"><h3>Mayor intensidad</h3><p><strong>Citas presenciales</strong></p><p class="arrow">→</p><p>Dinámica posiblemente <strong>progresiva</strong>, vinculada a discrepancias en las expectativas.</p></article>
+ </div>
+</section>
+
+<section class="final">
+ <div class="final-copy reveal">
+  <div class="eyebrow">Ghosting Detector™</div>
+  <h2>No adivines.<br>Medilo.</h2>
+  <p>Del concepto abstracto al dato observable.</p>
+  <div class="chips"><span class="chip">LEVE</span><span class="chip">MODERADO</span><span class="chip">SEVERO</span></div>
+  <div class="credits">Metodología Cuantitativa · TP 1 · Iñaki Ibargoyen Garro<br> FPyCS (UNLP) 2026</div>
+ </div>
+</section>
+
+<script>
+const theme=document.getElementById('ghostingTheme');
+const audioControl=document.getElementById('audioControl');
+const audioLabel=audioControl.querySelector('.audio-label');
+const heroStart=document.querySelector('.hero .btn');
+theme.volume=0;
+let targetVolume=.18;
+let fadeTimer;
+function fadeAudio(to,duration=1200){
+ clearInterval(fadeTimer);
+ const from=theme.volume,steps=24,delta=(to-from)/steps;
+ let i=0;
+ fadeTimer=setInterval(()=>{
+  i++; theme.volume=Math.max(0,Math.min(1,from+delta*i));
+  if(i>=steps){clearInterval(fadeTimer);theme.volume=to;if(to===0)theme.pause()}
+ },duration/steps);
+}
+function setAudioUI(playing){
+ audioControl.classList.toggle('playing',playing);
+ audioControl.setAttribute('aria-pressed',playing?'true':'false');
+ audioControl.setAttribute('aria-label',playing?'Pausar música':'Reproducir música');
+ audioLabel.textContent=playing?'GHOSTING DETECTOR RADIO · ❚❚':'GHOSTING DETECTOR RADIO · ▶';
+}
+async function startTheme(){
+ try{
+  if(theme.paused){theme.volume=0;await theme.play()}
+  fadeAudio(targetVolume,1400);setAudioUI(true);
+ }catch(e){setAudioUI(false)}
+}
+function pauseTheme(){fadeAudio(0,700);setAudioUI(false)}
+heroStart.addEventListener('click',()=>{if(theme.paused)startTheme()});
+audioControl.addEventListener('click',()=>{theme.paused?startTheme():pauseTheme()});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const days=document.getElementById('days'),out=document.getElementById('daysOut');
+days.addEventListener('input',()=>out.textContent=days.value);
+document.getElementById('analyze').addEventListener('click',()=>{
+ const analyzeBtn=document.getElementById('analyze');
+ const originalLabel=analyzeBtn.textContent;
+ analyzeBtn.textContent='ANALIZANDO… ✦';
+ analyzeBtn.classList.add('is-analyzing');
+ const d=+days.value;
+ const depth=+document.querySelector('input[name=depth]:checked').value;
+ const cut=+document.querySelector('input[name=cut]:checked').value;
+ const why=+document.querySelector('input[name=why]:checked').value;
+ const expect=+document.querySelector('input[name=expect]:checked').value;
+
+ // Índice exploratorio construido a partir de las cinco dimensiones del TP.
+ // No pretende ser una escala científicamente validada: hace que cada respuesta
+ // modifique el resultado de forma determinista y transparente.
+ const silence = Math.min(d / 14, 1) * 40;             // hasta 40 pts
+ const depthWeight = ({1:6, 2:12, 3:18})[depth];       // hasta 18 pts
+ const transition = cut === 2 ? 16 : 10;               // hasta 16 pts
+ const motive = ({1:5, 2:8, 3:10})[why];               // hasta 10 pts
+ const expectations = ({1:5, 3:16})[expect];           // hasta 16 pts
+ let score = Math.round(silence + depthWeight + transition + motive + expectations);
+ score = Math.max(0, Math.min(100, score));
+
+ let level, txt;
+ if(score < 35){
+   level='LEVE';
+   txt=`Índice exploratorio: ${score}/100. Hay pocas señales combinadas de ghosting según las dimensiones seleccionadas.`;
+ } else if(score < 65){
+   level='MODERADO';
+   txt=`Índice exploratorio: ${score}/100. El tiempo de silencio, el vínculo y la forma del corte reúnen señales intermedias.`;
+ } else {
+   level='SEVERO';
+   txt=`Índice exploratorio: ${score}/100. La combinación de las cinco dimensiones reúne señales altas dentro de este modelo exploratorio.`;
+ }
+
+ setTimeout(()=>{
+  document.getElementById('level').textContent=level;
+  document.getElementById('needle').style.left=Math.max(4,Math.min(96,score))+'%';
+  document.getElementById('explain').textContent=txt;
+  document.getElementById('result').classList.add('show');
+  document.getElementById('result').scrollIntoView({behavior:'smooth',block:'nearest'});
+  analyzeBtn.textContent=originalLabel;
+  analyzeBtn.classList.remove('is-analyzing');
+ },650);
+});
+</script>
+</body></html>
