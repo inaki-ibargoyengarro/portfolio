@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#f5b5c8">
 <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/favicon-inaki-1.png">
 <title>Ghosting Detector | Metodología Cuantitativa</title>
@@ -140,7 +139,7 @@ input[type=range]{width:100%;accent-color:var(--hot)}.days{font-family:"Fraunces
     <label><input type="radio" name="why" value="2" checked><span>Evitación</span></label><label><input type="radio" name="why" value="3"><span>Pérdida de interés</span></label><label><input type="radio" name="why" value="3"><span>Otra opción</span></label><label><input type="radio" name="why" value="1"><span>Motivos personales</span></label>
    </div></div>
    <div class="q"><label class="title">¿Coincidían sus expectativas?</label><div class="options">
-    <label><input type="radio" name="expect" value="1" checked><span>Casual</span></label><label><input type="radio" name="expect" value="3"><span>Discrepancia</span></label><label><input type="radio" name="expect" value="1"><span>Relación seria</span></label>
+    <label><input type="radio" name="expect" value="1" checked><span>Casual</span></label><label><input type="radio" name="expect" value="3"><span>Discrepancia</span></label><label><input type="radio" name="expect" value="1"><span>Relación seria</span></label><label><input type="radio" name="expect" value="0"><span>No lo sé</span></label>
    </div></div>
    <button class="btn" id="analyze" style="margin-top:24px">ANALIZAR MI CASO ✦</button>
    <div class="result" id="result"><div class="eyebrow">Índice exploratorio</div><div class="level" id="level">MODERADO</div><div class="meter"><i class="needle" id="needle"></i></div><div id="explain"></div><div class="disclaimer">No es un diagnóstico psicológico ni una escala científicamente validada. Es un índice exploratorio construido para visualizar cómo las cinco dimensiones propuestas pueden combinarse en un único dato.</div></div>
@@ -229,20 +228,21 @@ document.getElementById('analyze').addEventListener('click',()=>{
  const depthWeight = ({1:6, 2:12, 3:18})[depth];       // hasta 18 pts
  const transition = cut === 2 ? 16 : 10;               // hasta 16 pts
  const motive = ({1:5, 2:8, 3:10})[why];               // hasta 10 pts
- const expectations = ({1:5, 3:16})[expect];           // hasta 16 pts
+ const expectations = ({0:0, 1:5, 3:16})[expect];        // hasta 16 pts; “No lo sé” no suma
  let score = Math.round(silence + depthWeight + transition + motive + expectations);
  score = Math.max(0, Math.min(100, score));
 
  let level, txt;
+ const unknownExpectations = expect === 0;
  if(score < 35){
    level='LEVE';
-   txt=`Índice exploratorio: ${score}/100. Hay pocas señales combinadas de ghosting según las dimensiones seleccionadas.`;
+   txt=`Índice exploratorio: ${score}/100. Hay pocas señales combinadas de ghosting según las dimensiones seleccionadas.${unknownExpectations?' Las expectativas no se incorporaron al puntaje porque indicaste que no las conocés.':''}`;
  } else if(score < 65){
    level='MODERADO';
-   txt=`Índice exploratorio: ${score}/100. El tiempo de silencio, el vínculo y la forma del corte reúnen señales intermedias.`;
+   txt=`Índice exploratorio: ${score}/100. El tiempo de silencio, el vínculo y la forma del corte reúnen señales intermedias.${unknownExpectations?' Las expectativas no se incorporaron al puntaje porque indicaste que no las conocés.':''}`;
  } else {
    level='SEVERO';
-   txt=`Índice exploratorio: ${score}/100. La combinación de las cinco dimensiones reúne señales altas dentro de este modelo exploratorio.`;
+   txt=`Índice exploratorio: ${score}/100. La combinación de las dimensiones disponibles reúne señales altas dentro de este modelo exploratorio.${unknownExpectations?' Las expectativas no se incorporaron al puntaje porque indicaste que no las conocés.':''}`;
  }
 
  setTimeout(()=>{
