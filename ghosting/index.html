@@ -180,6 +180,24 @@ input[type=range]{width:100%;accent-color:var(--hot)}.days{font-family:"Fraunces
   .btn,.options label,.audio-control{-webkit-tap-highlight-color:transparent}
 }
 
+
+/* ===== Mobile v2: continuous artwork + compact navigation ===== */
+.mobile-nav-toggle{display:none}
+@media (max-width:900px){
+  nav{display:flex;top:max(12px,env(safe-area-inset-top));left:auto;right:max(14px,env(safe-area-inset-right));transform:none;flex-direction:column;align-items:stretch;gap:2px;width:min(230px,calc(100vw - 28px));padding:52px 8px 8px;border-radius:22px;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-8px) scale(.98);transform-origin:top right;transition:opacity .22s ease,transform .22s ease,visibility .22s ease}
+  nav.mobile-open{opacity:1;visibility:visible;pointer-events:auto;transform:none}
+  nav a{font-size:12px;padding:11px 12px}
+  .mobile-nav-toggle{display:flex;position:fixed;top:max(12px,env(safe-area-inset-top));right:max(14px,env(safe-area-inset-right));z-index:42;width:44px;height:44px;align-items:center;justify-content:center;border:1px solid rgba(50,28,43,.12);border-radius:50%;background:rgba(255,248,233,.94);color:var(--ink);box-shadow:0 8px 30px rgba(50,28,43,.12);backdrop-filter:blur(16px);font:500 0/1 "DM Mono",monospace;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .mobile-nav-toggle:before,.mobile-nav-toggle:after,.mobile-nav-toggle span{content:"";position:absolute;width:18px;height:2px;border-radius:99px;background:currentColor;transition:.22s ease}
+  .mobile-nav-toggle:before{transform:translateY(-6px)}.mobile-nav-toggle:after{transform:translateY(6px)}
+  .mobile-nav-toggle[aria-expanded="true"] span{opacity:0}.mobile-nav-toggle[aria-expanded="true"]:before{transform:rotate(45deg)}.mobile-nav-toggle[aria-expanded="true"]:after{transform:rotate(-45deg)}
+}
+@media (max-width:600px){
+  .hero,.final{background-color:#e6b2bc}
+  .hero-bg{background-size:auto 100%;background-position:63% center;background-repeat:no-repeat;background-color:#e6b2bc}
+  .final{background-size:auto 100%;background-position:61% center;background-repeat:no-repeat}
+}
+
 </style>
 </head>
 <body>
@@ -188,7 +206,8 @@ input[type=range]{width:100%;accent-color:var(--hot)}.days{font-family:"Fraunces
  <source src="https://github.com/inaki-ibargoyengarro/ghosting/raw/refs/heads/main/assets/Magical%20Transition.mp3" type="audio/mpeg">
 </audio>
 <button class="audio-control" id="audioControl" type="button" aria-label="Activar experiencia sonora" aria-pressed="false"><span class="audio-icon">♫</span><span class="audio-label">ACTIVAR EXPERIENCIA SONORA</span></button>
-<nav>
+<button class="mobile-nav-toggle" id="mobileNavToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mainNav"><span></span></button>
+<nav id="mainNav">
   <a href="#problema">El problema</a><a href="#detector">El detector</a><a href="#demo">Demo</a><a href="#preguntas">Preguntas</a><a href="#hallazgos">Hipótesis</a>
 </nav>
 
@@ -372,5 +391,24 @@ document.getElementById('analyze').addEventListener('click',()=>{
   analyzeBtn.classList.remove('is-analyzing');
  },650);
 });
+const mobileNavToggle=document.getElementById('mobileNavToggle');
+const mainNav=document.getElementById('mainNav');
+function closeMobileNav(){
+ if(!mobileNavToggle||!mainNav)return;
+ mainNav.classList.remove('mobile-open');
+ mobileNavToggle.setAttribute('aria-expanded','false');
+ mobileNavToggle.setAttribute('aria-label','Abrir menú');
+}
+if(mobileNavToggle&&mainNav){
+ mobileNavToggle.addEventListener('click',()=>{
+  const open=!mainNav.classList.contains('mobile-open');
+  mainNav.classList.toggle('mobile-open',open);
+  mobileNavToggle.setAttribute('aria-expanded',open?'true':'false');
+  mobileNavToggle.setAttribute('aria-label',open?'Cerrar menú':'Abrir menú');
+ });
+ mainNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMobileNav));
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMobileNav()});
+}
+
 </script>
 </body></html>
