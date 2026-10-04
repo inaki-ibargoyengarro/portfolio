@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#f5b5c8">
 <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/favicon-inaki-1.png">
 <title>Ghosting Detector | Metodología Cuantitativa</title>
@@ -63,6 +64,122 @@ input[type=range]{width:100%;accent-color:var(--hot)}.days{font-family:"Fraunces
  nav{display:none}.problem,.demo-grid,.split,.finding.big{grid-template-columns:1fr}.sensors{grid-template-columns:1fr 1fr}.hero-copy{margin-top:0}.academic{left:24px;right:auto;text-align:left}.problem{gap:36px}.problem-visual{padding-top:0;gap:22px}.study{min-height:auto}
 }
 @media(max-width:600px){.audio-control{right:14px;bottom:14px;padding:10px 12px}.audio-control .audio-label{display:none}section{padding:80px 20px}.sensors{grid-template-columns:1fr}.hero h1{font-size:64px}.hero p{font-size:19px}.hero-bg{background-position:58% center}.hero-bg:after{background:rgba(40,15,29,.48)}.finding-grid{grid-template-columns:1fr}.finding.big{grid-column:auto}.form-card{padding:22px}.display{font-size:48px}}
+
+
+/* ===== Mobile polish: presentation-only overrides ===== */
+@media (max-width:900px){
+  html{-webkit-text-size-adjust:100%}
+  body{min-width:320px}
+  section{padding-left:max(24px,env(safe-area-inset-left));padding-right:max(24px,env(safe-area-inset-right))}
+  .hero{min-height:100svh;padding-top:max(24px,env(safe-area-inset-top));padding-bottom:max(24px,env(safe-area-inset-bottom))}
+  .hero-copy{width:min(100% - 48px,680px);margin-top:0}
+  .hero-bg{background-position:61% center}
+  .hero-bg:after{background:linear-gradient(90deg,rgba(40,15,29,.64) 0%,rgba(40,15,29,.34) 58%,rgba(40,15,29,.18) 100%)}
+  .problem,.demo-grid,.split,.finding.big{gap:34px}
+  .problem-visual{align-self:auto}
+  .problem-visual .messages{padding-inline:0}
+  .sensors{gap:16px}
+  .sensor{min-height:0}
+  .study{padding:32px;min-height:0}
+  .finding.big{display:grid}
+  .demo-expression{max-width:none}
+  .form-card{width:100%}
+  .audio-control{max-width:calc(100vw - 32px - env(safe-area-inset-left) - env(safe-area-inset-right))}
+}
+
+@media (max-width:600px){
+  section{padding:72px 20px}
+  .hero{padding:0 20px;min-height:100svh;align-items:center}
+  .hero-bg{background-position:63% center}
+  .hero-bg:after{background:linear-gradient(180deg,rgba(40,15,29,.24) 0%,rgba(40,15,29,.50) 58%,rgba(40,15,29,.70) 100%)}
+  .hero-copy{width:100%;margin:0;padding:64px 0 96px;align-self:end}
+  .kicker,.eyebrow{font-size:11px;line-height:1.45}
+  .hero h1{font-size:clamp(58px,17vw,76px);line-height:.82;letter-spacing:-.055em;margin:14px 0 20px;max-width:100%}
+  .hero p{font-size:18px;line-height:1.32;max-width:330px;margin-bottom:24px}
+  .hero .btn{width:auto;max-width:100%}
+  .academic{left:20px;right:20px;bottom:max(20px,env(safe-area-inset-bottom));font-size:9px;line-height:1.45;text-align:left}
+
+  .display{font-size:clamp(42px,13vw,56px);line-height:.96;margin:12px 0 20px}
+  .lede{font-size:17px;line-height:1.52}
+  .definition{padding:20px;margin-top:24px;border-radius:18px;line-height:1.5}
+  .chips{gap:7px;margin-top:18px}.chip{font-size:10px;padding:7px 9px}
+
+  .problem{gap:30px}
+  .problem-visual{gap:18px;padding-top:0}
+  .problem-visual .messages{padding:0}
+  .problem-visual .bubble{max-width:88%;font-size:14px;line-height:1.35}
+  .problem img{border-radius:20px}
+  .silence{font-size:10px;letter-spacing:.02em}
+
+  .center{margin-bottom:34px;text-align:left}
+  .center .lede{margin:0}
+  .sensors{grid-template-columns:1fr;gap:12px}
+  .sensor{padding:22px 20px;border-radius:20px;box-shadow:0 6px 0 rgba(121,54,77,.11)}
+  .sensor:hover{transform:none}
+  .sensor .num{font-size:40px}
+  .sensor h3{font-size:19px;margin:12px 0 8px}
+  .sensor p{font-size:14px;margin-block:8px}
+  .measure{margin-top:12px}
+
+  .demo-grid{gap:32px}
+  .demo-expression{margin-top:22px;border-radius:18px}
+  .break{margin-top:22px;padding:16px;font-size:13px}
+  .form-card{padding:20px;border-radius:22px}
+  .q{padding:18px 0}
+  .q label.title{font-size:15px;line-height:1.35;margin-bottom:11px}
+  .options{gap:8px}
+  .options label{flex:1 1 140px;min-width:0}
+  .options span{display:flex;align-items:center;justify-content:center;min-height:46px;padding:10px 11px;text-align:center;font-size:13px;line-height:1.25}
+  .days{font-size:36px;line-height:1.1;margin-bottom:8px}
+  input[type=range]{height:32px;margin:0;touch-action:pan-x}
+  #analyze{width:100%;justify-content:center;margin-top:20px!important;min-height:50px}
+  .result{padding:20px 16px;border-radius:18px}
+  .result .level{font-size:38px}
+  .meter{margin:16px 0}
+  .disclaimer{font-size:10.5px;line-height:1.45}
+
+  .split{gap:14px}
+  .study{padding:26px 22px;border-radius:22px}
+  .study h3{font-size:clamp(38px,12vw,52px);margin:10px 0}
+  .study .type{margin:20px 0 14px}
+  .flow{font-size:15px;line-height:1.7}
+  .arrow{font-size:28px}
+
+  .finding-grid{gap:12px}
+  .finding{padding:24px 20px;border-radius:22px;min-height:0}
+  .finding.big{gap:22px}
+  .finding h3{font-size:27px;line-height:1.02}
+  .bar{height:16px}
+
+  .final{min-height:86svh;padding-bottom:max(72px,calc(52px + env(safe-area-inset-bottom)));background-position:61% center}
+  .final:before{background:linear-gradient(0deg,rgba(37,16,30,.86),rgba(37,16,30,.14) 78%)}
+  .final h2{font-size:clamp(58px,17vw,78px);line-height:.82;margin:10px 0 18px}
+  .final p{font-size:18px;line-height:1.35}
+  .credits{font-size:9px;line-height:1.55;margin-top:28px}
+
+  .audio-control{right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));min-width:44px;min-height:44px;padding:10px 13px;justify-content:center}
+  .audio-control .audio-label{display:none}
+  .audio-control .audio-icon{font-size:16px}
+}
+
+@media (max-width:380px){
+  section{padding-left:16px;padding-right:16px}
+  .hero{padding-left:16px;padding-right:16px}
+  .hero h1{font-size:56px}
+  .hero p{font-size:17px}
+  .academic{left:16px;right:16px}
+  .display{font-size:40px}
+  .form-card{padding:18px 16px}
+  .options label{flex-basis:100%}
+  .study,.finding{padding-left:18px;padding-right:18px}
+}
+
+@media (hover:none) and (pointer:coarse){
+  .btn:hover,.audio-control:hover{transform:none}
+  .sensor:hover{transform:none}
+  .btn,.options label,.audio-control{-webkit-tap-highlight-color:transparent}
+}
+
 </style>
 </head>
 <body>
