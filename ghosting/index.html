@@ -198,10 +198,30 @@ input[type=range]{width:100%;accent-color:var(--hot)}.days{font-family:"Fraunces
   .final{background-size:auto 100%;background-position:61% center;background-repeat:no-repeat}
 }
 
+
+/* ===== Magical interaction moments ===== */
+.magic-layer{position:fixed;inset:0;z-index:120;pointer-events:none;overflow:hidden;opacity:0;visibility:hidden}
+.magic-layer.active{opacity:1;visibility:visible}
+.magic-flash{position:absolute;inset:-15%;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.95) 0 2%,rgba(255,236,176,.62) 7%,rgba(245,181,200,.36) 17%,rgba(216,194,231,.18) 28%,transparent 48%);opacity:0}
+.magic-layer.active .magic-flash{animation:magicFlash 1.05s cubic-bezier(.2,.7,.2,1)}
+.magic-spark{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);transform:translate(-50%,-50%) rotate(var(--r));opacity:0}
+.magic-spark:before,.magic-spark:after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:999px;background:#fff8d6;box-shadow:0 0 10px rgba(255,240,170,.9)}
+.magic-spark:before{width:100%;height:2px}.magic-spark:after{width:2px;height:100%}
+.magic-layer.active .magic-spark{animation:magicSpark var(--d) ease-out var(--delay) both}
+.magic-ring{position:absolute;left:var(--mx,50%);top:var(--my,50%);width:24px;height:24px;border:1px solid rgba(255,247,208,.9);border-radius:50%;transform:translate(-50%,-50%);opacity:0;box-shadow:0 0 28px rgba(245,181,200,.7),inset 0 0 18px rgba(255,255,255,.55)}
+.magic-layer.active .magic-ring{animation:magicRing .95s ease-out}
+@keyframes magicFlash{0%{opacity:0;transform:scale(.72)}18%{opacity:.95}52%{opacity:.38}100%{opacity:0;transform:scale(1.08)}}
+@keyframes magicRing{0%{opacity:.9;transform:translate(-50%,-50%) scale(.35)}100%{opacity:0;transform:translate(-50%,-50%) scale(18)}}
+@keyframes magicSpark{0%{opacity:0;transform:translate(-50%,-50%) scale(.2) rotate(var(--r))}20%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(.15) rotate(calc(var(--r) + 90deg))}}
+.btn.magic-triggering{position:relative;z-index:121;animation:magicButton .8s ease-out}
+@keyframes magicButton{0%,100%{filter:none}24%{filter:brightness(1.28);box-shadow:0 8px 0 var(--red),0 0 0 4px rgba(255,255,255,.28),0 0 34px rgba(255,232,154,.9)}55%{filter:brightness(1.08);box-shadow:0 8px 0 var(--red),0 0 24px rgba(245,181,200,.72)}}
+@media(prefers-reduced-motion:reduce){.magic-layer{display:none}.btn.magic-triggering{animation:none}}
+
 </style>
 </head>
 <body>
 <div class="noise"></div>
+<div class="magic-layer" id="magicLayer" aria-hidden="true"><div class="magic-flash"></div><div class="magic-ring"></div></div>
 <audio id="ghostingTheme" loop preload="auto">
  <source src="https://github.com/inaki-ibargoyengarro/ghosting/raw/refs/heads/main/assets/Magical%20Transition.mp3" type="audio/mpeg">
 </audio>
@@ -311,6 +331,40 @@ input[type=range]{width:100%;accent-color:var(--hot)}.days{font-family:"Fraunces
 </section>
 
 <script>
+
+const magicLayer=document.getElementById('magicLayer');
+let magicAudioCtx=null;
+function magicChime(kind='soft'){
+ try{
+  magicAudioCtx=magicAudioCtx||new (window.AudioContext||window.webkitAudioContext)();
+  const ctx=magicAudioCtx;if(ctx.state==='suspended')ctx.resume();
+  const now=ctx.currentTime;
+  const notes=kind==='start'?[659.25,783.99,987.77,1318.51]:[783.99,987.77,1174.66,1567.98];
+  notes.forEach((freq,i)=>{
+   const osc=ctx.createOscillator(),gain=ctx.createGain();
+   osc.type=i%2?'sine':'triangle';osc.frequency.setValueAtTime(freq,now+i*.055);
+   gain.gain.setValueAtTime(.0001,now+i*.055);gain.gain.linearRampToValueAtTime(kind==='start'?.045:.038,now+i*.055+.025);
+   gain.gain.exponentialRampToValueAtTime(.0001,now+i*.055+.48);
+   osc.connect(gain);gain.connect(ctx.destination);osc.start(now+i*.055);osc.stop(now+i*.055+.5);
+  });
+ }catch(e){}
+}
+function magicBurst(source,kind='soft'){
+ if(!magicLayer)return;
+ const rect=source.getBoundingClientRect(),mx=((rect.left+rect.width/2)/innerWidth)*100,my=((rect.top+rect.height/2)/innerHeight)*100;
+ magicLayer.style.setProperty('--mx',mx+'%');magicLayer.style.setProperty('--my',my+'%');
+ magicLayer.querySelectorAll('.magic-spark').forEach(el=>el.remove());
+ const count=kind==='start'?28:22;
+ for(let i=0;i<count;i++){
+  const s=document.createElement('i'),angle=Math.PI*2*i/count+Math.random()*.35,distance=(kind==='start'?90:72)+Math.random()*125;
+  s.className='magic-spark';s.style.setProperty('--x',mx+'%');s.style.setProperty('--y',my+'%');s.style.setProperty('--s',(8+Math.random()*14)+'px');
+  s.style.setProperty('--r',(Math.random()*90)+'deg');s.style.setProperty('--dx',(Math.cos(angle)*distance)+'px');s.style.setProperty('--dy',(Math.sin(angle)*distance)+'px');
+  s.style.setProperty('--d',(.65+Math.random()*.45)+'s');s.style.setProperty('--delay',(Math.random()*.12)+'s');magicLayer.appendChild(s);
+ }
+ magicLayer.classList.remove('active');void magicLayer.offsetWidth;magicLayer.classList.add('active');source.classList.add('magic-triggering');magicChime(kind);
+ setTimeout(()=>source.classList.remove('magic-triggering'),850);setTimeout(()=>magicLayer.classList.remove('active'),1250);
+}
+
 const theme=document.getElementById('ghostingTheme');
 const audioControl=document.getElementById('audioControl');
 const audioLabel=audioControl.querySelector('.audio-label');
@@ -340,7 +394,7 @@ async function startTheme(){
  }catch(e){setAudioUI(false)}
 }
 function pauseTheme(){fadeAudio(0,700);setAudioUI(false)}
-heroStart.addEventListener('click',()=>{if(theme.paused)startTheme()});
+heroStart.addEventListener('click',()=>{magicBurst(heroStart,'start');if(theme.paused)startTheme()});
 audioControl.addEventListener('click',()=>{theme.paused?startTheme():pauseTheme()});
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
@@ -348,6 +402,7 @@ const days=document.getElementById('days'),out=document.getElementById('daysOut'
 days.addEventListener('input',()=>out.textContent=days.value);
 document.getElementById('analyze').addEventListener('click',()=>{
  const analyzeBtn=document.getElementById('analyze');
+ magicBurst(analyzeBtn,'analyze');
  const originalLabel=analyzeBtn.textContent;
  analyzeBtn.textContent='ANALIZANDO… ✦';
  analyzeBtn.classList.add('is-analyzing');
