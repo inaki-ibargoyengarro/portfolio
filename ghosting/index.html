@@ -253,6 +253,9 @@ input[type=range]{width:100%;accent-color:var(--hot)}.days{font-family:"Fraunces
 .matrix-present .operational-table td{padding:20px 17px}
 body.matrix-presenting{overflow:hidden}
 @media(max-width:900px){.matrix-present-top{padding:12px 16px}.matrix-present-top strong{font-size:19px}.matrix-present-scroll{padding:12px 16px 30px}.matrix-present .matrix-scroll{overflow-x:auto}.matrix-present .operational-table{min-width:900px}}
+/* Confirmación de lectura: doble tilde azul, sin alterar el diseño */
+.seen-status{display:flex;align-items:center;justify-content:center;gap:8px;opacity:1;color:#52798c}
+.seen-check{font-family:Arial,sans-serif;font-size:17px;font-weight:700;letter-spacing:-7px;padding-right:7px;color:#34b7f1;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -286,7 +289,7 @@ body.matrix-presenting{overflow:hidden}
 <div class="messages">
 <div class="bubble">La pasé re bien ayer :)</div>
 <div class="bubble me">Yo también 💗</div>
-<div class="silence">1 DÍA ··· 3 DÍAS ··· 7 DÍAS ···</div>
+<div class="silence seen-status"><span class="seen-check" aria-hidden="true">✓✓</span><span>VISTO HACE 7 DÍAS</span></div>
 </div>
 <img alt="Mujer esperando una llamada frente a un teléfono rosa" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/ghosting/refs/heads/main/assets/waiting.png"/>
 </div>
