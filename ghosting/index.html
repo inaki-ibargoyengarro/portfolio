@@ -1,11 +1,12 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#f5b5c8">
-<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/favicon-inaki-1.png">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="noindex, nofollow" name="robots"/>
+<meta content="#f5b5c8" name="theme-color"/>
+<link href="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/favicon-inaki-1.png" rel="icon" type="image/png"/>
 <title>Ghosting Detector | Metodología Cuantitativa</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap');
@@ -217,119 +218,147 @@ input[type=range]{width:100%;accent-color:var(--hot)}.days{font-family:"Fraunces
 @keyframes magicButton{0%,100%{filter:none}24%{filter:brightness(1.28);box-shadow:0 8px 0 var(--red),0 0 0 4px rgba(255,255,255,.28),0 0 34px rgba(255,232,154,.9)}55%{filter:brightness(1.08);box-shadow:0 8px 0 var(--red),0 0 24px rgba(245,181,200,.72)}}
 @media(prefers-reduced-motion:reduce){.magic-layer{display:none}.btn.magic-triggering{animation:none}}
 
+
+
+/* Matrix of operationalization — responsive, designed for reading */
+.matrix-section{background:#fff8e9}
+.matrix-shell{background:var(--paper);border-radius:28px;border:1px solid rgba(50,28,43,.13);box-shadow:var(--shadow);overflow:hidden}
+.matrix-scroll{overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+.operational-table{width:100%;border-collapse:collapse;table-layout:fixed;min-width:850px;font-size:13px;line-height:1.5}
+.operational-table th{background:var(--ink);color:var(--cream);padding:18px 16px;text-align:left;font:500 11px "DM Mono",monospace;text-transform:uppercase;letter-spacing:.055em}
+.operational-table th:nth-child(1){width:16%}.operational-table th:nth-child(2){width:20%}.operational-table th:nth-child(3){width:23%}.operational-table th:nth-child(4){width:17%}.operational-table th:nth-child(5){width:24%}
+.operational-table td{padding:19px 16px;vertical-align:top;border-bottom:1px solid #e9dfe0;border-right:1px solid #efe7e7}
+.operational-table tbody tr:nth-child(even){background:#fff4f6}
+.operational-table td:last-child{border-right:0}.operational-table .concept-cell{background:#f7d7e1;vertical-align:top}
+.operational-table .concept-cell strong{font:900 25px "Fraunces",serif}.operational-table .concept-cell p{font-size:12px;line-height:1.55}
+.matrix-foot{padding:15px 20px;font:500 10px "DM Mono",monospace;letter-spacing:.08em;color:#795e6e;border-top:1px solid #eadde1}
+@media(max-width:900px){.matrix-section{padding-top:85px;padding-bottom:85px}.matrix-shell{border-radius:22px}.operational-table{min-width:760px}.matrix-foot{font-size:9px}}
+@media(max-width:600px){.matrix-section{padding-top:72px;padding-bottom:72px}.matrix-shell{margin-left:-8px;margin-right:-8px}.matrix-scroll:after{content:""}.matrix-section .center{margin-bottom:28px}.matrix-foot{line-height:1.6}}
+
+/* Matriz: lectura y exposición sin superposiciones */
+.matrix-section{scroll-margin-top:100px}
+.matrix-toolbar{display:flex;justify-content:flex-end;margin:0 0 14px}
+.matrix-present-btn{border:1px solid rgba(50,28,43,.25);background:var(--ink);color:var(--cream);border-radius:999px;padding:13px 20px;font:500 12px "DM Mono",monospace;cursor:pointer}
+.matrix-present-btn:hover{background:var(--hot)}
+.matrix-present{position:fixed;inset:0;z-index:200;background:var(--cream);display:none;flex-direction:column}
+.matrix-present.open{display:flex}
+.matrix-present-top{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 28px;background:var(--cream);border-bottom:1px solid #e7d9d9}
+.matrix-present-top strong{font:900 24px "Fraunces",serif}
+.matrix-present-top button{border:0;border-radius:999px;background:var(--ink);color:white;padding:12px 18px;cursor:pointer;font:500 12px "DM Mono",monospace}
+.matrix-present-scroll{flex:1;min-height:0;overflow:auto;padding:24px max(24px,calc((100vw - 1400px)/2)) 48px}
+.matrix-present .matrix-shell{overflow:visible;box-shadow:none}
+.matrix-present .matrix-scroll{overflow:visible}
+.matrix-present .operational-table{min-width:1050px;font-size:14px;line-height:1.55}
+.matrix-present .operational-table th{position:sticky;top:0;z-index:3;box-shadow:0 1px 0 var(--ink)}
+.matrix-present .operational-table td{padding:20px 17px}
+body.matrix-presenting{overflow:hidden}
+@media(max-width:900px){.matrix-present-top{padding:12px 16px}.matrix-present-top strong{font-size:19px}.matrix-present-scroll{padding:12px 16px 30px}.matrix-present .matrix-scroll{overflow-x:auto}.matrix-present .operational-table{min-width:900px}}
 </style>
 </head>
 <body>
 <div class="noise"></div>
-<div class="magic-layer" id="magicLayer" aria-hidden="true"><div class="magic-flash"></div><div class="magic-ring"></div></div>
-<audio id="ghostingTheme" loop preload="auto">
- <source src="https://github.com/inaki-ibargoyengarro/ghosting/raw/refs/heads/main/assets/Magical%20Transition.mp3" type="audio/mpeg">
+<div aria-hidden="true" class="magic-layer" id="magicLayer"><div class="magic-flash"></div><div class="magic-ring"></div></div>
+<audio id="ghostingTheme" loop="" preload="auto">
+<source src="https://github.com/inaki-ibargoyengarro/ghosting/raw/refs/heads/main/assets/Magical%20Transition.mp3" type="audio/mpeg"/>
 </audio>
-<button class="audio-control" id="audioControl" type="button" aria-label="Activar experiencia sonora" aria-pressed="false"><span class="audio-icon">♫</span><span class="audio-label">ACTIVAR EXPERIENCIA SONORA</span></button>
-<button class="mobile-nav-toggle" id="mobileNavToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mainNav"><span></span></button>
-<nav id="mainNav">
-  <a href="#problema">El problema</a><a href="#detector">El detector</a><a href="#demo">Demo</a><a href="#preguntas">Preguntas</a><a href="#hallazgos">Hipótesis</a>
-</nav>
-
+<button aria-label="Activar experiencia sonora" aria-pressed="false" class="audio-control" id="audioControl" type="button"><span class="audio-icon">♫</span><span class="audio-label">ACTIVAR EXPERIENCIA SONORA</span></button>
+<button aria-controls="mainNav" aria-expanded="false" aria-label="Abrir menú" class="mobile-nav-toggle" id="mobileNavToggle" type="button"><span></span></button>
+<nav id="mainNav"><a href="#problema">Concepto</a><a href="#detector">5 dimensiones</a><a href="#matriz">Matriz</a><a href="#demo">Demo</a><a href="#hallazgos">Resultados esperados</a></nav>
 <section class="hero">
- <div class="hero-bg"></div>
- <div class="hero-copy">
-  <div class="kicker">FPyCS (UNLP)</div>
-  <h1>No es magia,<br>son datos.</h1>
-  <p>¿Se demoró en contestar… o te está ghosteando?</p>
-  <a class="btn" href="#problema">INICIAR DETECCIÓN ↓</a>
- </div>
- <div class="academic">Metodología Cuantitativa · TP 1<br>Iñaki Ibargoyen Garro</div>
+<div class="hero-bg"></div>
+<div class="hero-copy">
+<div class="kicker">FPyCS (UNLP)</div>
+<h1>No es magia,<br/>son datos.</h1>
+<p>¿Se demoró en contestar… o te está ghosteando?</p>
+<a class="btn" href="#problema">INICIAR DETECCIÓN ↓</a>
+</div>
+<div class="academic">Metodología Cuantitativa · TP 1<br/>Iñaki Ibargoyen Garro</div>
 </section>
-
 <section class="problem" id="problema">
- <div class="reveal">
-  <div class="eyebrow">01 · Concepto + definición teórica</div>
-  <h2 class="display">A todos nos ghostearon alguna vez...</h2>
-  <p class="lede">El <strong>ghosting</strong> es el cese de toda comunicación y contacto con otra persona sin advertencia o justificación aparente. El trabajo parte de dos preguntas: <strong>¿cómo saber si me están ghosteando?</strong> y <strong>¿por qué ocurre?</strong></p>
-  <div class="definition"><strong>Definición teórica</strong>Una forma de ostracismo realizada predominantemente mediante tecnología digital: cese unilateral, repentino o gradual de la comunicación, sin explicación, con el fin de terminar definitivamente una relación significativa. <span class="small">Schokkenbroek, Telari, Pancani y Riva (2025).</span></div>
-  <div class="chips"><span class="chip">UNILATERAL</span><span class="chip">DIGITAL</span><span class="chip">SIN EXPLICACIÓN</span><span class="chip">CESE</span><span class="chip">RUPTURA</span></div>
- </div>
- <div class="problem-visual reveal">
-   <div class="messages">
-     <div class="bubble">La pasé re bien ayer :)</div>
-     <div class="bubble me">Yo también 💗</div>
-     <div class="silence">1 DÍA ··· 3 DÍAS ··· 7 DÍAS ···</div>
-   </div>
-   <img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/ghosting/refs/heads/main/assets/waiting.png" alt="Mujer esperando una llamada frente a un teléfono rosa">
- </div>
+<div class="reveal">
+<div class="eyebrow">01 · Concepto + definición teórica</div>
+<h2 class="display">A todos nos ghostearon alguna vez...</h2>
+<p class="lede">El <strong>ghosting</strong> es el cese de toda comunicación y contacto con otra persona sin advertencia o justificación aparente. El trabajo parte de dos preguntas: <strong>¿cómo saber si me están ghosteando?</strong> y <strong>¿por qué ocurre?</strong></p>
+<div class="definition"><strong>Definición teórica</strong>Una forma de ostracismo realizada predominantemente mediante tecnología digital: cese unilateral, repentino o gradual de la comunicación, sin explicación, con el fin de terminar definitivamente una relación significativa. <span class="small">Schokkenbroek, Telari, Pancani y Riva (2025).</span></div>
+<div class="chips"><span class="chip">UNILATERAL</span><span class="chip">DIGITAL</span><span class="chip">SIN EXPLICACIÓN</span><span class="chip">CESE</span><span class="chip">RUPTURA</span></div>
+</div>
+<div class="problem-visual reveal">
+<div class="messages">
+<div class="bubble">La pasé re bien ayer :)</div>
+<div class="bubble me">Yo también 💗</div>
+<div class="silence">1 DÍA ··· 3 DÍAS ··· 7 DÍAS ···</div>
+</div>
+<img alt="Mujer esperando una llamada frente a un teléfono rosa" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/ghosting/refs/heads/main/assets/waiting.png"/>
+</div>
 </section>
-
 <section class="machine" id="detector">
- <div class="center reveal"><div class="eyebrow">02 · Definición operacional</div><h2 class="display">5 dimensiones para un solo silencio </h2><p class="lede">Para estudiar un concepto abstracto, Ghosting Detector lo desarma en dimensiones observables y medibles.</p></div>
- <div class="sensors">
-  <article class="sensor reveal"><div class="num">01</div><h3>Profundidad del vínculo</h3><p>Grado de contacto y encuentros presenciales previos.</p><p><strong>Bajo:</strong> chats, audios, fotos, llamadas.<br><strong>Medio:</strong> 1–5 citas.<br><strong>Alto:</strong> +5 citas.</p><span class="measure">ORDINAL</span></article>
-  <article class="sensor reveal"><div class="num">02</div><h3>Umbral temporal</h3><p>Cantidad exacta de días de silencio ininterrumpido requeridos para confirmar ghosting.</p><p><strong>0 → ∞ días</strong></p><span class="measure">ESCALA DE RAZÓN</span></article>
-  <article class="sensor reveal"><div class="num">03</div><h3>Transición al silencio</h3><p>Patrón o ritmo de respuesta previo al corte definitivo.</p><p><strong>Abrupto</strong> / <strong>Progresivo</strong></p><span class="measure">NOMINAL</span></article>
-  <article class="sensor reveal"><div class="num">04</div><h3>Motivo atribuido</h3><p>Evitación del conflicto · pérdida de interés · otra opción vincular · sobrecarga o motivos personales.</p><span class="measure">NOMINAL</span></article>
-  <article class="sensor reveal"><div class="num">05</div><h3>Expectativas</h3><p>Grado de simetría en el tipo de relación buscada.</p><p>Casual · discrepancia · relación seria.</p><span class="measure">ORDINAL</span></article>
- </div>
+<div class="center reveal"><div class="eyebrow">02 · Definición operacional</div><h2 class="display">5 dimensiones para un solo silencio </h2><p class="lede">Para estudiar un concepto abstracto, Ghosting Detector lo desarma en dimensiones observables y medibles.</p></div>
+<div class="sensors">
+<article class="sensor reveal"><div class="num">01</div><h3>Profundidad del vínculo previo</h3><p>Grado de contacto, encuentros presenciales y duración temporal del vínculo.</p><p><strong>Presencialidad:</strong> bajo (solo digital), medio (1–5 citas), alto (más de 5 citas).<br/><strong>Duración:</strong> menos de 1 mes, entre 1 y 6 meses, más de 6 meses.</p><span class="measure">ORDINAL</span></article>
+<article class="sensor reveal"><div class="num">02</div><h3>Umbral temporal de ruptura</h3><p>Cantidad exacta de días consecutivos de silencio ininterrumpido.</p><p><strong>0, 1, 2… días</strong> (variable cuantitativa discreta).</p><span class="measure">ESCALA DE RAZÓN</span></article>
+<article class="sensor reveal"><div class="num">03</div><h3>Dinámica de transición al silencio</h3><p>Patrón o ritmo de respuesta previo al corte definitivo.</p><p><strong>Abrupto:</strong> interrupción repentina.<br/><strong>Progresivo:</strong> disminución paulatina.</p><span class="measure">NOMINAL</span></article>
+<article class="sensor reveal"><div class="num">04</div><h3>Motivos o causas atribuidas al cese</h3><p>Causa principal atribuida a la falta de respuesta.</p><p>Evitación del conflicto · pérdida de interés · otra opción vincular · sobrecarga o motivos personales.</p><span class="measure">NOMINAL</span></article>
+<article class="sensor reveal"><div class="num">05</div><h3>Coincidencia de expectativas vinculares</h3><p>Simetría del tipo de relación buscada y comunicación previa de las intenciones.</p><p><strong>Coincidencia:</strong> casual / relación seria; o discrepancia (ordinal).<br/><strong>Explicitación:</strong> sí / no (nominal dicotómica).</p><span class="measure">ORDINAL + NOMINAL</span></article>
+</div>
 </section>
-
-<section class="demo" id="demo">
- <div class="demo-grid">
-  <div class="reveal">
-   <div class="eyebrow">03 · Índice interactivo</div>
-   <h2 class="display">Probá el detector.</h2>
-   <p class="lede">Esta demo convierte las cinco dimensiones del trabajo en un <strong>índice exploratorio interactivo</strong>. Cada respuesta modifica el puntaje y la clasificación resultante. La ponderación sirve para visualizar la propuesta metodológica y no constituye todavía una escala científicamente validada.</p>
-   <div class="break"><strong>¿Qué estamos haciendo?</strong><br>Operacionalizar: transformar un concepto abstracto en dimensiones, indicadores y categorías susceptibles de medición.</div>
-   <div class="demo-expression"><img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/ghosting/283f7fa06957694f05edf45b678e398e176a3487/assets/expresiones%20(2).gif" alt="Expresiones animadas de Ghosting Detector"></div>
-  </div>
-  <div class="form-card reveal">
-   <div class="q"><label class="title">¿Qué profundidad tuvo el vínculo?</label><div class="options">
-    <label><input type="radio" name="depth" value="1" checked><span>Solo digital</span></label>
-    <label><input type="radio" name="depth" value="2"><span>1–5 citas</span></label>
-    <label><input type="radio" name="depth" value="3"><span>+5 citas</span></label>
-   </div></div>
-   <div class="q"><label class="title">¿Cuántos días lleva sin responder?</label><div class="days"><span id="daysOut">7</span> días</div><input id="days" type="range" min="0" max="30" value="7"></div>
-   <div class="q"><label class="title">Antes del silencio…</label><div class="options">
-    <label><input type="radio" name="cut" value="2" checked><span>Desapareció de golpe</span></label>
-    <label><input type="radio" name="cut" value="1"><span>Respondía cada vez menos</span></label>
-   </div></div>
-   <div class="q"><label class="title">¿Qué motivo atribuís al corte?</label><div class="options">
-    <label><input type="radio" name="why" value="2" checked><span>Evitación</span></label><label><input type="radio" name="why" value="3"><span>Pérdida de interés</span></label><label><input type="radio" name="why" value="3"><span>Otra opción</span></label><label><input type="radio" name="why" value="1"><span>Motivos personales</span></label>
-   </div></div>
-   <div class="q"><label class="title">¿Coincidían sus expectativas?</label><div class="options">
-    <label><input type="radio" name="expect" value="1" checked><span>Casual</span></label><label><input type="radio" name="expect" value="3"><span>Discrepancia</span></label><label><input type="radio" name="expect" value="1"><span>Relación seria</span></label><label><input type="radio" name="expect" value="0"><span>No lo sé</span></label>
-   </div></div>
-   <button class="btn" id="analyze" style="margin-top:24px">ANALIZAR MI CASO ✦</button>
-   <div class="result" id="result"><div class="eyebrow">Índice exploratorio</div><div class="level" id="level">MODERADO</div><div class="meter"><i class="needle" id="needle"></i></div><div id="explain"></div><div class="disclaimer">No es un diagnóstico psicológico ni una escala científicamente validada. Es un índice exploratorio construido para visualizar cómo las cinco dimensiones propuestas pueden combinarse en un único dato.</div></div>
-  </div>
- </div>
-</section>
-
-<section class="twoq" id="preguntas">
- <div class="center reveal"><div class="eyebrow">04 · Relación entre indicadores</div><h2 class="display">Preguntas base</h2></div>
- <div class="split">
-  <article class="study reveal"><div class="eyebrow">Pregunta 01</div><h3>¿Me están ghosteando?</h3><div class="type">ESTUDIO DESCRIPTIVO</div><div class="flow">Profundidad del vínculo<br>+ días de silencio<br>+ dinámica del corte<br><span class="arrow">↓</span><br><strong>ÍNDICE DE GHOSTING</strong><br><span class="small">Leve · Moderado · Severo</span></div></article>
-  <article class="study reveal"><div class="eyebrow">Pregunta 02</div><h3>¿Por qué ocurre?</h3><div class="type">ESTUDIO EXPLICATIVO</div><div class="flow">Clasificación del índice<br>+ motivos atribuidos<br>+ expectativas vinculares<br><span class="arrow">↓</span><br><strong>RELACIONES ENTRE VARIABLES</strong></div></article>
- </div>
+<section class="matrix-section" id="matriz"><div class="center reveal"><div class="eyebrow">03 · Matriz de operacionalización</div><h2 class="display">Del concepto al dato.</h2><p class="lede">La matriz del TP reúne las cinco dimensiones, sus indicadores, los niveles de medición y las categorías que permiten observar el ghosting.</p></div><div class="matrix-toolbar"><button class="matrix-present-btn" id="presentMatrix" type="button">PRESENTAR MATRIZ ↗</button></div><div class="matrix-shell reveal"><div class="matrix-scroll"><table class="operational-table"><thead><tr><th>Concepto</th><th>Dimensión</th><th>Indicador</th><th>Nivel de medición</th><th>Categorías</th></tr></thead><tbody>
+<tr><td class="concept-cell" rowspan="7"><strong>Ghosting</strong><p>Forma de ostracismo digital caracterizada por el cese unilateral e ininterrumpido de la comunicación.</p></td><td rowspan="2"><strong>01 · Profundidad del vínculo previo</strong></td><td>Grado de contacto y encuentros presenciales previos</td><td>Ordinal</td><td><strong>Bajo:</strong> chats, audios, fotos, llamadas<br/><strong>Medio:</strong> entre 1 y 5 citas presenciales<br/><strong>Alto:</strong> más de 5 citas presenciales</td></tr>
+<tr><td>Duración temporal del vínculo</td><td>Ordinal</td><td>Menos de 1 mes<br/>Entre 1 y 6 meses<br/>Más de 6 meses</td></tr>
+<tr><td><strong>02 · Umbral temporal de ruptura</strong></td><td>Cantidad exacta de días de silencio ininterrumpido requeridos para confirmar ghosting</td><td>Escala de razón (cuantitativa discreta)</td><td>Números enteros mayores o iguales a 0 que representan la cantidad de días</td></tr>
+<tr><td><strong>03 · Dinámica de transición al silencio</strong></td><td>Patrón o ritmo de respuesta previo al corte definitivo</td><td>Nominal</td><td><strong>Abrupto:</strong> interrupción directa y repentina<br/><strong>Progresivo:</strong> disminución paulatina de frecuencia</td></tr>
+<tr><td><strong>04 · Motivos o causas atribuidas al cese</strong></td><td>Causa principal atribuida a la falta de respuesta</td><td>Nominal</td><td>Evitación del conflicto / incomodidad<br/>Pérdida de interés / falta de química<br/>Aparición de otra opción vincular<br/>Sobrecarga personal / motivos personales</td></tr>
+<tr><td rowspan="2"><strong>05 · Coincidencia de expectativas vinculares</strong></td><td>Grado de simetría en la búsqueda del tipo de relación</td><td>Ordinal</td><td>Coincidencia en búsqueda casual<br/>Discrepancia de expectativas<br/>Coincidencia en búsqueda de «relación seria»</td></tr>
+<tr><td>Explicitación previa de intenciones vinculares</td><td>Nominal dicotómica</td><td><strong>Sí:</strong> se conversaron explícitamente<br/><strong>No:</strong> no se hablaron o quedaron implícitas</td></tr>
+</tbody></table></div><div class="matrix-foot">MATRIZ DE OPERACIONALIZACIÓN · TP 1 · METODOLOGÍA CUANTITATIVA</div></div></section><section class="demo" id="demo">
+<div class="demo-grid">
+<div class="reveal">
+<div class="eyebrow">04 · Índice interactivo</div>
+<h2 class="display">Probá el detector.</h2>
+<p class="lede">Esta demo recorre los indicadores de la matriz y construye un <strong>índice exploratorio interactivo</strong>. La duración del vínculo y la explicitación de intenciones se registran como información contextual; todavía no tienen una ponderación definida. El puntaje es ilustrativo y no constituye una escala científicamente validada.</p>
+<div class="break"><strong>¿Qué estamos haciendo?</strong><br/>Operacionalizar: transformar un concepto abstracto en dimensiones, indicadores y categorías susceptibles de medición.</div>
+<div class="demo-expression"><img alt="Expresiones animadas de Ghosting Detector" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/ghosting/283f7fa06957694f05edf45b678e398e176a3487/assets/expresiones%20(2).gif"/></div>
+</div>
+<div class="form-card reveal">
+<div class="q"><label class="title">¿Qué profundidad tuvo el vínculo?</label><div class="options">
+<label><input checked="" name="depth" type="radio" value="1"/><span>Solo digital</span></label>
+<label><input name="depth" type="radio" value="2"/><span>1–5 citas</span></label>
+<label><input name="depth" type="radio" value="3"/><span>+5 citas</span></label>
+</div></div><div class="q"><label class="title">¿Cuánto duró el vínculo antes del silencio?</label><div class="options"><label><input checked="" name="duration" type="radio" value="short"/><span>Menos de 1 mes</span></label><label><input name="duration" type="radio" value="medium"/><span>Entre 1 y 6 meses</span></label><label><input name="duration" type="radio" value="long"/><span>Más de 6 meses</span></label></div></div>
+<div class="q"><label class="title">¿Cuántos días lleva sin responder?</label><div class="days"><span id="daysOut">7</span> días</div><input id="days" max="30" min="0" type="range" value="7"/></div>
+<div class="q"><label class="title">Antes del silencio…</label><div class="options">
+<label><input checked="" name="cut" type="radio" value="2"/><span>Desapareció de golpe</span></label>
+<label><input name="cut" type="radio" value="1"/><span>Respondía cada vez menos</span></label>
+</div></div>
+<div class="q"><label class="title">¿Qué motivo atribuís al corte?</label><div class="options">
+<label><input checked="" name="why" type="radio" value="2"/><span>Evitación</span></label><label><input name="why" type="radio" value="3"/><span>Pérdida de interés</span></label><label><input name="why" type="radio" value="3"/><span>Otra opción</span></label><label><input name="why" type="radio" value="1"/><span>Motivos personales</span></label>
+</div></div>
+<div class="q"><label class="title">¿Coincidían sus expectativas?</label><div class="options">
+<label><input checked="" name="expect" type="radio" value="1"/><span>Coincidencia casual</span></label><label><input name="expect" type="radio" value="3"/><span>Discrepancia</span></label><label><input name="expect" type="radio" value="1"/><span>Coincidencia seria</span></label><label><input name="expect" type="radio" value="0"/><span>No lo sé</span></label>
+</div></div><div class="q"><label class="title">¿Hablaron explícitamente de lo que buscaban?</label><div class="options"><label><input name="explicit" type="radio" value="yes"/><span>Sí, lo conversamos</span></label><label><input checked="" name="explicit" type="radio" value="no"/><span>No, quedó implícito</span></label></div></div>
+<button class="btn" id="analyze" style="margin-top:24px">ANALIZAR MI CASO ✦</button>
+<div class="result" id="result"><div class="eyebrow">Índice exploratorio</div><div class="level" id="level">MODERADO</div><div class="meter"><i class="needle" id="needle"></i></div><div id="explain"></div><div class="disclaimer">No es un diagnóstico psicológico ni una escala científicamente validada. Es un índice exploratorio construido para visualizar cómo las cinco dimensiones propuestas pueden combinarse en un único dato.</div></div>
+</div>
+</div>
 </section>
 
 <section class="findings" id="hallazgos">
- <div class="center reveal"><div class="eyebrow">05 · Resultados esperados</div><h2 class="display">¿Qué esperamos encontrar?</h2><p class="lede"> Relaciones que la investigación buscaría observar al cruzar los datos.</p></div>
- <div class="finding-grid">
-  <article class="finding big reveal"><div><h3>Más vínculo → mayor umbral de silencio</h3><p>Cuanto mayor sea la profundidad del vínculo previo, mayor podría ser la cantidad de días que una persona espera antes de definir la situación como ghosting.</p></div><div><div class="small">VÍNCULO EXCLUSIVAMENTE DIGITAL</div><div class="bar short"><span></span></div><div class="small">VÍNCULO DE MAYOR PROFUNDIDAD</div><div class="bar long"><span></span></div></div></article>
-  <article class="finding reveal"><h3>Baja intensidad</h3><p><strong>Solo chats</strong></p><p class="arrow">→</p><p>Corte posiblemente <strong>abrupto</strong>, asociado a evitación del conflicto o incomodidad.</p></article>
-  <article class="finding reveal"><h3>Mayor intensidad</h3><p><strong>Citas presenciales</strong></p><p class="arrow">→</p><p>Dinámica posiblemente <strong>progresiva</strong>, vinculada a discrepancias en las expectativas.</p></article>
- </div>
+<div class="center reveal"><div class="eyebrow">05 · Resultados esperados</div><h2 class="display">¿Qué esperamos encontrar?</h2><p class="lede"> Relaciones que la investigación buscaría observar al cruzar los datos.</p></div>
+<div class="finding-grid">
+<article class="finding big reveal"><div><h3>Más vínculo → mayor umbral de silencio</h3><p>Cuanto mayor sea la profundidad del vínculo previo, mayor podría ser la cantidad de días que una persona espera antes de definir la situación como ghosting.</p></div><div><div class="small">VÍNCULO EXCLUSIVAMENTE DIGITAL</div><div class="bar short"><span></span></div><div class="small">VÍNCULO DE MAYOR PROFUNDIDAD</div><div class="bar long"><span></span></div></div></article>
+<article class="finding reveal"><h3>Baja intensidad</h3><p><strong>Solo chats</strong></p><p class="arrow">→</p><p>Corte posiblemente <strong>abrupto</strong>, asociado a evitación del conflicto o incomodidad.</p></article>
+<article class="finding reveal"><h3>Mayor intensidad</h3><p><strong>Citas presenciales</strong></p><p class="arrow">→</p><p>Dinámica posiblemente <strong>progresiva</strong>, vinculada a discrepancias en las expectativas.</p></article>
+</div>
 </section>
-
 <section class="final">
- <div class="final-copy reveal">
-  <div class="eyebrow">Ghosting Detector™</div>
-  <h2>No adivines.<br>Medilo.</h2>
-  <p>Del concepto abstracto al dato observable.</p>
-  <div class="chips"><span class="chip">LEVE</span><span class="chip">MODERADO</span><span class="chip">SEVERO</span></div>
-  <div class="credits">Metodología Cuantitativa · TP 1 · Iñaki Ibargoyen Garro<br> FPyCS (UNLP) 2026</div>
- </div>
+<div class="final-copy reveal">
+<div class="eyebrow">Ghosting Detector™</div>
+<h2>No adivines.<br/>Medilo.</h2>
+<p>Del concepto abstracto al dato observable.</p>
+<div class="chips"><span class="chip">LEVE</span><span class="chip">MODERADO</span><span class="chip">SEVERO</span></div>
+<div class="credits">Metodología Cuantitativa · TP 1 · Iñaki Ibargoyen Garro<br/> FPyCS (UNLP) 2026</div>
+</div>
 </section>
-
+<div class="matrix-present" id="matrixPresentation" role="dialog" aria-modal="true" aria-label="Matriz de operacionalización" aria-hidden="true"><div class="matrix-present-top"><strong>Matriz de operacionalización</strong><button id="closeMatrix" type="button">CERRAR ✕</button></div><div class="matrix-present-scroll" id="matrixPresentationScroll"></div></div>
 <script>
 
 const magicLayer=document.getElementById('magicLayer');
@@ -411,6 +440,8 @@ document.getElementById('analyze').addEventListener('click',()=>{
  const cut=+document.querySelector('input[name=cut]:checked').value;
  const why=+document.querySelector('input[name=why]:checked').value;
  const expect=+document.querySelector('input[name=expect]:checked').value;
+ const duration=document.querySelector('input[name=duration]:checked').value;
+ const explicit=document.querySelector('input[name=explicit]:checked').value;
 
  // Índice exploratorio construido a partir de las cinco dimensiones del TP.
  // No pretende ser una escala científicamente validada: hace que cada respuesta
@@ -425,6 +456,9 @@ document.getElementById('analyze').addEventListener('click',()=>{
 
  let level, txt;
  const unknownExpectations = expect === 0;
+ const durationText=({short:"menos de 1 mes",medium:"entre 1 y 6 meses",long:"más de 6 meses"})[duration];
+ const explicitText=explicit==="yes"?"sí se conversaron":"no se conversaron explícitamente";
+ const contextual=` Duración del vínculo: ${durationText}; intenciones vinculares: ${explicitText}. Estos dos indicadores se registran como contexto y no alteran el puntaje exploratorio.`;
  if(score < 35){
    level='LEVE';
    txt=`Índice exploratorio: ${score}/100. Hay pocas señales combinadas de ghosting según las dimensiones seleccionadas.${unknownExpectations?' Las expectativas no se incorporaron al puntaje porque indicaste que no las conocés.':''}`;
@@ -439,7 +473,7 @@ document.getElementById('analyze').addEventListener('click',()=>{
  setTimeout(()=>{
   document.getElementById('level').textContent=level;
   document.getElementById('needle').style.left=Math.max(4,Math.min(96,score))+'%';
-  document.getElementById('explain').textContent=txt;
+  document.getElementById('explain').textContent=txt+contextual;
   document.getElementById('result').classList.add('show');
   document.getElementById('result').scrollIntoView({behavior:'smooth',block:'nearest'});
   analyzeBtn.textContent=originalLabel;
@@ -465,5 +499,23 @@ if(mobileNavToggle&&mainNav){
  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMobileNav()});
 }
 
+
+// Modo de presentación: matriz a pantalla completa, sin menú ni audio por encima.
+const matrixDialog=document.getElementById('matrixPresentation');
+const matrixOpen=document.getElementById('presentMatrix');
+const matrixClose=document.getElementById('closeMatrix');
+const matrixScroll=document.getElementById('matrixPresentationScroll');
+let matrixPreviousFocus=null;
+if(matrixDialog&&matrixOpen&&matrixClose){
+ matrixOpen.addEventListener('click',()=>{
+  matrixPreviousFocus=document.activeElement;
+  matrixScroll.replaceChildren(document.querySelector('#matriz .matrix-shell').cloneNode(true));
+  matrixDialog.classList.add('open');matrixDialog.setAttribute('aria-hidden','false');
+  document.body.classList.add('matrix-presenting');matrixScroll.scrollTop=0;matrixClose.focus();
+ });
+ function exitMatrix(){matrixDialog.classList.remove('open');matrixDialog.setAttribute('aria-hidden','true');document.body.classList.remove('matrix-presenting');matrixScroll.replaceChildren();if(matrixPreviousFocus)matrixPreviousFocus.focus()}
+ matrixClose.addEventListener('click',exitMatrix);
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&matrixDialog.classList.contains('open'))exitMatrix()});
+}
 </script>
 </body></html>
