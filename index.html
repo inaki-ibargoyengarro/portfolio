@@ -3,8 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Iñaki Ibargoyen Garro | Portfolio </title>
-<meta name="description" content="Portfolio de Iñaki Ibargoyen Garro. Comunicación Digital, Internal Comms & Employer Branding.">
+<title>Iñaki Ibargoyen Garro | Comunicación y Gestión Organizacional</title>
+<meta name="description" content="Portfolio de Iñaki Ibargoyen Garro. Comunicación interna y corporativa, employer branding y herramientas digitales que conectan personas, procesos y tecnología.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://inaki.ar/">
+<meta property="og:title" content="Iñaki Ibargoyen Garro | Comunicación y Gestión Organizacional">
+<meta property="og:description" content="Comunicación interna y corporativa, employer branding y herramientas digitales que conectan personas, procesos y tecnología.">
+<meta property="og:image" content="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/foto-header-inaki.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/favicon-inaki-1.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -438,6 +444,23 @@
     .hero h1 .dot{animation:none;}
     *,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important;}
   }
+
+  /* ---------- AJUSTES v2 ---------- */
+  .exp-sub{
+    font-size:12px; text-transform:uppercase; letter-spacing:0.14em; font-weight:600;
+    color:var(--ink-soft); margin:56px 0 0; padding-bottom:14px;
+  }
+  .exp-card.compact{padding:26px 0;}
+  .exp-card.compact .exp-meta .company{font-size:15px;}
+  .exp-card.compact .exp-block li{font-size:14px; color:var(--ink-soft);}
+  .exp-card.compact .exp-media{max-width:260px;}
+  .exp-card.compact .exp-media.vertical{max-width:160px;}
+  .contact h2{margin-bottom:10px;}
+  .contact p{margin-top:2px;}
+  a.contact-email{border-bottom:1px solid var(--line); transition:color .2s, border-color .2s;}
+  a.contact-email:hover{color:var(--blue); border-color:var(--blue);}
+  .proj-body li strong{color:var(--ink); font-weight:600;}
+  @media(max-width:720px){ .exp-sub{margin-top:40px;} }
 </style>
 </head>
 <body>
@@ -459,7 +482,7 @@
         <button id="btnEs" class="active" onclick="setLang('es')">ES</button>
         <button id="btnEn" onclick="setLang('en')">EN</button>
       </div>
-      <button class="nav-burger" id="burger" aria-label="Menu">
+      <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -473,9 +496,9 @@
     <h1>iñaki<span class="dot">.</span></h1>
     <p class="hero-name">Iñaki Ibargoyen Garro</p>
     <div class="hero-tagline">
-      <p class="tag-a i18n" data-es="Comunicación Digital" data-en="Digital Communication">Comunicación Digital</p>
-      <p class="tag-b i18n" data-es="Internal Comms &amp; Employer Branding." data-en="Internal Comms &amp; Employer Branding.">Internal Comms &amp; Employer Branding.</p>
-      <p class="tag-c i18n" data-es="Diseño sistemas de comunicación que resuelven y conectan." data-en="I design communication systems that solve and connect.">Diseño sistemas de comunicación que resuelven y conectan.</p>
+      <p class="tag-a i18n" data-es="Comunicación y Gestión Organizacional" data-en="Communication &amp; Organizational Management">Comunicación y Gestión Organizacional</p>
+      <p class="tag-b i18n" data-es="Comunicación Interna · Employer Branding · Employee Experience" data-en="Internal Comms · Employer Branding · Employee Experience">Comunicación Interna · Employer Branding · Employee Experience</p>
+      <p class="tag-c i18n" data-es="Conecto personas, procesos y tecnología para que las organizaciones comuniquen y funcionen mejor." data-en="I connect people, processes and technology so organizations communicate and work better.">Conecto personas, procesos y tecnología para que las organizaciones comuniquen y funcionen mejor.</p>
     </div>
     <div class="hero-cta">
       <a href="#contact" class="btn btn-solid i18n" data-es="Contactarme" data-en="Get in touch">Contactarme</a>
@@ -483,7 +506,7 @@
     </div>
   </div>
   <div class="hero-img">
-    <img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/foto-header-inaki.png" alt="Iñaki Ibargoyen Garro">
+    <img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/foto-header-inaki.png" fetchpriority="high" alt="Iñaki Ibargoyen Garro">
   </div>
 </section>
 
@@ -491,7 +514,7 @@
 <section id="about" class="section-pad wrap reveal">
   <div class="about-grid">
     <div class="about-poster">
-      <img id="posterImg" class="lang-img"
+      <img loading="lazy" id="posterImg" class="lang-img"
         data-es-src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/aboutme-dise%C3%B1ocomunicacin%C3%B3n-espa%C3%B1ol.png"
         data-en-src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/aboutme-dise%C3%B1ocomunicacin%C3%B3n-ingles.png"
         src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/aboutme-dise%C3%B1ocomunicacin%C3%B3n-espa%C3%B1ol.png"
@@ -499,17 +522,16 @@
     </div>
     <div class="about-body">
       <p class="eyebrow" style="margin-bottom:16px;"><span class="dot">●</span> &nbsp;<span class="i18n" data-es="SOBRE MÍ" data-en="ABOUT ME">SOBRE MÍ</span></p>
-      <p class="i18n" data-es="Soy un profesional de la <strong>Comunicación</strong> (UNLP) con especialización en <strong>Comunicación Interna y Marca Empleadora</strong> (UBA)." data-en="I'm a Communication professional (UNLP) specialized in <strong>Internal Communication and Employer Branding</strong> (UBA).">Soy un profesional de la <strong>Comunicación</strong> (UNLP) con especialización en <strong>Comunicación Interna y Marca Empleadora</strong> (UBA).</p>
-      <p class="i18n" data-es="A lo largo de mi experiencia en empresas, agencias y proyectos freelance, trabajé en roles de Community Manager, Analista de Comunicación, E-commerce Manager y Responsable de Comunicación." data-en="Across companies, agencies and freelance projects, I've worked as Community Manager, Communications Analyst, E-commerce Manager and Head of Communications.">A lo largo de mi experiencia en empresas, agencias y proyectos freelance, trabajé en roles de Community Manager, Analista de Comunicación, E-commerce Manager y Responsable de Comunicación.</p>
-      <p class="i18n" data-es="Me motiva <strong>transformar la comunicación en soluciones concretas</strong> que reduzcan tiempos, fortalezcan la cultura organizacional y potencien la marca. Creo mensajes atractivos, pero también me encargo de que sean medibles y generen impacto real." data-en="I'm driven to <strong>turn communication into concrete solutions</strong> that reduce time, strengthen organizational culture and grow the brand. I create compelling messages — and make sure they're measurable and generate real impact.">Me motiva <strong>transformar la comunicación en soluciones concretas</strong> que reduzcan tiempos, fortalezcan la cultura organizacional y potencien la marca. Creo mensajes atractivos, pero también me encargo de que sean medibles y generen impacto real.</p>
+      <p class="i18n" data-es="Soy <strong>Comunicador Digital</strong> (UNLP), con formación en la Licenciatura en Comunicación Social, orientación en <strong>Planificación y Gestión de la Comunicación en las Organizaciones</strong>." data-en="I hold a degree in <strong>Digital Communication</strong> (UNLP), with training in the Bachelor's in Social Communication, focused on <strong>Communication Planning and Management in Organizations</strong>.">Soy <strong>Comunicador Digital</strong> (UNLP), con formación en la Licenciatura en Comunicación Social, orientación en <strong>Planificación y Gestión de la Comunicación en las Organizaciones</strong>.</p>
+      <p class="i18n" data-es="Me motiva <strong>que la comunicación mejore cómo trabaja una organización</strong>, además de contar lo que hace: detecto problemas de comunicación o de funcionamiento interno, diseño la solución, coordino su desarrollo y la implemento." data-en="I'm driven by <strong>making communication improve how an organization works</strong>, not just telling what it does: I spot communication or internal problems, design the solution, coordinate its development and put it in place.">Me motiva <strong>que la comunicación mejore cómo trabaja una organización</strong>, además de contar lo que hace: detecto problemas de comunicación o de funcionamiento interno, diseño la solución, coordino su desarrollo y la implemento.</p>
 
-      <p class="certs-label i18n" data-es="Certificaciones y especializaciones" data-en="Certifications & specializations">Certificaciones y especializaciones</p>
+      <p class="certs-label i18n" data-es="Formación complementaria" data-en="Additional training">Formación complementaria</p>
       <div class="cert-list">
-        <div class="cert-row"><span class="org-logo"><img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-coderhouse.png" alt="Coderhouse"><span class="org">AI Automation — Coderhouse</span></span><span class="year">2026</span></div>
-        <div class="cert-row"><span class="org-logo"><img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-educacionIT.png" alt="Educación IT"><span class="org i18n" data-es="Human Resources Business Partner (HRBP) — Educación IT" data-en="Human Resources Business Partner (HRBP) — Educación IT">Human Resources Business Partner (HRBP) — Educación IT</span></span><span class="year">2025</span></div>
-        <div class="cert-row"><span class="org-logo"><img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-UBA.png" alt="UBA"><span class="org i18n" data-es="Comunicación Interna y Marca Empleadora — UBA" data-en="Internal Communication & Employer Branding — UBA">Comunicación Interna y Marca Empleadora — UBA</span></span><span class="year">2025</span></div>
-        <div class="cert-row"><span class="org-logo"><img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-UTN.png" alt="UTN"><span class="org i18n" data-es="Prensa y Comunicación Interna — UTN" data-en="Press and Internal Communication — UTN">Prensa y Comunicación Interna — UTN</span></span><span class="year">2023</span></div>
-        <div class="cert-row"><span class="org-logo"><img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-Rucula.png" alt="Rúcula"><span class="org">Employer Branding</span></span><span class="year">2023</span></div>
+        <div class="cert-row"><span class="org-logo"><img loading="lazy" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-coderhouse.png" alt="Coderhouse"><span class="org">AI Automation — Coderhouse</span></span><span class="year">2026</span></div>
+        <div class="cert-row"><span class="org-logo"><img loading="lazy" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-educacionIT.png" alt="Educación IT"><span class="org i18n" data-es="Human Resources Business Partner (HRBP) — Educación IT" data-en="Human Resources Business Partner (HRBP) — Educación IT">Human Resources Business Partner (HRBP) — Educación IT</span></span><span class="year">2025</span></div>
+        <div class="cert-row"><span class="org-logo"><img loading="lazy" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-UBA.png" alt="UBA"><span class="org i18n" data-es="Comunicación Interna y Marca Empleadora — UBA" data-en="Internal Communication & Employer Branding — UBA">Comunicación Interna y Marca Empleadora — UBA</span></span><span class="year">2025</span></div>
+        <div class="cert-row"><span class="org-logo"><img loading="lazy" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-UTN.png" alt="UTN"><span class="org i18n" data-es="Prensa y Comunicación Interna — UTN" data-en="Press and Internal Communication — UTN">Prensa y Comunicación Interna — UTN</span></span><span class="year">2023</span></div>
+        <div class="cert-row"><span class="org-logo"><img loading="lazy" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-Rucula.png" alt="Rúcula"><span class="org">Employer Branding — Rúcula</span></span><span class="year">2023</span></div>
       </div>
     </div>
   </div>
@@ -519,34 +541,34 @@
 <section id="work" class="section-pad wrap reveal">
   <div class="work-top">
     <div class="work-media">
-      <img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/gif-AboutMe.gif" alt="Cómo trabajo">
+      <img loading="lazy" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/gif-AboutMe.gif" alt="Cómo trabajo">
     </div>
     <div class="work-header">
       <p class="eyebrow"><span class="dot">●</span> &nbsp;<span class="i18n" data-es="CÓMO TRABAJO" data-en="HOW I WORK">CÓMO TRABAJO</span></p>
-      <h2 class="i18n" data-es="Comunicación, personas y procesos." data-en="Communication, people and process.">Comunicación, personas y procesos.</h2>
-      <p class="i18n" data-es="Mi trabajo suele ubicarse en la intersección entre comunicación, necesidades comerciales, personas y procesos. No me enfoco solo en producir contenido: me interesa diseñar sistemas de comunicación para que los equipos trabajen mejor, los procesos sean más simples y la comunicación acompañe los objetivos del negocio." data-en="My work sits at the intersection of communication, business needs, people and process. I don't just focus on producing content — I design communication systems so teams work better, processes get simpler, and communication supports business goals.">Mi trabajo suele ubicarse en la intersección entre comunicación, necesidades comerciales, personas y procesos. No me enfoco solo en producir contenido: me interesa diseñar sistemas de comunicación para que los equipos trabajen mejor, los procesos sean más simples y la comunicación acompañe los objetivos del negocio.</p>
+      <h2 class="i18n" data-es="Personas, procesos y tecnología." data-en="People, processes and technology.">Personas, procesos y tecnología.</h2>
+      <p class="i18n" data-es="Mi trabajo se ubica entre la comunicación, las personas, los procesos y la tecnología. Además de producir contenido, identifico necesidades de la organización, diseño la solución y coordino su implementación para que los equipos trabajen mejor y la comunicación acompañe los objetivos del negocio." data-en="My work sits between communication, people, processes and technology. Beyond producing content, I identify organizational needs, design the solution and coordinate its rollout so teams work better and communication supports business goals.">Mi trabajo se ubica entre la comunicación, las personas, los procesos y la tecnología. Además de producir contenido, identifico necesidades de la organización, diseño la solución y coordino su implementación para que los equipos trabajen mejor y la comunicación acompañe los objetivos del negocio.</p>
     </div>
   </div>
   <div class="pillars">
     <div class="pillar">
-      <h3>People &amp; Culture</h3>
-      <p class="i18n" data-es="Trabajo en la claridad de procesos, recursos y mensajes que reciben los equipos." data-en="I work on the clarity of processes, resources and messages that teams receive.">Trabajo en la claridad de procesos, recursos y mensajes que reciben los equipos.</p>
-      <div class="tool-chips"><span class="chip">Notion</span><span class="chip">Slack</span><span class="chip">Google Workspace</span></div>
-    </div>
-    <div class="pillar">
-      <h3 class="i18n" data-es="Comunicación Corporativa" data-en="Corporate Communication">Comunicación Corporativa</h3>
-      <p class="i18n" data-es="Me encargo de que los contenidos y mensajes logren alinearse con la identidad de la organización, interna y externamente." data-en="I make sure content and messaging align with the organization's identity, both internally and externally.">Me encargo de que los contenidos y mensajes logren alinearse con la identidad de la organización, interna y externamente.</p>
+      <h3 class="i18n" data-es="Comunicación estratégica" data-en="Strategic communication">Comunicación estratégica</h3>
+      <p class="i18n" data-es="Comunicación corporativa e interna, employer branding y contenidos alineados con la identidad y los objetivos de la organización." data-en="Corporate and internal communication, employer branding and content aligned with the organization's identity and goals.">Comunicación corporativa e interna, employer branding y contenidos alineados con la identidad y los objetivos de la organización.</p>
       <div class="tool-chips"><span class="chip">Adobe CC</span><span class="chip">Canva</span><span class="chip">LinkedIn</span><span class="chip">HubSpot</span></div>
     </div>
     <div class="pillar">
-      <h3 class="i18n" data-es="Contenido Digital" data-en="Digital Content">Contenido Digital</h3>
-      <p class="i18n" data-es="Planifico contenidos pensando en el canal, la audiencia y el objetivo de comunicación." data-en="I plan content with the channel, audience and communication goal in mind.">Planifico contenidos pensando en el canal, la audiencia y el objetivo de comunicación.</p>
-      <div class="tool-chips"><span class="chip">WhatsApp</span><span class="chip">Meta</span><span class="chip">Instagram</span><span class="chip">Analytics</span></div>
+      <h3 class="i18n" data-es="Personas y cultura" data-en="People &amp; culture">Personas y cultura</h3>
+      <p class="i18n" data-es="Engagement, onboarding y experiencia del colaborador: mensajes claros, recursos útiles y procesos que se entienden." data-en="Engagement, onboarding and employee experience: clear messages, useful resources and processes people understand.">Engagement, onboarding y experiencia del colaborador: mensajes claros, recursos útiles y procesos que se entienden.</p>
+      <div class="tool-chips"><span class="chip">Slack</span><span class="chip">Google Workspace</span><span class="chip">Typeform</span></div>
     </div>
     <div class="pillar">
-      <h3 class="i18n" data-es="Diseño de Procesos" data-en="Process Design">Diseño de Procesos</h3>
-      <p class="i18n" data-es="Busco ordenar la información y simplificar procesos para que el trabajo del equipo sea más ágil y efectivo." data-en="I organize information and simplify processes so the team can work faster and more effectively.">Busco ordenar la información y simplificar procesos para que el trabajo del equipo sea más ágil y efectivo.</p>
-      <div class="tool-chips"><span class="chip">Typeform</span><span class="chip">ChatGPT</span><span class="chip">n8n</span><span class="chip">Claude</span></div>
+      <h3 class="i18n" data-es="Gestión de proyectos" data-en="Project management">Gestión de proyectos</h3>
+      <p class="i18n" data-es="Liderazgo de equipo, planificación, coordinación con distintas áreas y seguimiento de entregables hasta la implementación." data-en="Team leadership, planning, cross-functional coordination and deliverable tracking through to implementation.">Liderazgo de equipo, planificación, coordinación con distintas áreas y seguimiento de entregables hasta la implementación.</p>
+      <div class="tool-chips"><span class="chip">Notion</span><span class="chip">Google Workspace</span></div>
+    </div>
+    <div class="pillar">
+      <h3 class="i18n" data-es="Tecnología y automatización" data-en="Technology &amp; automation">Tecnología y automatización</h3>
+      <p class="i18n" data-es="Herramientas digitales, automatizaciones e IA para reducir tareas repetitivas y simplificar procesos de comunicación y RR.HH." data-en="Digital tools, automation and AI to cut repetitive work and simplify communication and HR processes.">Herramientas digitales, automatizaciones e IA para reducir tareas repetitivas y simplificar procesos de comunicación y RR.HH.</p>
+      <div class="tool-chips"><span class="chip">n8n</span><span class="chip">ChatGPT</span><span class="chip">Claude</span><span class="chip">No-code</span></div>
     </div>
   </div>
 </section>
@@ -555,31 +577,37 @@
 <section id="experience" class="exp section-pad">
   <div class="wrap reveal">
     <p class="eyebrow"><span class="dot">●</span> &nbsp;<span class="i18n" data-es="EXPERIENCIA" data-en="EXPERIENCE">EXPERIENCIA</span></p>
-    <div style="margin-bottom:48px;"></div>
+    <h2 class="exp-title i18n" data-es="De la comunicación digital a la gestión organizacional." data-en="From digital communication to organizational management.">De la comunicación digital a la gestión organizacional.</h2>
 
     <div class="exp-card">
       <div class="exp-meta">
-        <div class="company"> <a href="https://www.linkedin.com/company/glofyco"><img class="company-logo" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-glofy-negro.png" alt="Glofy"></a> </div>
-        <div class="role i18n" data-es="Head of Communications" data-en="Head of Communications">Head of Communications</div>
+        <div class="company"> <a href="https://www.linkedin.com/company/glofyco"><img loading="lazy" class="company-logo" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-glofy-negro.png" alt="Glofy"></a> </div>
+        <div class="role i18n" data-es="Responsable de Comunicación" data-en="Head of Communications">Responsable de Comunicación</div>
         <div class="dates i18n" data-es="Junio 2024 — Presente" data-en="June 2024 — Present">Junio 2024 — Presente</div>
       </div>
       <div class="exp-desc">
-        <p class="lede i18n" data-es="Mi rol combina liderazgo de comunicación y diseño de sistemas orientados a mejorar procesos y experiencia organizacional." data-en="My role combines communications leadership with systems design aimed at improving processes and organizational experience.">Mi rol combina liderazgo de comunicación y diseño de sistemas orientados a mejorar procesos y experiencia organizacional.</p>
+        <p class="lede i18n" data-es="Glofy es una empresa de tecnología y servicios de talento con presencia internacional. Mi rol combina liderazgo de comunicación, coordinación de proyectos y diseño de herramientas para mejorar procesos y la experiencia de los equipos." data-en="Glofy is a technology and talent services company with an international footprint. My role combines communications leadership, project coordination and building tools that improve processes and the team experience.">Glofy es una empresa de tecnología y servicios de talento con presencia internacional. Mi rol combina liderazgo de comunicación, coordinación de proyectos y diseño de herramientas para mejorar procesos y la experiencia de los equipos.</p>
         <div class="exp-block">
           <h4 class="i18n" data-es="Marca y liderazgo" data-en="Brand & leadership">Marca y liderazgo</h4>
           <ul>
             <li class="i18n" data-es="Lidero el equipo creativo, compuesto por 3 personas (diseño, video y marketing), asegurando alineación estratégica, calidad de contenidos y coherencia de marca en todos los canales." data-en="I lead a 3-person creative team (design, video, marketing), ensuring strategic alignment, content quality and brand consistency across every channel.">Lidero el equipo creativo, compuesto por 3 personas (diseño, video y marketing), asegurando alineación estratégica, calidad de contenidos y coherencia de marca en todos los canales.</li>
-            <li class="i18n" data-es="Lideré el rebranding de Glofy y el desarrollo de nuevos activos digitales orientados a mejorar la experiencia de clientes, recruiters y colaboradores." data-en="Led Glofy's rebranding and the development of new digital assets aimed at improving the experience for clients, recruiters and employees.">Lideré el rebranding de Glofy y el desarrollo de nuevos activos digitales orientados a mejorar la experiencia de clientes, recruiters y colaboradores.</li>
-            <li class="i18n" data-es="Produje campañas y eventos de Employer Branding que fortalecieron la participación interna y el posicionamiento externo como marca empleadora." data-en="Produced Employer Branding campaigns and events that strengthened internal participation and external positioning as an employer brand.">Produje campañas y eventos de Employer Branding que fortalecieron la participación interna y el posicionamiento externo como marca empleadora.</li>
+            <li class="i18n" data-es="Planifico y ejecuto la estrategia de comunicación corporativa, interna y de employer branding, con campañas de cultura organizacional y engagement." data-en="I plan and run the corporate, internal and employer branding communication strategy, including culture and engagement campaigns.">Planifico y ejecuto la estrategia de comunicación corporativa, interna y de employer branding, con campañas de cultura organizacional y engagement.</li>
+            <li class="i18n" data-es="Lideré el rebranding institucional de Glofy y el desarrollo de nuevos activos digitales para clientes, recruiters y colaboradores." data-en="Led Glofy's institutional rebranding and the development of new digital assets for clients, recruiters and employees.">Lideré el rebranding institucional de Glofy y el desarrollo de nuevos activos digitales para clientes, recruiters y colaboradores.</li>
             <li class="i18n" data-es="Lancé un programa de embajadores en LinkedIn que amplificó el engagement externo y mejoró la percepción interna de la comunicación corporativa." data-en="Launched a LinkedIn ambassador program that amplified external engagement and improved the internal perception of corporate communication.">Lancé un programa de embajadores en LinkedIn que amplificó el engagement externo y mejoró la percepción interna de la comunicación corporativa.</li>
           </ul>
         </div>
         <div class="exp-block">
-          <h4 class="i18n" data-es="Sistemas y operaciones" data-en="Systems & operations">Sistemas y operaciones</h4>
+          <h4 class="i18n" data-es="Gestión y coordinación" data-en="Management &amp; coordination">Gestión y coordinación</h4>
           <ul>
-            <li class="i18n" data-es="Implementé un Branding Kit y manuales de procesos que redujeron tiempos de onboarding y mejoraron la consistencia institucional." data-en="Implemented a Branding Kit and process manuals that reduced onboarding time and improved institutional consistency.">Implementé un Branding Kit y manuales de procesos que redujeron tiempos de onboarding y mejoraron la consistencia institucional.</li>
-            <li class="i18n" data-es="Diseñé e implementé soluciones internas para optimizar procesos de comunicación y RR.HH. mediante automatización e IA: sistemas de incorporación, herramientas para selección de personal y automatizaciones internas." data-en="Designed and implemented internal solutions to optimize communication and HR processes through automation and AI: onboarding systems, recruiting tools and internal automations.">Diseñé e implementé soluciones internas para optimizar procesos de comunicación y RR.HH. mediante automatización e IA: sistemas de incorporación, herramientas para selección de personal y automatizaciones internas.</li>
-            <li class="i18n" data-es="Desarrollé activos y sistemas digitales orientados a simplificar flujos de trabajo, reducir tareas repetitivas y mejorar la escalabilidad de procesos internos." data-en="Developed digital assets and systems to simplify workflows, reduce repetitive tasks and improve the scalability of internal processes.">Desarrollé activos y sistemas digitales orientados a simplificar flujos de trabajo, reducir tareas repetitivas y mejorar la escalabilidad de procesos internos.</li>
+            <li class="i18n" data-es="Coordino proyectos con distintas áreas de la organización, desde la planificación hasta el seguimiento de entregables." data-en="I coordinate projects with different areas of the organization, from planning to deliverable tracking.">Coordino proyectos con distintas áreas de la organización, desde la planificación hasta el seguimiento de entregables.</li>
+            <li class="i18n" data-es="Organizo eventos corporativos y acciones de cultura para colaboradores." data-en="I organize corporate events and culture initiatives for employees.">Organizo eventos corporativos y acciones de cultura para colaboradores.</li>
+          </ul>
+        </div>
+        <div class="exp-block">
+          <h4 class="i18n" data-es="Procesos y tecnología" data-en="Processes &amp; technology">Procesos y tecnología</h4>
+          <ul>
+            <li class="i18n" data-es="Documenté y estandaricé procesos internos: Branding Kit y manuales de procesos que ordenaron el onboarding y mejoraron la consistencia institucional." data-en="Documented and standardized internal processes: a Branding Kit and process manuals that streamlined onboarding and improved institutional consistency.">Documenté y estandaricé procesos internos: Branding Kit y manuales de procesos que ordenaron el onboarding y mejoraron la consistencia institucional.</li>
+            <li class="i18n" data-es="Diseñé e implementé automatizaciones y soluciones con IA para procesos de RR.HH., onboarding y reclutamiento (ver Soluciones)." data-en="Designed and implemented automations and AI solutions for HR, onboarding and recruiting processes (see Solutions).">Diseñé e implementé automatizaciones y soluciones con IA para procesos de RR.HH., onboarding y reclutamiento (ver Soluciones).</li>
           </ul>
         </div>
       </div>
@@ -587,24 +615,26 @@
 
     <div class="exp-card">
       <div class="exp-meta">
-        <div class="company"> <a href="https://www.instagram.com/prosumia/"> <span class="logo-chip"><img class="company-logo" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-Prosumia.png" alt="Prosumia"></span></a></div>
+        <div class="company"> <a href="https://www.instagram.com/prosumia/"> <span class="logo-chip"><img loading="lazy" class="company-logo" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-Prosumia.png" alt="Prosumia"></span></a></div>
         <div class="role i18n" data-es="Analista de Comunicación" data-en="Communications Analyst">Analista de Comunicación</div>
         <div class="dates i18n" data-es="Noviembre 2022 — Mayo 2024" data-en="November 2022 — May 2024">Noviembre 2022 — Mayo 2024</div>
       </div>
       <div class="exp-desc">
+        <p class="lede i18n" data-es="Prosumia es una empresa argentina de tecnología y análisis de datos. Trabajé en comunicación interna, cultura organizacional y comunicación corporativa." data-en="Prosumia is an Argentine technology and data analytics company. I worked on internal communication, organizational culture and corporate communication.">Prosumia es una empresa argentina de tecnología y análisis de datos. Trabajé en comunicación interna, cultura organizacional y comunicación corporativa.</p>
         <div class="exp-block">
           <ul>
-            <li class="i18n" data-es="Diseñé e implementé un calendario de comunicación interna que aumentó la participación en eventos y la percepción de marca, en un 60%, según la encuesta anual de Great Place to Work® (GPTW)." data-en="Designed and implemented an internal communication calendar that increased event participation and brand perception by 60%, per the annual Great Place to Work® (GPTW) survey.">Diseñé e implementé un calendario de comunicación interna que aumentó la participación en eventos y la percepción de marca, en un 60%, según la encuesta anual de Great Place to Work® (GPTW).</li>
-            <li class="i18n" data-es="En comunicación externa, produje contenidos y realicé la cobertura de más de 2 eventos internos por mes, asegurando siempre consistencia con la voz institucional." data-en="On external communication, I produced content and covered 2+ internal events per month, always ensuring consistency with the institutional voice.">En comunicación externa, produje contenidos y realicé la cobertura de más de 2 eventos internos por mes, asegurando siempre consistencia con la voz institucional.</li>
+            <li class="i18n" data-es="Diseñé e implementé un calendario de comunicación interna que contribuyó a un aumento del 60% en la participación en eventos internos, según la encuesta anual de Great Place to Work® (GPTW)." data-en="Designed and implemented an internal communication calendar that contributed to a 60% increase in internal event participation, per the annual Great Place to Work® (GPTW) survey.">Diseñé e implementé un calendario de comunicación interna que contribuyó a un aumento del 60% en la participación en eventos internos, según la encuesta anual de Great Place to Work® (GPTW).</li>
+            <li class="i18n" data-es="Participé en campañas de engagement, onboarding y coordinación de eventos para fortalecer la experiencia de los colaboradores." data-en="Took part in engagement and onboarding campaigns and event coordination to strengthen the employee experience.">Participé en campañas de engagement, onboarding y coordinación de eventos para fortalecer la experiencia de los colaboradores.</li>
+            <li class="i18n" data-es="Produje contenidos y la cobertura de más de 2 eventos internos por mes para los canales institucionales, con consistencia en la voz de la marca." data-en="Produced content and coverage for 2+ internal events per month for corporate channels, keeping the brand voice consistent.">Produje contenidos y la cobertura de más de 2 eventos internos por mes para los canales institucionales, con consistencia en la voz de la marca.</li>
           </ul>
         </div>
         <div class="stat-row">
-          <div class="stat"><div class="num">+60%</div><div class="label i18n" data-es="percepción de marca (GPTW)" data-en="brand perception (GPTW)">percepción de marca (GPTW)</div></div>
-          <div class="stat"><div class="num">85%</div><div class="label i18n" data-es="orgullo de pertenencia" data-en="pride in belonging">orgullo de pertenencia</div></div>
+          <div class="stat"><div class="num">+60%</div><div class="label i18n" data-es="participación en eventos internos (GPTW)" data-en="internal event participation (GPTW)">participación en eventos internos (GPTW)</div></div>
+          <div class="stat"><div class="num">85%</div><div class="label i18n" data-es="orgullo de pertenencia (GPTW)" data-en="pride in belonging (GPTW)">orgullo de pertenencia (GPTW)</div></div>
         </div>
         <div class="exp-media-row">
           <div class="exp-media">
-            <img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/Gif-Prosumia-GPTW.gif" alt="Great Place to Work — Prosumia">
+            <img loading="lazy" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/Gif-Prosumia-GPTW.gif" alt="Great Place to Work — Prosumia">
           </div>
           <div class="exp-media vertical">
             <video controls playsinline preload="metadata">
@@ -615,19 +645,19 @@
       </div>
     </div>
 
-    <div class="exp-card">
+    <p class="exp-sub i18n" data-es="Experiencia anterior · la base operativa y creativa" data-en="Earlier experience · the operational and creative foundation">Experiencia anterior · la base operativa y creativa</p>
+
+    <div class="exp-card compact">
       <div class="exp-meta">
-        <div class="company"><span class="logo-chip"><img class="company-logo" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-estrategia-cm-1.png" alt="Estrategia CM"></span></div>
+        <div class="company"><span class="logo-chip"><img loading="lazy" class="company-logo" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-estrategia-cm-1.png" alt="Estrategia CM"></span></div>
         <div class="role i18n" data-es="Community Manager" data-en="Community Manager">Community Manager</div>
         <div class="dates i18n" data-es="Diciembre 2021 — Octubre 2022" data-en="December 2021 — October 2022">Diciembre 2021 — Octubre 2022</div>
       </div>
       <div class="exp-desc">
         <div class="exp-block">
           <ul>
-            <li class="i18n" data-es="Gestioné hasta 6 cuentas en simultáneo, adaptando estrategias de contenido a distintos rubros y públicos." data-en="Managed up to 6 accounts simultaneously, adapting content strategy to different industries and audiences.">Gestioné hasta 6 cuentas en simultáneo, adaptando estrategias de contenido a distintos rubros y públicos.</li>
-            <li class="i18n" data-es="Planifiqué y coordiné grillas mensuales, copys y producción de piezas con el equipo de diseño." data-en="Planned and coordinated monthly content grids, copy and asset production with the design team.">Planifiqué y coordiné grillas mensuales, copys y producción de piezas con el equipo de diseño.</li>
-            <li class="i18n" data-es="Programé contenidos y elaboré reportes mensuales, facilitando el análisis de performance y la toma de decisiones." data-en="Scheduled content and produced monthly reports, supporting performance analysis and decision-making.">Programé contenidos y elaboré reportes mensuales, facilitando el análisis de performance y la toma de decisiones.</li>
-            <li class="i18n" data-es="Prioricé clientes y contenidos clave, lo que permitió mejorar la visibilidad y el engagement orgánico de las marcas." data-en="Prioritized key clients and content, improving visibility and organic engagement for the brands.">Prioricé clientes y contenidos clave, lo que permitió mejorar la visibilidad y el engagement orgánico de las marcas.</li>
+            <li class="i18n" data-es="Gestioné hasta 6 cuentas en simultáneo de distintos rubros: grillas mensuales, copys y coordinación de piezas con el equipo de diseño." data-en="Managed up to 6 accounts at once across industries: monthly grids, copy and asset coordination with the design team.">Gestioné hasta 6 cuentas en simultáneo de distintos rubros: grillas mensuales, copys y coordinación de piezas con el equipo de diseño.</li>
+            <li class="i18n" data-es="Elaboré reportes mensuales de performance para ordenar prioridades y decisiones con cada cliente." data-en="Produced monthly performance reports to set priorities and support decisions with each client.">Elaboré reportes mensuales de performance para ordenar prioridades y decisiones con cada cliente.</li>
           </ul>
         </div>
         <div class="exp-media vertical">
@@ -638,7 +668,7 @@
       </div>
     </div>
 
-    <div class="exp-card">
+    <div class="exp-card compact">
       <div class="exp-meta">
         <div class="company i18n" data-es="Freelance" data-en="Freelance">Freelance</div>
         <div class="role i18n" data-es="E-commerce Manager" data-en="E-commerce Manager">E-commerce Manager</div>
@@ -648,18 +678,17 @@
         <p class="lede i18n" data-es="A partir de mi trabajo freelance como Community Manager, impulsé a un cliente a lanzar su propia tienda online y asumí un nuevo rol como E-commerce Manager." data-en="Starting from my freelance work as Community Manager, I pushed a client to launch their own online store and took on a new role as E-commerce Manager.">A partir de mi trabajo freelance como Community Manager, impulsé a un cliente a lanzar su propia tienda online y asumí un nuevo rol como E-commerce Manager.</p>
         <div class="exp-block">
           <ul>
-            <li class="i18n" data-es="Mantuve la producción de contenido y sumé tareas operativas: carga y categorización de productos, actualización de stock, promociones, email marketing y atención al cliente digital." data-en="Kept content production going and added operational tasks: product upload and categorization, stock updates, promotions, email marketing and digital customer service.">Mantuve la producción de contenido y sumé tareas operativas: carga y categorización de productos, actualización de stock, promociones, email marketing y atención al cliente digital.</li>
-            <li class="i18n" data-es="Elaboré reportes mensuales de contenido y ventas, articulando lo comercial con la estrategia de comunicación." data-en="Produced monthly content and sales reports, linking the commercial side with communication strategy.">Elaboré reportes mensuales de contenido y ventas, articulando lo comercial con la estrategia de comunicación.</li>
-            <li class="i18n" data-es="Implementé una campaña de Reels con foco en humor y oferta directa, para maximizar el engagement con inversión mínima." data-en="Implemented a Reels campaign focused on humor and direct offers to maximize engagement with minimal spend.">Implementé una campaña de Reels con foco en humor y oferta directa, para maximizar el engagement con inversión mínima.</li>
+            <li class="i18n" data-es="Sumé la operación de la tienda (productos, stock, promociones, email marketing y atención digital) y reportes mensuales que conectaban contenido y ventas." data-en="Took on store operations (products, stock, promotions, email marketing and digital support) and monthly reports linking content and sales.">Sumé la operación de la tienda (productos, stock, promociones, email marketing y atención digital) y reportes mensuales que conectaban contenido y ventas.</li>
+            <li class="i18n" data-es="Implementé una campaña de Reels con humor y oferta directa para crecer en engagement con inversión mínima." data-en="Ran a Reels campaign built on humor and direct offers to grow engagement with minimal spend.">Implementé una campaña de Reels con humor y oferta directa para crecer en engagement con inversión mínima.</li>
           </ul>
         </div>
         <div class="stat-row">
           <div class="stat"> <div class="num">+40k</div><div class="label i18n" data-es="seguidores en Instagram" data-en="Instagram followers">seguidores en Instagram</div></div>
         </div>
         <div class="exp-media">
-          <img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/ecommerce-m%C3%A9tricas.png" alt="Métricas Instagram — Freelance">
+          <img loading="lazy" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/ecommerce-m%C3%A9tricas.png" alt="Métricas Instagram — Freelance">
         </div>
-        <div class="proj-link"><a href="https://www.instagram.com/pinofaculp/" target="_blank" class="btn btn-outline i18n" data-es="Instagram" data-en="Instagram">Instagram</a></div>
+        <div class="proj-link"><a href="https://www.instagram.com/pinofaculp/" target="_blank" rel="noopener" class="btn btn-outline i18n" data-es="Instagram" data-en="Instagram">Instagram</a></div>
       </div>
     </div>
   </div>
@@ -669,17 +698,19 @@
 <section id="projects" class="section-pad wrap reveal">
   <div class="proj-header">
     <p class="eyebrow"><span class="dot">●</span> &nbsp;<span class="i18n" data-es="SOLUCIONES" data-en="SOLUTIONS">SOLUCIONES</span></p>
+    <h2 class="i18n" data-es="Herramientas para problemas reales." data-en="Tools for real problems.">Herramientas para problemas reales.</h2>
+    <p class="i18n" data-es="Casos en los que partí de una necesidad concreta de la organización y diseñé la solución: desde la idea y el flujo hasta el desarrollo y la puesta en marcha." data-en="Cases where I started from a concrete organizational need and designed the solution: from the idea and flow to development and launch.">Casos en los que partí de una necesidad concreta de la organización y diseñé la solución: desde la idea y el flujo hasta el desarrollo y la puesta en marcha.</p>
   </div>
 
   <div class="proj-list">
 
     <div class="proj">
       <div class="proj-media">
-        <img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/gif-glofy-checker.gif" alt="CV/Resume Checker" onerror="this.parentElement.innerHTML='<span class=proj-tag-holder>CV / RESUME CHECKER</span>';">
+        <img loading="lazy" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/gif-glofy-checker.gif" alt="CV/Resume Checker" onerror="this.parentElement.innerHTML='<span class=proj-tag-holder>CV / RESUME CHECKER</span>';">
         <span class="tag">HTML · CSS · n8n · LLMs</span>
       </div>
       <div class="proj-body">
-        <div class="brand"><img class="brand-logo" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-glofy-negro.png" alt="Glofy"><span>Glofy</span></div>
+        <div class="brand"><img loading="lazy" class="brand-logo" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-glofy-negro.png" alt="Glofy"><span>Glofy</span></div>
         <h3>CV / Resume Checker</h3>
         <h4 class="i18n" data-es="Problema" data-en="Problem">Problema</h4>
         <p class="plain i18n" data-es="Glofy no contaba con activos digitales propios orientados a generar interacción y acercar la marca a candidatos de una manera alineada a su identidad tecnológica." data-en="Glofy had no owned digital assets designed to drive interaction and bring the brand closer to candidates in a way aligned with its tech identity.">Glofy no contaba con activos digitales propios orientados a generar interacción y acercar la marca a candidatos de una manera alineada a su identidad tecnológica.</p>
@@ -691,22 +722,22 @@
           <li class="i18n" data-es="Nueva instancia de interacción con potenciales candidatos" data-en="A new interaction touchpoint with potential candidates">Nueva instancia de interacción con potenciales candidatos</li>
           <li class="i18n" data-es="Optimización del acceso a talento calificado mediante ranking automatizado de CVs" data-en="Optimized access to qualified talent through automated CV ranking">Optimización del acceso a talento calificado mediante ranking automatizado de CVs</li>
         </ul>
-        <div class="proj-link"><a href="https://glofy.co/checker" target="_blank" class="btn btn-outline i18n" data-es="Probar herramienta" data-en="Try the tool">Probar herramienta</a></div>
+        <div class="proj-link"><a href="https://glofy.co/checker" target="_blank" rel="noopener" class="btn btn-outline i18n" data-es="Probar herramienta" data-en="Try the tool">Probar herramienta</a></div>
       </div>
     </div>
 
     <div class="proj">
       <div class="proj-media">
-        <img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/GIF.gif" alt="Onboarding Hub" onerror="this.parentElement.innerHTML='<span class=proj-tag-holder>ONBOARDING HUB</span>';">
+        <img loading="lazy" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/GIF.gif" alt="Onboarding Hub" onerror="this.parentElement.innerHTML='<span class=proj-tag-holder>ONBOARDING HUB</span>';">
         <span class="tag">HTML · CSS · JS · Anthropic API</span>
       </div>
       <div class="proj-body">
-        <div class="brand"><img class="brand-logo" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-glofy-negro.png" alt="Glofy"><span>Glofy</span></div>
+        <div class="brand"><img loading="lazy" class="brand-logo" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-glofy-negro.png" alt="Glofy"><span>Glofy</span></div>
         <h3 class="i18n" data-es="Onboarding Hub" data-en="Onboarding Hub">Onboarding Hub</h3>
         <h4 class="i18n" data-es="Problema" data-en="Problem">Problema</h4>
         <p class="plain i18n" data-es="La curva de aprendizaje de los nuevos Glofers era lenta. El equipo de People dedicaba demasiado tiempo a responder dudas repetitivas, y las políticas llegaban en PDFs dispersos sin formato estandarizado." data-en="New Glofers had a slow learning curve. The People team spent too much time answering repetitive questions, and policies arrived as scattered PDFs with no standard format.">La curva de aprendizaje de los nuevos Glofers era lenta. El equipo de People dedicaba demasiado tiempo a responder dudas repetitivas, y las políticas llegaban en PDFs dispersos sin formato estandarizado.</p>
         <h4 class="i18n" data-es="Solución" data-en="Solution">Solución</h4>
-        <p class="plain i18n" data-es="Diseñé y desarrollé un hub de onboarding con un asistente conversacional basado en IA, entrenado con información real de Glofy: políticas, procesos, herramientas y equipo." data-en="Designed and built an onboarding hub with an AI-powered conversational assistant, trained with real data from Glofy: policies, processes, tools and team.">Diseñé y desarrollé un hub de onboarding con un asistente conversacional basado en IA, entrenado con el knowledge base real de Glofy: políticas, procesos, herramientas y equipo.</p>
+        <p class="plain i18n" data-es="Diseñé y desarrollé un hub de onboarding con un asistente conversacional basado en IA, alimentado con información real de Glofy: políticas, procesos, herramientas y equipo." data-en="Designed and built an onboarding hub with an AI-powered conversational assistant, grounded in Glofy's real information: policies, processes, tools and team.">Diseñé y desarrollé un hub de onboarding con un asistente conversacional basado en IA, alimentado con información real de Glofy: políticas, procesos, herramientas y equipo.</p>
         <h4 class="i18n" data-es="Resultados" data-en="Results">Resultados</h4>
         <ul>
           <li class="i18n" data-es="Reduje la dependencia del equipo de People durante las primeras semanas de cada Glofer" data-en="Reduced dependency on the People team during each Glofer's first weeks">Reduje la dependencia del equipo de People durante las primeras semanas de cada Glofer</li>
@@ -718,11 +749,11 @@
 
     <div class="proj">
       <div class="proj-media">
-        <img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/CV-generator.png" alt="CV Generator ATS Optimized">
-        <span class="tag">Frontend + AI (HTML · CSS · LLMs)</span>
+        <img loading="lazy" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/CV-generator.png" alt="CV Generator ATS Optimized">
+        <span class="tag">HTML · CSS · LLMs</span>
       </div>
       <div class="proj-body">
-        <div class="brand"><img class="brand-logo" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-glofy-negro.png" alt="Glofy"><span>Glofy</span></div>
+        <div class="brand"><img loading="lazy" class="brand-logo" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/logo-glofy-negro.png" alt="Glofy"><span>Glofy</span></div>
         <h3 class="i18n" data-es="CV Generator (ATS Optimized)" data-en="CV Generator (ATS Optimized)">CV Generator (ATS Optimized)</h3>
         <h4 class="i18n" data-es="Problema" data-en="Problem">Problema</h4>
         <p class="plain i18n" data-es="La creación de CVs para clientes era manual, desordenada y sin consistencia en formato ni branding." data-en="Creating CVs for clients was manual, messy and inconsistent in format and branding.">La creación de CVs para clientes era manual, desordenada y sin consistencia en formato ni branding.</p>
@@ -739,16 +770,27 @@
 
     <div class="proj">
       <div class="proj-media large on-light">
-        <img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/poder-judicial.png" alt="Comunicación Pública Digital">
-        <span class="tag i18n" data-es="Brief institucional" data-en="Institutional brief">Brief institucional</span>
+        <img loading="lazy" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/poder-judicial.png" alt="Comunicación Pública Digital">
+        <span class="tag i18n" data-es="Estrategia · Herramientas internas" data-en="Strategy · Internal tools">Estrategia · Herramientas internas</span>
       </div>
       <div class="proj-body">
-        <div class="brand"><img class="brand-logo" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/poder-judicial.png" alt="Ministerio Público"><span class="i18n" data-es="Ministerio Público — Pcia. de Buenos Aires" data-en="Ministerio Público — Buenos Aires Province">Ministerio Público — Pcia. de Buenos Aires</span></div>
+        <div class="brand"><span class="i18n" data-es="Ministerio Público — Pcia. de Buenos Aires" data-en="Public Prosecutor's Office — Buenos Aires Province">Ministerio Público — Pcia. de Buenos Aires</span></div>
         <h3 class="i18n" data-es="Comunicación Pública Digital" data-en="Digital Public Communication">Comunicación Pública Digital</h3>
-        <h4 class="i18n" data-es="Sobre esto" data-en="About this">Sobre esto</h4>
-        <p class="plain i18n" data-es="Trabajé en una propuesta para el área en formación de Comunicación Digital dentro del Poder Judicial bonaerense. El resultado: construí comunicaciones estatales con una mirada ciudadana, sin perder rigurosidad ni impacto en redes sociales. Diseñé una estrategia adaptable, analicé los canales existentes y propuse mejoras digitales, implementación de IA y contenidos concretos." data-en="I worked on a proposal for the newly-forming Digital Communication area within the Buenos Aires judicial system. The result: state communications built with a citizen-first lens, without losing rigor or social impact. I designed an adaptable strategy, analyzed existing channels and proposed digital improvements, AI implementation and concrete content.">Trabajé en una propuesta para el área en formación de Comunicación Digital dentro del Poder Judicial bonaerense. El resultado: construí comunicaciones estatales con una mirada ciudadana, sin perder rigurosidad ni impacto en redes sociales. Diseñé una estrategia adaptable, analicé los canales existentes y propuse mejoras digitales, implementación de IA y contenidos concretos.</p>
-        <p class="plain" style="margin-top:12px;"><span class="i18n" data-es="Para el ejemplo audiovisual del Plan C presentado, realicé una selección de videos de banco, generé una voz en off con IA por ElevenLabs y propuse una edición atractiva e institucional." data-en="For the audiovisual example of the Plan C presented, I selected stock footage, generated an AI voiceover with ElevenLabs, and proposed an engaging, institutional edit.">Para el ejemplo audiovisual del Plan C presentado, realicé una selección de videos de banco, generé una voz en off con IA por ElevenLabs y propuse una edición atractiva e institucional.</span></p>
-        <div class="proj-link"><a href="https://drive.google.com/file/d/1F-SN4bvvvSkj2AABn0RJRCJ-xZIrwWHO/view?usp=sharing" target="_blank" class="btn btn-outline i18n" data-es="Brief" data-en="Brief">Brief</a> <div class="proj-link"><a href="https://drive.google.com/file/d/1nXNZcA3pE5qocAIFE7eRo7tnez_79WHz/view" target="_blank" class="btn btn-outline i18n" data-es="Video" data-en="Video">Video</a> </div>
+        <h4 class="i18n" data-es="Desafío" data-en="Challenge">Desafío</h4>
+        <p class="plain i18n" data-es="Un organismo público con un área de Comunicación Digital en formación: había que definir cómo comunicar con mirada ciudadana sin perder rigurosidad institucional, y ordenar flujos de trabajo que dependían de planillas, mensajes y herramientas de terceros." data-en="A public institution with a Digital Communication area being set up: it needed a way to communicate with a citizen-first lens without losing institutional rigor, and to organize workflows that relied on spreadsheets, messages and third-party tools.">Un organismo público con un área de Comunicación Digital en formación: había que definir cómo comunicar con mirada ciudadana sin perder rigurosidad institucional, y ordenar flujos de trabajo que dependían de planillas, mensajes y herramientas de terceros.</p>
+        <h4 class="i18n" data-es="Estrategia" data-en="Strategy">Estrategia</h4>
+        <p class="plain i18n" data-es="Analicé los canales existentes y diseñé una propuesta adaptable, con mejoras digitales, usos posibles de IA y ejemplos de contenidos. Como pieza de muestra, armé un video con material de banco, voz en off generada con IA (ElevenLabs) y una edición institucional." data-en="I analyzed the existing channels and designed an adaptable proposal, with digital improvements, possible uses of AI and content examples. As a sample piece, I produced a video with stock footage, an AI-generated voiceover (ElevenLabs) and an institutional edit.">Analicé los canales existentes y diseñé una propuesta adaptable, con mejoras digitales, usos posibles de IA y ejemplos de contenidos. Como pieza de muestra, armé un video con material de banco, voz en off generada con IA (ElevenLabs) y una edición institucional.</p>
+        <h4 class="i18n" data-es="Herramientas que diseñé y desarrollé" data-en="Tools I designed and built">Herramientas que diseñé y desarrollé</h4>
+        <ul>
+          <li class="i18n" data-es="<strong>Seguimiento de gacetillas:</strong> app sobre Google Apps Script y Sheets para gestionar el circuito de prensa por estados, con previsualización de cada gacetilla." data-en="<strong>Press release tracker:</strong> a Google Apps Script + Sheets app to manage the press workflow by status, with a preview of each release."><strong>Seguimiento de gacetillas:</strong> app sobre Google Apps Script y Sheets para gestionar el circuito de prensa por estados, con previsualización de cada gacetilla.</li>
+          <li class="i18n" data-es="<strong>Landing de enlaces institucional:</strong> alternativa propia a Linktree, sin publicidad y con panel de administración para editar enlaces y apariencia." data-en="<strong>Institutional link page:</strong> an in-house, ad-free alternative to Linktree with an admin panel to edit links and appearance."><strong>Landing de enlaces institucional:</strong> alternativa propia a Linktree, sin publicidad y con panel de administración para editar enlaces y apariencia.</li>
+          <li class="i18n" data-es="<strong>Kit de difusión para eventos:</strong> herramienta web que centraliza y actualiza las cuentas institucionales a etiquetar, para que el equipo y los participantes las copien al instante y la difusión de cada evento sea consistente." data-en="<strong>Event outreach kit:</strong> a web tool that centralizes and keeps up to date the institutional accounts to tag, so the team and participants can copy them instantly and every event is promoted consistently."><strong>Kit de difusión para eventos:</strong> herramienta web que centraliza y actualiza las cuentas institucionales a etiquetar, para que el equipo y los participantes las copien al instante y la difusión de cada evento sea consistente.</li>
+          <li class="i18n" data-es="<strong>Web de identificación para ceremonias:</strong> guía interna con fotos y datos para reconocer rápido a invitados y participantes durante la cobertura de la misma." data-en="<strong>Ceremony identification page:</strong> an internal guide with photos and key details to quickly recognize guests and participants while covering the event."><strong>Web de identificación para ceremonias:</strong> guía interna con fotos y datos para reconocer rápido a invitados y participantes durante la cobertura de la misma.</li>
+        </ul>
+        <div class="proj-link" style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="https://drive.google.com/file/d/1F-SN4bvvvSkj2AABn0RJRCJ-xZIrwWHO/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-outline i18n" data-es="Ver brief" data-en="View brief">Ver brief</a>
+          <a href="https://drive.google.com/file/d/1nXNZcA3pE5qocAIFE7eRo7tnez_79WHz/view" target="_blank" rel="noopener" class="btn btn-outline i18n" data-es="Ver video" data-en="Watch video">Ver video</a>
+        </div>
       </div>
     </div>
 
@@ -759,20 +801,20 @@
 <section id="contact" class="contact section-pad">
   <div class="wrap contact-inner reveal">
     <div class="contact-portrait">
-      <img src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/foto-footer-inaki.png" alt="Iñaki Ibargoyen Garro">
+      <img loading="lazy" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/foto-footer-inaki.png" alt="Iñaki Ibargoyen Garro">
     </div>
     <div>
       <p class="eyebrow" style="margin-bottom:16px;"><span class="dot">●</span> &nbsp;<span class="i18n" data-es="CONTACTO" data-en="CONTACT">CONTACTO</span></p>
-      <h2>iñaki<span class="dot">.</span></h2>
+      <h2><span class="i18n" data-es="Hablemos" data-en="Let's talk">Hablemos</span><span class="dot">.</span></h2>
     </div>
     <div class="contact-actions">
-      <a href="https://www.linkedin.com/in/inakiibargoyengarro/" target="_blank" class="btn btn-solid">LinkedIn</a>
-      <a href="https://api.whatsapp.com/send?phone=5492216775197" target="_blank" class="btn btn-outline">WhatsApp</a>
-      <a href="https://drive.google.com/file/d/1wzMw8b7pDEEVsPcZqlDudQcW8b1dAyHp/view?usp=sharing" target="_blank" class="btn btn-outline lang-link i18n"
+      <a href="https://www.linkedin.com/in/inakiibargoyengarro/" target="_blank" rel="noopener" class="btn btn-solid">LinkedIn</a>
+      <a href="https://api.whatsapp.com/send?phone=5492216775197" target="_blank" rel="noopener" class="btn btn-outline">WhatsApp</a>
+      <a href="https://drive.google.com/file/d/1wzMw8b7pDEEVsPcZqlDudQcW8b1dAyHp/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-outline lang-link i18n"
         data-es-href="https://drive.google.com/file/d/1wzMw8b7pDEEVsPcZqlDudQcW8b1dAyHp/view?usp=sharing"
         data-en-href="https://drive.google.com/file/d/1fHdNLTkc3VpMS8YcPfZ-mrkgJfFBnr6B/view?usp=sharing"
         data-es="Ver CV" data-en="View resume">Ver CV</a>
-      <span class="contact-email">inaki.iig@gmail.com</span>
+      <a class="contact-email" href="mailto:inaki.iig@gmail.com">inaki.iig@gmail.com</a>
     </div>
   </div>
 </section>
@@ -800,7 +842,7 @@
     });
     document.getElementById('btnEs').classList.toggle('active', lang==='es');
     document.getElementById('btnEn').classList.toggle('active', lang==='en');
-    localStorage.setItem('inaki_lang', lang); // best-effort; ignored where unavailable
+    try{ localStorage.setItem('inaki_lang', lang); }catch(e){}
   }
   try{
     const saved = localStorage.getItem('inaki_lang');
@@ -839,8 +881,13 @@
   // ---- Mobile nav ----
   const burger = document.getElementById('burger');
   const navLinks = document.getElementById('navLinks');
-  burger.addEventListener('click', ()=> navLinks.classList.toggle('open'));
-  navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>navLinks.classList.remove('open')));
+  burger.addEventListener('click', ()=>{
+    const open = navLinks.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open);
+  });
+  navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>{
+    navLinks.classList.remove('open'); burger.setAttribute('aria-expanded', 'false');
+  }));
 
   // ---- Project media blurred backdrop (uses the same image, no content change) ----
   document.querySelectorAll('.proj-media img').forEach(img=>{
@@ -866,4 +913,3 @@
 
 </body>
 </html>
-
