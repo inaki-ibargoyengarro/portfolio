@@ -461,6 +461,58 @@
   a.contact-email:hover{color:var(--blue); border-color:var(--blue);}
   .proj-body li strong{color:var(--ink); font-weight:600;}
   @media(max-width:720px){ .exp-sub{margin-top:40px;} }
+  /* ---------- MEDIA v4: miniaturas parejas + lightbox ---------- */
+  .exp-media-row{align-items:flex-start;}
+  .exp-media{position:relative; cursor:zoom-in; max-width:none; width:fit-content; background:var(--paper);}
+  .exp-media img{width:auto; height:340px; max-width:100%; object-fit:cover; transition:transform .6s cubic-bezier(.16,.84,.44,1);}
+  .exp-media.vertical{max-width:none;}
+  .exp-media.vertical video{width:auto; height:340px; aspect-ratio:9/16; object-fit:cover; background:#111; display:block;}
+  .exp-media.is-video{cursor:pointer;}
+  .exp-media:hover img{transform:scale(1.03);}
+  .exp-media.is-video::after{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.45));
+  }
+  .media-play{
+    position:absolute; z-index:2; left:50%; top:50%; transform:translate(-50%,-50%);
+    width:58px; height:58px; border-radius:50%; border:0; cursor:pointer;
+    background:rgba(255,255,255,.92); display:grid; place-items:center;
+    box-shadow:0 10px 30px -8px rgba(0,0,0,.45); transition:transform .3s, background .3s;
+  }
+  .media-play svg{width:22px; height:22px; fill:var(--ink); margin-left:3px; transition:fill .3s;}
+  .exp-media.is-video:hover .media-play{transform:translate(-50%,-50%) scale(1.08); background:var(--blue);}
+  .exp-media.is-video:hover .media-play svg{fill:#fff;}
+  .exp-media.is-video.previewing .media-play{opacity:0;}
+  .exp-card.compact .exp-media img,
+  .exp-card.compact .exp-media.vertical video{height:280px;}
+  .exp-card.compact .exp-media{max-width:none;}
+
+  .lightbox{
+    position:fixed; inset:0; z-index:300; display:flex; align-items:center; justify-content:center;
+    background:rgba(10,10,10,.88); backdrop-filter:blur(6px); padding:56px 20px 24px;
+    opacity:0; pointer-events:none; transition:opacity .3s ease;
+  }
+  .lightbox.open{opacity:1; pointer-events:auto;}
+  .lightbox-stage{max-width:min(1100px,100%); max-height:100%; display:flex;}
+  .lightbox-stage img,.lightbox-stage video{
+    max-width:100%; max-height:calc(100svh - 96px); border-radius:10px; display:block;
+    box-shadow:0 30px 80px -20px rgba(0,0,0,.6); background:#000;
+    transform:scale(.97); transition:transform .35s cubic-bezier(.16,.84,.44,1);
+  }
+  .lightbox.open .lightbox-stage img,.lightbox.open .lightbox-stage video{transform:scale(1);}
+  .lightbox-close{
+    position:absolute; top:14px; right:16px; width:42px; height:42px; border-radius:50%;
+    border:1px solid rgba(255,255,255,.25); background:transparent; color:#fff;
+    font-size:22px; line-height:1; cursor:pointer; transition:background .2s;
+  }
+  .lightbox-close:hover{background:rgba(255,255,255,.12);}
+  body.lb-lock{overflow:hidden;}
+  @media(max-width:720px){
+    .exp-media img{height:240px;}
+    .exp-media.vertical video,.exp-card.compact .exp-media.vertical video{height:300px;}
+    .exp-card.compact .exp-media img{height:220px;}
+    .media-play{width:50px; height:50px;}
+  }
 </style>
 </head>
 <body>
@@ -636,10 +688,9 @@
           <div class="exp-media">
             <img loading="lazy" src="https://raw.githubusercontent.com/inaki-ibargoyengarro/portfolio/refs/heads/main/Gif-Prosumia-GPTW.gif" alt="Great Place to Work — Prosumia">
           </div>
-          <div class="exp-media vertical">
-            <video controls playsinline preload="metadata">
-              <source src="https://github.com/inaki-ibargoyengarro/portfolio/raw/refs/heads/main/Video-Prosumia.mp4" type="video/mp4">
-            </video>
+          <div class="exp-media vertical is-video">
+            <video muted playsinline loop preload="metadata" src="https://github.com/inaki-ibargoyengarro/portfolio/raw/refs/heads/main/Video-Prosumia.mp4#t=0.5" data-full="https://github.com/inaki-ibargoyengarro/portfolio/raw/refs/heads/main/Video-Prosumia.mp4"></video>
+            <button class="media-play" type="button" aria-label="Ver video"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></button>
           </div>
         </div>
       </div>
@@ -660,10 +711,9 @@
             <li class="i18n" data-es="Elaboré reportes mensuales de performance para ordenar prioridades y decisiones con cada cliente." data-en="Produced monthly performance reports to set priorities and support decisions with each client.">Elaboré reportes mensuales de performance para ordenar prioridades y decisiones con cada cliente.</li>
           </ul>
         </div>
-        <div class="exp-media vertical">
-          <video controls playsinline preload="metadata">
-            <source src="https://github.com/inaki-ibargoyengarro/portfolio/raw/refs/heads/main/Video-Agencia.mp4" type="video/mp4">
-          </video>
+        <div class="exp-media vertical is-video">
+          <video muted playsinline loop preload="metadata" src="https://github.com/inaki-ibargoyengarro/portfolio/raw/refs/heads/main/Video-Agencia.mp4#t=0.5" data-full="https://github.com/inaki-ibargoyengarro/portfolio/raw/refs/heads/main/Video-Agencia.mp4"></video>
+            <button class="media-play" type="button" aria-label="Ver video"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></button>
         </div>
       </div>
     </div>
@@ -909,6 +959,53 @@
     });
   }, {threshold:0.01, rootMargin:'0px 0px 120px 0px'});
   reveals.forEach(r=>ro.observe(r));
+</script>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Vista ampliada">
+  <button class="lightbox-close" id="lbClose" type="button" aria-label="Cerrar">×</button>
+  <div class="lightbox-stage" id="lbStage"></div>
+</div>
+
+<script>
+  // ---- Media: hover preview + lightbox ----
+  (function(){
+    const lb = document.getElementById('lightbox');
+    const stage = document.getElementById('lbStage');
+    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    function open(node){
+      stage.innerHTML = ''; stage.appendChild(node);
+      lb.classList.add('open'); document.body.classList.add('lb-lock');
+      if(node.tagName === 'VIDEO'){ const p = node.play(); if(p) p.catch(()=>{}); }
+    }
+    function close(){
+      lb.classList.remove('open'); document.body.classList.remove('lb-lock');
+      const v = stage.querySelector('video'); if(v) v.pause();
+      setTimeout(()=>{ if(!lb.classList.contains('open')) stage.innerHTML=''; }, 300);
+    }
+    document.querySelectorAll('.exp-media').forEach(box=>{
+      const vid = box.querySelector('video');
+      const img = box.querySelector('img');
+      box.setAttribute('tabindex','0');
+      const show = ()=>{
+        if(vid){
+          const v = document.createElement('video');
+          v.src = vid.dataset.full || vid.src; v.controls = true; v.playsInline = true; v.autoplay = true;
+          open(v);
+        } else if(img){
+          const i = document.createElement('img'); i.src = img.currentSrc || img.src; i.alt = img.alt; open(i);
+        }
+      };
+      box.addEventListener('click', show);
+      box.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); show(); } });
+      if(vid && canHover){
+        box.addEventListener('mouseenter', ()=>{ box.classList.add('previewing'); const p = vid.play(); if(p) p.catch(()=>{}); });
+        box.addEventListener('mouseleave', ()=>{ box.classList.remove('previewing'); vid.pause(); });
+      }
+    });
+    lb.addEventListener('click', e=>{ if(e.target === lb) close(); });
+    document.getElementById('lbClose').addEventListener('click', close);
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape' && lb.classList.contains('open')) close(); });
+  })();
 </script>
 
 </body>
