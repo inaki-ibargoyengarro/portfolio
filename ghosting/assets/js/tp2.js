@@ -372,7 +372,7 @@
     backBtn.disabled = true;
     screen.setAttribute('aria-busy', 'true');
     try {
-      const res = await API.rpc('submit_response', payload);
+      const res = await API.rpc('submit_response', { payload });
       if (!res || res.ok !== true) {
         const code = res && res.error;
         throw new API.GDError(code || 'desconocido', ERRORS[code] || 'No pudimos guardar tu respuesta. Intentá de nuevo.');
