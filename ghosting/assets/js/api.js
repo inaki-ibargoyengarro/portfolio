@@ -34,6 +34,10 @@
     let data = null;
     if (text) { try { data = JSON.parse(text); } catch (e) { data = text; } }
     if (!res.ok) {
+      if (data && (data.code === 'PGRST202' || /Could not find the function/i.test(data.message || ''))) {
+        console.error('[Ghosting Detector] Falta ejecutar supabase/schema.sql en el proyecto de Supabase.', data);
+        throw new GDError('sin_funcion', 'No pudimos guardar tu respuesta por un problema de configuración del sitio. Avisale a quien te compartió la encuesta.', res.status);
+      }
       const msg = (data && (data.message || data.msg || data.error_description || data.error)) || ('Error ' + res.status);
       throw new GDError('http_' + res.status, String(msg), res.status);
     }
