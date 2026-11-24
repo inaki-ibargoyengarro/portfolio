@@ -110,12 +110,15 @@
       (!cut || new Date(r.created_at) <= cut));
   }
   const isValid = r => r.status === 'valida';
+  // Más de 35 con la encuesta completa: se guarda, pero queda fuera del análisis (18 a 35)
+  const isOver35 = r => !r.eligible && r.age_group === 'mayor_35' && r.x1 != null;
   const eligibleValid = list => list.filter(r => isValid(r) && r.eligible);
   const analytic = list => eligibleValid(list).filter(r => r.y_strategy === 'explicita' || r.y_strategy === 'ghosting');
 
   function flagsOf(r) {
     const f = [];
-    if (!r.eligible) f.push(['No elegible', 'b']);
+    if (isOver35(r)) f.push(['Más de 35', '']);
+    else if (!r.eligible) f.push(['No elegible', 'b']);
     if (r.eligible && r.y_strategy === 'otra') f.push(['Otra situación', 'w']);
     if (r.eligible && r.source === 'web' && r.elapsed_seconds != null && r.elapsed_seconds < 20) f.push(['Rápida', 'w']);
     if (r.eligible && r.x1 === r.x2 && r.x2 === r.x3 && r.x3 === r.x4) f.push(['Uniforme', '']);
@@ -169,11 +172,13 @@
       ['', list.length, 'registros en el filtro'],
       ['', ev.length, 'elegibles válidas'],
       ['', ev.filter(r => r.y_strategy === 'otra').length, '“otra situación”'],
-      ['', list.filter(r => isValid(r) && !r.eligible).length, 'no elegibles'],
+      ['', list.filter(r => isValid(r) && isOver35(r)).length, 'más de 35 (fuera del análisis)'],
+      ['', list.filter(r => isValid(r) && !r.eligible && !isOver35(r)).length, 'no elegibles'],
       ['', nInvalid, 'marcadas inválidas']
     ].map(k => `<div class="kpi ${k[0]}"><b>${k[1]}</b><span>${k[2]}</span></div>`).join('');
     renderAnalysis(list);
     renderStrata(list);
+    renderOver35(list);
     renderFreq(list);
     renderTable();
     void nFlags;
@@ -248,6 +253,15 @@
       const chi = sub.length ? S.chiSquareTest(S.LEVELS.map(l => [t[l].explicita, t[l].ghosting])) : null;
       return `<div><h3>${L.z[d]} · n = ${sub.length}</h3>${ctHTML(t, false)}<p class="hint">${chi && chi.valid ? `χ² = ${S.num(chi.chi2, 2)} · gl = ${chi.df} · p = ${S.formatP(chi.p)}${chi.assumptionsOk ? '' : ' · <b>no cumple supuestos</b>'}` : 'Sin datos suficientes para un contraste.'}</p></div>`;
     }).join('');
+  }
+
+  function renderOver35(list) {
+    const o = list.filter(r => isValid(r) && isOver35(r));
+    const bin = o.filter(r => r.y_strategy === 'explicita' || r.y_strategy === 'ghosting');
+    const t = crosstab(bin);
+    $('#over35').innerHTML = o.length
+      ? `<p class="hint">${o.length} respuestas de personas de más de 35 años · ${bin.length} con ruptura explícita o ghosting · ${o.length - bin.length} con «otra situación».</p>${ctHTML(t, false)}`
+      : '<p class="hint">Todavía no hay respuestas de personas de más de 35 años con este filtro.</p>';
   }
 
   function freqTables(list) {
@@ -482,7 +496,9 @@
         x1: null, x2: null, x3: null, x4: null, y_strategy: null, z_depth: null, elapsed_seconds: null, status: 'valida',
         admin_note: (o.note || '').slice(0, 500) || null
       };
-      if (eligible) {
+      const over35Full = reason === 'edad' && age === 'mayor_35' && urban && apps && o.x1;
+      if (over35Full) rec.screen_out_reason = 'edad';
+      if (eligible || over35Full) {
         ['x1', 'x2', 'x3', 'x4'].forEach(k => { const v = +o[k]; if (Number.isInteger(v) && v >= 1 && v <= 5) rec[k] = v; else errs.push(k.toUpperCase()); });
         rec.y_strategy = parseY(o.y) || null; if (!rec.y_strategy) errs.push('Y');
         rec.z_depth = parseZ(o.z) || null; if (!rec.z_depth) errs.push('Z');
@@ -500,7 +516,7 @@
     importRows = res.rows;
     const ok = importRows.filter(r => !r.errs.length), bad = importRows.length - ok.length;
     $('#importPreview').innerHTML = `<p><b>${ok.length}</b> filas válidas (${ok.filter(r => r.rec.eligible).length} elegibles, ${ok.filter(r => !r.rec.eligible).length} fuera de criterios) · <b>${bad}</b> con errores (no se importan).</p>
-      <div class="ipreview"><table><thead><tr><th>Línea</th><th>Fecha</th><th>Edad</th><th>Elegible</th><th>X1–X4</th><th>Y</th><th>Z</th><th>Errores</th></tr></thead><tbody>${importRows.slice(0, 300).map(r => `<tr class="${r.errs.length ? 'bad' : ''}"><td>${r.line}</td><td>${esc(fmtDate(r.rec.created_at))}</td><td>${esc(L.age[r.rec.age_group] || '?')}</td><td>${r.rec.eligible ? 'sí' : esc(L.reason[r.rec.screen_out_reason] || 'no')}</td><td>${[r.rec.x1, r.rec.x2, r.rec.x3, r.rec.x4].map(v => v ?? '–').join(' ')}</td><td>${esc(L.y[r.rec.y_strategy] || '–')}</td><td>${esc(L.z[r.rec.z_depth] || '–')}</td><td>${esc(r.errs.join(', '))}</td></tr>`).join('')}</tbody></table></div>`;
+      <div class="ipreview"><table><thead><tr><th>Línea</th><th>Fecha</th><th>Edad</th><th>Elegible</th><th>X1–X4</th><th>Y</th><th>Z</th><th>Errores</th></tr></thead><tbody>${importRows.slice(0, 300).map(r => `<tr class="${r.errs.length ? 'bad' : ''}"><td>${r.line}</td><td>${esc(fmtDate(r.rec.created_at))}</td><td>${esc(L.age[r.rec.age_group] || '?')}</td><td>${r.rec.eligible ? 'sí' : (r.rec.x1 != null ? 'más de 35 (fuera del análisis)' : esc(L.reason[r.rec.screen_out_reason] || 'no'))}</td><td>${[r.rec.x1, r.rec.x2, r.rec.x3, r.rec.x4].map(v => v ?? '–').join(' ')}</td><td>${esc(L.y[r.rec.y_strategy] || '–')}</td><td>${esc(L.z[r.rec.z_depth] || '–')}</td><td>${esc(r.errs.join(', '))}</td></tr>`).join('')}</tbody></table></div>`;
     updateImportBtn();
   }
   function updateImportBtn() {
