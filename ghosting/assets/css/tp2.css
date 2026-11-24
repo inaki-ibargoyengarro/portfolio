@@ -28,7 +28,7 @@ nav a.home-link{background:var(--ink);color:var(--cream)}nav a.home-link:hover{b
 .conn i{width:9px;height:9px;border-radius:50%;background:#aaa}
 .conn.ok i{background:#3fae6b;box-shadow:0 0 7px #3fae6b}
 .conn.off i{background:var(--hot);box-shadow:0 0 7px var(--hot)}
-.lamps{display:grid;grid-template-columns:repeat(10,1fr);gap:5px}
+.lamps{display:grid;grid-template-columns:repeat(9,1fr);gap:5px}
 .lamps i{height:8px;border-radius:999px;background:#eadde1;transition:background .3s}
 .lamps i.on{background:var(--pink)}
 .lamps i.now{background:var(--hot)}
