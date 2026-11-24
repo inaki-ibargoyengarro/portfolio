@@ -33,7 +33,8 @@
       options: [['menor_18', 'Menos de 18'], ['18_24', '18 a 24 años'], ['25_29', '25 a 29 años'], ['30_35', '30 a 35 años'], ['mayor_35', 'Más de 35']] },
     { id: 'urban', type: 'choice', part: 'Filtro · 2 de 3', title: '¿Vivís en una ciudad o centro urbano?',
       options: [['si', 'Sí'], ['no', 'No']] },
-    { id: 'apps', type: 'choice', part: 'Filtro · 3 de 3', title: '¿Usás redes sociales o aplicaciones de citas?',
+    { id: 'apps', type: 'choice', part: 'Filtro · 3 de 3', title: '¿Usás redes sociales, apps de mensajería o aplicaciones de citas?',
+      hint: 'Por ejemplo, Instagram, WhatsApp o Tinder.',
       options: [['si', 'Sí'], ['no', 'No']] },
     { id: 'x1', type: 'likert', part: 'Incomodidad · 1 de 4', title: 'Me incomoda comunicarle a alguien que ya no quiero continuar un vínculo.' },
     { id: 'x2', type: 'likert', part: 'Incomodidad · 2 de 4', title: 'Me preocupa recibir reproches cuando decido terminar una relación.' },
@@ -221,7 +222,7 @@
     const msgs = {
       edad: 'La encuesta es solo para personas de 18 años o más.',
       residencia: 'La encuesta está pensada para personas que viven en ciudades o centros urbanos.',
-      uso_apps: 'La encuesta está pensada para personas que usan redes sociales o aplicaciones de citas.'
+      uso_apps: 'La encuesta está pensada para personas que usan redes sociales, apps de mensajería o aplicaciones de citas.'
     };
     const record = reason !== 'edad';
     setScreen(`<p class="q-part">Fuera de los criterios</p>
