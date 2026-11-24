@@ -10,7 +10,7 @@
     y: { explicita: 'Ruptura explícita', ghosting: 'Ghosting', otra: 'Otra situación' },
     z: { digital: 'Solo digital', citas_1_5: '1 a 5 citas', citas_mas_5: 'Más de 5 citas' },
     age: { '18_24': '18 a 24', '25_29': '25 a 29', '30_35': '30 a 35', menor_18: 'Menos de 18', mayor_35: 'Más de 35' },
-    reason: { edad: 'Edad fuera de rango', residencia: 'No reside en centro urbano', uso_apps: 'No usa redes ni apps de citas', sin_finalizacion: 'No finalizó un vínculo en 12 meses' }
+    reason: { edad: 'Menor de 18 o más de 35', residencia: 'No reside en centro urbano', uso_apps: 'No usa redes ni apps de citas', sin_finalizacion: 'No finalizó un vínculo en 12 meses' }
   };
   const LEVELS = ['baja', 'media', 'alta'];
   const DEPTHS = ['digital', 'citas_1_5', 'citas_mas_5'];
