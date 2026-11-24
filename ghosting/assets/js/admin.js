@@ -420,7 +420,7 @@
   });
 
   /* ---------------- Importación ---------------- */
-  const TEMPLATE = 'fecha,edad,residencia_urbana,usa_redes_apps,x1,x2,x3,x4,y,z,nota\r\n2026-11-20 18:30,25_29,si,si,4,5,3,4,ghosting,digital,encuesta en papel\r\n';
+  const TEMPLATE = 'fecha,edad,usa_redes_apps,x1,x2,x3,x4,y,z,nota\r\n2026-11-20 18:30,25_29,si,4,5,3,4,ghosting,digital,encuesta en papel\r\n';
   $('#tplBtn').addEventListener('click', () => download('plantilla_importacion_ghosting.csv', '﻿' + TEMPLATE));
 
   function parseCSV(text) {
@@ -472,7 +472,7 @@
     const data = parseCSV(text);
     if (data.length < 2) return { error: 'El archivo no tiene filas de datos.' };
     const head = data[0].map(h => ALIASES[norm(h)] || null);
-    const need = ['age', 'urban', 'apps'];
+    const need = ['age', 'apps'];
     const missing = need.filter(k => !head.includes(k));
     if (missing.length) return { error: 'Faltan columnas obligatorias: ' + missing.join(', ') + '. Usá la plantilla.' };
     const batch = ($('#batchName').value.trim() || 'import-' + stampName()).slice(0, 80);
@@ -480,23 +480,23 @@
     const out = data.slice(1).map((cells, i) => {
       const o = {}; head.forEach((k, j) => { if (k) o[k] = (cells[j] || '').trim(); });
       const errs = [];
-      const age = parseAge(o.age), urban = parseBool(o.urban), apps = parseBool(o.apps), ended = o.ended ? parseBool(o.ended) : null;
-      if (!age) errs.push('edad'); if (urban === undefined) errs.push('residencia'); if (apps === undefined) errs.push('uso de apps');
+      const age = parseAge(o.age), urban = o.urban ? parseBool(o.urban) : null, apps = parseBool(o.apps), ended = o.ended ? parseBool(o.ended) : null;
+      if (!age) errs.push('edad');  if (apps === undefined) errs.push('uso de apps');
       const date = parseDate(o.created_at); if (date === undefined) errs.push('fecha'); if (date && date > new Date()) errs.push('fecha futura');
       let eligible = false, reason = null;
       if (!errs.length) {
         if (!['18_24', '25_29', '30_35'].includes(age)) reason = 'edad';
-        else if (!urban) reason = 'residencia'; else if (!apps) reason = 'uso_apps';
+        else if (!apps) reason = 'uso_apps';
         eligible = !reason;
       }
       const rec = {
         submission_id: API.uuid(), created_at: (date || new Date()).toISOString(), source: 'import', import_batch: batch, is_test: isTest,
         consent: true, eligible, screen_out_reason: reason, age_group: age || null,
-        urban: urban ?? null, uses_apps: apps ?? null, ended_recently: ended === undefined ? null : ended,
+        urban: urban === undefined ? null : urban, uses_apps: apps ?? null, ended_recently: ended === undefined ? null : ended,
         x1: null, x2: null, x3: null, x4: null, y_strategy: null, z_depth: null, elapsed_seconds: null, status: 'valida',
         admin_note: (o.note || '').slice(0, 500) || null
       };
-      const over35Full = reason === 'edad' && age === 'mayor_35' && urban && apps && o.x1;
+      const over35Full = reason === 'edad' && age === 'mayor_35' && apps && o.x1;
       if (over35Full) rec.screen_out_reason = 'edad';
       if (eligible || over35Full) {
         ['x1', 'x2', 'x3', 'x4'].forEach(k => { const v = +o[k]; if (Number.isInteger(v) && v >= 1 && v <= 5) rec[k] = v; else errs.push(k.toUpperCase()); });
