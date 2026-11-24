@@ -83,7 +83,7 @@ create table if not exists public.responses (
   eligible boolean not null,
   screen_out_reason text check (screen_out_reason in ('edad', 'residencia', 'uso_apps', 'sin_finalizacion')),
   age_group text check (age_group in ('18_24', '25_29', '30_35', 'menor_18', 'mayor_35')),
-  urban boolean,
+  urban boolean,                                 -- en desuso (ya no se pregunta)
   uses_apps boolean,
   ended_recently boolean,                        -- en desuso (ya no se pregunta)
 
@@ -113,13 +113,13 @@ create table if not exists public.responses (
 
 -- Coherencia: una respuesta elegible tiene que estar completa.
 -- (Se define aparte para poder actualizarla si se vuelve a ejecutar el script.)
--- ended_recently ya no es un filtro: la encuesta dejó de preguntarlo.
+-- ended_recently y urban ya no son filtros: la encuesta dejó de preguntarlos.
 -- La columna se conserva por compatibilidad con importaciones anteriores.
 alter table public.responses drop constraint if exists eligible_is_complete;
 alter table public.responses add constraint eligible_is_complete check (
   not eligible or (
     age_group in ('18_24', '25_29', '30_35')
-    and urban and uses_apps
+    and uses_apps
     and x1 is not null and x2 is not null and x3 is not null and x4 is not null
     and y_strategy is not null and z_depth is not null
   )
@@ -136,7 +136,7 @@ alter table public.responses add constraint ineligible_has_reason check (
       (x1 is null and x2 is null and x3 is null and x4 is null
        and y_strategy is null and z_depth is null)
       or
-      (screen_out_reason = 'edad' and age_group = 'mayor_35' and urban and uses_apps
+      (screen_out_reason = 'edad' and age_group = 'mayor_35' and uses_apps
        and x1 is not null and x2 is not null and x3 is not null and x4 is not null
        and y_strategy is not null and z_depth is not null)
     )
@@ -297,7 +297,7 @@ begin
         x1, x2, x3, x4, y_strategy, z_depth, elapsed_seconds
       ) values (
         v_sid, coalesce(payload->>'is_test', '') = 'true', 'web', true, true,
-        payload->>'age_group', true, true, null,
+        payload->>'age_group', null, true, null,
         v_x[1], v_x[2], v_x[3], v_x[4], payload->>'y_strategy', payload->>'z_depth', v_elapsed
       )
       on conflict (submission_id) do nothing;
