@@ -15,8 +15,8 @@
    guarda nada, y la web lo avisa en pantalla.
    ===================================================================== */
 window.GD_CONFIG = {
-  SUPABASE_URL: '',
-  SUPABASE_KEY: '',
+NEXT_PUBLIC_SUPABASE_URL=https://pnzysbjqfsibjvycpblu.supabase.co,
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_LSzNCjzAxuLdE8Hym_yOQA_Dhq2JJ_d,
   // Cada cuántos segundos se refrescan los resultados públicos
   RESULTS_REFRESH_SECONDS: 30
 };
