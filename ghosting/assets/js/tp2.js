@@ -29,11 +29,9 @@
   ];
   const STEPS = [
     { id: 'consent', type: 'consent', part: 'Antes de empezar' },
-    { id: 'age', type: 'choice', part: 'Filtro · 1 de 3', title: '¿Qué edad tenés?',
+    { id: 'age', type: 'choice', part: 'Filtro · 1 de 2', title: '¿Qué edad tenés?',
       options: [['menor_18', 'Menos de 18'], ['18_24', '18 a 24 años'], ['25_29', '25 a 29 años'], ['30_35', '30 a 35 años'], ['mayor_35', 'Más de 35']] },
-    { id: 'urban', type: 'choice', part: 'Filtro · 2 de 3', title: '¿Vivís en una ciudad o centro urbano?',
-      options: [['si', 'Sí'], ['no', 'No']] },
-    { id: 'apps', type: 'choice', part: 'Filtro · 3 de 3', title: '¿Usás redes sociales, apps de mensajería o aplicaciones de citas?',
+    { id: 'apps', type: 'choice', part: 'Filtro · 2 de 2', title: '¿Usás redes sociales, apps de mensajería o aplicaciones de citas?',
       hint: 'Por ejemplo, Instagram, WhatsApp o Tinder.',
       options: [['si', 'Sí'], ['no', 'No']] },
     { id: 'x1', type: 'likert', part: 'Incomodidad · 1 de 4', title: 'Me incomoda comunicarle a alguien que ya no quiero continuar un vínculo.' },
@@ -120,8 +118,8 @@
     const resume = state.step >= 0 && Object.keys(state.answers).length > 0;
     let html = '<div class="intro-screen">';
     html += '<p class="q-part">Encuesta anónima</p>';
-    html += '<h3 class="q-title" data-focus>9 preguntas, menos de 2 minutos.</h3>';
-    html += '<p class="q-hint">Primero, tres preguntas para saber si tu caso entra en el estudio. Después, cuatro afirmaciones y dos preguntas sobre tu último vínculo.</p>';
+    html += '<h3 class="q-title" data-focus>8 preguntas, menos de 2 minutos.</h3>';
+    html += '<p class="q-hint">Primero, dos preguntas para saber si tu caso entra en el estudio. Después, cuatro afirmaciones y dos preguntas sobre tu último vínculo.</p>';
     if (done) {
       html += '<p class="notice">Ya enviaste una respuesta desde este dispositivo. Si otra persona quiere responder desde acá, puede empezar de nuevo.</p>';
     }
@@ -221,7 +219,6 @@
     backBtn.hidden = false; nextBtn.hidden = true;
     const msgs = {
       edad: 'La encuesta es solo para personas de 18 años o más.',
-      residencia: 'La encuesta está pensada para personas que viven en ciudades o centros urbanos.',
       uso_apps: 'La encuesta está pensada para personas que usan redes sociales, apps de mensajería o aplicaciones de citas.'
     };
     const record = reason !== 'edad';
@@ -262,7 +259,6 @@
     // Filtros
     // Menores de 18: no participan. Mayores de 35: responden todo, pero quedan fuera del análisis.
     if (id === 'age' && v === 'menor_18') return renderScreenOut('edad');
-    if (id === 'urban' && v === 'no') return renderScreenOut('residencia');
     if (id === 'apps' && v === 'no') return renderScreenOut('uso_apps');
     if (state.fromReview) {
       // Si volvió a un filtro y lo cambió a "sí", sigue en la revisión
@@ -366,11 +362,10 @@
     if (complete) {
       Object.assign(payload, { age_group: a.age, x1: a.x1, x2: a.x2, x3: a.x3, x4: a.x4, y_strategy: a.y, z_depth: a.z });
       // Más de 35: se guarda la respuesta completa, marcada fuera de la muestra analítica
-      if (over35) Object.assign(payload, { screen_out_reason: 'edad', urban: true, uses_apps: true });
+      if (over35) Object.assign(payload, { screen_out_reason: 'edad', uses_apps: true });
     } else {
       payload.screen_out_reason = reason;
       payload.age_group = a.age;
-      if (a.urban) payload.urban = a.urban === 'si';
       if (a.apps) payload.uses_apps = a.apps === 'si';
     }
     sending = true; errEl.textContent = '';
