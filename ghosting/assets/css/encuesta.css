@@ -1,0 +1,17 @@
+/* GHOSTING DETECTOR™ · Encuesta sola (/encuesta/) · agregados sobre gd-base.css + tp2.css */
+.solo{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:72px max(24px,calc((100vw - 1180px)/2)) 48px}
+.solo .demo-grid{align-items:center}
+.solo h1.display{color:#ffe8ef}
+.solo-credits{margin:48px 0 0;font:11px "DM Mono",monospace;text-transform:uppercase;letter-spacing:.1em;opacity:.7}
+@media(max-width:900px){
+  .solo{justify-content:flex-start;padding-top:40px;padding-bottom:40px}
+  .solo .demo-grid{gap:24px}
+  .solo .break{display:none}
+}
+@media(max-width:600px){
+  .solo{padding:28px 14px 40px}
+  .solo h1.display{font-size:clamp(38px,11vw,48px);margin:8px 0 12px}
+  .solo .lede{font-size:16px}
+  .solo .form-card{padding:18px 16px}
+  .solo-credits{font-size:9.5px;line-height:1.6;margin-top:32px}
+}
