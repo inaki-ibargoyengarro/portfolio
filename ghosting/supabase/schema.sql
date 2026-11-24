@@ -108,16 +108,7 @@ create table if not exists public.responses (
 
   elapsed_seconds int check (elapsed_seconds between 0 and 86400),
   status text not null default 'valida' check (status in ('valida', 'invalida')),
-  admin_note text check (char_length(admin_note) <= 500),
-
-  -- Una respuesta no elegible tiene motivo y no guarda respuestas sustantivas
-  constraint ineligible_has_reason check (
-    eligible or (
-      screen_out_reason is not null
-      and x1 is null and x2 is null and x3 is null and x4 is null
-      and y_strategy is null and z_depth is null
-    )
-  )
+  admin_note text check (char_length(admin_note) <= 500)
 );
 
 -- Coherencia: una respuesta elegible tiene que estar completa.
@@ -131,6 +122,24 @@ alter table public.responses add constraint eligible_is_complete check (
     and urban and uses_apps
     and x1 is not null and x2 is not null and x3 is not null and x4 is not null
     and y_strategy is not null and z_depth is not null
+  )
+);
+
+-- Una respuesta fuera de la muestra analítica tiene motivo. No guarda respuestas
+-- sustantivas, salvo las personas de más de 35 años: completan la encuesta
+-- entera y quedan fuera del análisis del TP (que toma solo de 18 a 35).
+alter table public.responses drop constraint if exists ineligible_has_reason;
+alter table public.responses add constraint ineligible_has_reason check (
+  eligible or (
+    screen_out_reason is not null
+    and (
+      (x1 is null and x2 is null and x3 is null and x4 is null
+       and y_strategy is null and z_depth is null)
+      or
+      (screen_out_reason = 'edad' and age_group = 'mayor_35' and urban and uses_apps
+       and x1 is not null and x2 is not null and x3 is not null and x4 is not null
+       and y_strategy is not null and z_depth is not null)
+    )
   )
 );
 
@@ -251,7 +260,7 @@ begin
     v_elapsed := null;
   end;
   -- Tiempo mínimo humano: 12 s para un recorrido completo, 3 s para un filtro
-  if v_elapsed is null or v_elapsed < (case when v_eligible then 12 else 3 end) then
+  if v_elapsed is null or v_elapsed < (case when v_eligible or payload ? 'x1' then 12 else 3 end) then
     return jsonb_build_object('ok', false, 'error', 'demasiado_rapido');
   end if;
 
@@ -296,13 +305,16 @@ begin
       v_reason := payload->>'screen_out_reason';
       insert into public.responses (
         submission_id, is_test, source, consent, eligible, screen_out_reason,
-        age_group, urban, uses_apps, ended_recently, elapsed_seconds
+        age_group, urban, uses_apps, ended_recently,
+        x1, x2, x3, x4, y_strategy, z_depth, elapsed_seconds
       ) values (
         v_sid, coalesce(payload->>'is_test', '') = 'true', 'web', true, false, v_reason,
         payload->>'age_group',
         case when payload ? 'urban' then (payload->>'urban')::boolean end,
         case when payload ? 'uses_apps' then (payload->>'uses_apps')::boolean end,
         case when payload ? 'ended_recently' then (payload->>'ended_recently')::boolean end,
+        (payload->>'x1')::int, (payload->>'x2')::int, (payload->>'x3')::int, (payload->>'x4')::int,
+        payload->>'y_strategy', payload->>'z_depth',
         v_elapsed
       )
       on conflict (submission_id) do nothing;
@@ -455,6 +467,6 @@ grant execute on function public.is_admin() to authenticated;
 --    en Authentication → Users → Add user). Reemplazá el mail:
 --
 --   insert into public.admins (user_id, email)
---   select id, email from auth.users where email = 'TU_MAIL@ejemplo.com'
+--   select id, email from auth.users where email = 'inaki.iig@gmail.com'
 --   on conflict (user_id) do nothing;
 -- =====================================================================
