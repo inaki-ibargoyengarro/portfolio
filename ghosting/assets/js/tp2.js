@@ -219,7 +219,7 @@
     view = 'screenout';
     backBtn.hidden = false; nextBtn.hidden = true;
     const msgs = {
-      edad: 'La encuesta está pensada para personas de 18 a 35 años.',
+      edad: 'La encuesta es solo para personas de 18 años o más.',
       residencia: 'La encuesta está pensada para personas que viven en ciudades o centros urbanos.',
       uso_apps: 'La encuesta está pensada para personas que usan redes sociales o aplicaciones de citas.'
     };
@@ -259,7 +259,8 @@
     const s = STEPS[idx(id)];
     const v = state.answers[id];
     // Filtros
-    if (id === 'age' && (v === 'menor_18' || v === 'mayor_35')) return renderScreenOut('edad');
+    // Menores de 18: no participan. Mayores de 35: responden todo, pero quedan fuera del análisis.
+    if (id === 'age' && v === 'menor_18') return renderScreenOut('edad');
     if (id === 'urban' && v === 'no') return renderScreenOut('residencia');
     if (id === 'apps' && v === 'no') return renderScreenOut('uso_apps');
     if (state.fromReview) {
@@ -343,12 +344,15 @@
     payload_invalido: 'No pudimos procesar el envío. Recargá la página e intentá de nuevo.'
   };
 
-  async function submit(eligible, reason) {
+  // complete = recorrió toda la encuesta (desde la revisión); si no, es un envío de exclusión
+  async function submit(complete, reason) {
     if (sending) return;
     const errEl = $('#sendErr');
-    const btn = eligible ? $('#sendBtn') : screen.querySelector('[data-act="finish-out"]');
+    const btn = complete ? $('#sendBtn') : screen.querySelector('[data-act="finish-out"]');
     if (!API.configured) { errEl.textContent = 'La base de datos todavía no está conectada: no se guardó la respuesta.'; return; }
     const a = state.answers;
+    const over35 = complete && a.age === 'mayor_35';
+    const eligible = complete && !over35;
     const elapsed = Math.round((Date.now() - (state.startedAt || Date.now())) / 1000);
     const payload = {
       submission_id: state.submissionId,
@@ -358,8 +362,10 @@
       elapsed_seconds: Math.min(elapsed, 86400),
       website: ($('#hpField') && $('#hpField').value) || ''
     };
-    if (eligible) {
+    if (complete) {
       Object.assign(payload, { age_group: a.age, x1: a.x1, x2: a.x2, x3: a.x3, x4: a.x4, y_strategy: a.y, z_depth: a.z });
+      // Más de 35: se guarda la respuesta completa, marcada fuera de la muestra analítica
+      if (over35) Object.assign(payload, { screen_out_reason: 'edad', urban: true, uses_apps: true });
     } else {
       payload.screen_out_reason = reason;
       payload.age_group = a.age;
@@ -380,7 +386,7 @@
       try { localStorage.setItem(DONE_KEY, new Date().toISOString()); } catch (e) { }
       clearState(); state = freshState();
       sending = false; backBtn.disabled = false;
-      renderDone(eligible);
+      renderDone(complete);
       loadResults();
     } catch (err) {
       sending = false; backBtn.disabled = false;
