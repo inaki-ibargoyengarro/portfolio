@@ -510,7 +510,7 @@
       ${legend()}
       <div class="stack">${rows.map(r => stackRow(L.levelShort[r.level], L.levelRange[r.level], r)).join('')}</div>
       ${table}
-      <p class="read-note">Si la proporción de ghosting crece de «baja» a «alta», los datos van en la dirección de H1. Para saber si esa diferencia es estadísticamente significativa hace falta el contraste chi-cuadrado sobre la muestra cerrada.</p>
+      <p class="read-note">Si la proporción de ghosting crece de «baja» a «alta», los datos van en la dirección de H1. Con una muestra chica, esa diferencia también puede deberse al azar, así que estos resultados son exploratorios.</p>
     </article>`;
 
     // F. Por profundidad
