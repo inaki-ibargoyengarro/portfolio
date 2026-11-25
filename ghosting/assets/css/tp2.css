@@ -206,3 +206,16 @@ nav a.home-link{background:var(--ink);color:var(--cream)}nav a.home-link:hover{b
   .vbar-track{height:140px}
 }
 @media(prefers-reduced-motion:reduce){.screen.enter,.ticket,.live{animation:none}}
+
+/* ---------- Muestra del TP (números fijos) ---------- */
+.findings.sample{background:var(--lav)}
+.sample-date{display:inline-block;margin:18px 0 0;padding:8px 14px;border-radius:999px;background:var(--ink);color:var(--cream);font:500 11px "DM Mono",monospace;letter-spacing:.1em}
+.fig-cap{margin:0 0 18px;padding-bottom:14px;border-bottom:1px solid #e9dfe0;font-size:14px;line-height:1.45;color:var(--muted)}
+.fig-cap b{color:var(--ink)}
+.conclusions{margin-top:18px;background:var(--ink);color:var(--cream);border-radius:26px;padding:34px 36px}
+.conclusions .eyebrow{color:var(--pink)}
+.conclusions h3{font:900 clamp(28px,3vw,40px)/1.05 "Fraunces",serif;margin:8px 0 18px;color:#ffe8ef}
+.conclusions p{font-size:17px;line-height:1.6;max-width:880px;margin:0 0 14px}
+.conclusions p:last-child{margin-bottom:0}
+.conclusions strong{color:var(--pink)}
+@media(max-width:600px){.conclusions{padding:26px 22px}.conclusions p{font-size:16px}.fig-cap{font-size:13px}}
