@@ -437,7 +437,7 @@
 
   function stackRow(label, sub, row) {
     if (row.suppressed) {
-      return `<div class="srow"><div class="srow-label"><b>${esc(label)}</b><span>${esc(sub)}</span></div><div class="srow-bar suppressed">Menos de ${lastStats.min_cell} respuestas: no se publica</div><div class="srow-n">n &lt; ${lastStats.min_cell}</div></div>`;
+      return `<div class="srow"><div class="srow-label"><b>${esc(label)}</b><span>${esc(sub)}</span></div><div class="srow-bar suppressed">${lastStats.min_cell <= 1 ? 'Sin respuestas en este nivel' : 'Menos de ' + lastStats.min_cell + ' respuestas: no se publica'}</div><div class="srow-n">${lastStats.min_cell <= 1 ? 'n = 0' : 'n &lt; ' + lastStats.min_cell}</div></div>`;
     }
     return `<div class="srow"><div class="srow-label"><b>${esc(label)}</b><span>${esc(sub)}</span></div><div class="srow-bar">${seg('explicita', row.explicita, row.n, esc(label))}${seg('ghosting', row.ghosting, row.n, esc(label))}</div><div class="srow-n">n = ${row.n}</div></div>`;
   }
@@ -498,9 +498,9 @@
       <caption>Tabla de contingencia: incomodidad (X) × estrategia (Y)${depthFilter !== 'todas' ? ' · ' + esc(L.z[depthFilter]) : ''}. Frecuencias absolutas y porcentajes por fila.</caption>
       <thead><tr><th scope="col">Incomodidad</th><th scope="col">Ruptura explícita</th><th scope="col">Ghosting</th><th scope="col">Total</th></tr></thead>
       <tbody>${rows.map(r => r.suppressed
-        ? `<tr class="supp"><th scope="row">${L.levelShort[r.level]} <small>${L.levelRange[r.level]}</small></th><td colspan="3">Grupo con menos de ${st.min_cell} respuestas: no se publica</td></tr>`
+        ? `<tr class="supp"><th scope="row">${L.levelShort[r.level]} <small>${L.levelRange[r.level]}</small></th><td colspan="3">${st.min_cell <= 1 ? 'Sin respuestas en este nivel' : 'Grupo con menos de ' + st.min_cell + ' respuestas: no se publica'}</td></tr>`
         : `<tr><th scope="row">${L.levelShort[r.level]} <small>${L.levelRange[r.level]}</small></th><td>${r.explicita} <small>(${S.pct(r.explicita, r.n)})</small></td><td>${r.ghosting} <small>(${S.pct(r.ghosting, r.n)})</small></td><td>${r.n} <small>(100%)</small></td></tr>`).join('')}</tbody>
-      <tfoot><tr><th scope="row">Total${pub.length < rows.length ? ' publicado' : ''}</th><td>${tot.explicita} <small>(${S.pct(tot.explicita, tot.n)})</small></td><td>${tot.ghosting} <small>(${S.pct(tot.ghosting, tot.n)})</small></td><td>${tot.n}</td></tr></tfoot>
+      <tfoot><tr><th scope="row">Total${pub.length < rows.length && st.min_cell > 1 ? ' publicado' : ''}</th><td>${tot.explicita} <small>(${S.pct(tot.explicita, tot.n)})</small></td><td>${tot.ghosting} <small>(${S.pct(tot.ghosting, tot.n)})</small></td><td>${tot.n}</td></tr></tfoot>
     </table></div>`;
     const chartDE = `<article class="chart-card wide">
       <p class="chart-k">Incomodidad × estrategia</p>
