@@ -219,3 +219,29 @@ nav a.home-link{background:var(--ink);color:var(--cream)}nav a.home-link:hover{b
 .conclusions p:last-child{margin-bottom:0}
 .conclusions strong{color:var(--pink)}
 @media(max-width:600px){.conclusions{padding:26px 22px}.conclusions p{font-size:16px}.fig-cap{font-size:13px}}
+
+/* Imagen de portada propia del TP2 (el TP1 conserva la suya).
+   --hero-pos-*: encuadre de la imagen en tablet y celular (horizontal vertical). */
+:root{--hero-pos-tablet:50% center;--hero-pos-mobile:50% center}
+.hero-bg{background-image:url("https://raw.githubusercontent.com/inaki-ibargoyengarro/ghosting/refs/heads/main/assets/header-tp2.png")}
+@media(max-width:900px){.hero-bg{background-position:var(--hero-pos-tablet)}}
+@media(max-width:600px){.hero-bg{background-size:cover;background-position:var(--hero-pos-mobile)}}
+
+/* ---------- Ajustes finos de mobile ---------- */
+@media(max-width:600px){
+  /* Tabla de contingencia sin scroll lateral */
+  .ctable{min-width:0;font-size:13px}
+  .ctable th,.ctable td{padding:10px 6px}
+  .ctable th:first-child,.ctable td:first-child{padding-left:10px}
+  .ctable th:last-child,.ctable td:last-child{padding-right:10px}
+  .ctable thead th{font-size:11px;letter-spacing:.02em;line-height:1.25}
+  .ctable tbody th small{display:block;margin-top:2px}
+  .ctable td small{display:block;font-size:11px}
+  .ctable tr.supp td{font-size:12.5px}
+  .ctable caption{font-size:12.5px}
+  /* Textos chicos: mínimo 11 px */
+  .academic,.credits,.solo-credits{font-size:11px!important;line-height:1.55}
+  .chip,.measure,.seen-check+span{font-size:11px}
+  .sample-date{font-size:11px}
+  .srow-n{font-size:12px}
+}
