@@ -19,7 +19,7 @@
 </audio>
 <button aria-label="Activar experiencia sonora" aria-pressed="false" class="audio-control" id="audioControl" type="button"><span class="audio-icon">♫</span><span class="audio-label">ACTIVAR EXPERIENCIA SONORA</span></button>
 <button aria-controls="mainNav" aria-expanded="false" aria-label="Abrir menú" class="mobile-nav-toggle" id="mobileNavToggle" type="button"><span></span></button>
-<nav id="mainNav"><a class="home-link" href="../" aria-label="Volver a la portada de Ghosting Detector">← Portada</a><a href="#hipotesis">Hipótesis</a><a href="#variables">Variables</a><a href="#encuesta">Encuesta</a><a href="#resultados">Resultados</a><a href="../tp1/">¿Me ghostearon?</a></nav>
+<nav id="mainNav"><a class="home-link" href="../" aria-label="Volver a la portada de Ghosting Detector">← Portada</a><a href="#hipotesis">Hipótesis</a><a href="#variables">Variables</a><a href="#encuesta">Encuesta</a><a href="#muestra">Resultados</a><a href="#resultados">En vivo</a><a href="../tp1/">¿Me ghostearon?</a></nav>
 
 <section class="hero">
 <div class="hero-bg"></div>
@@ -39,6 +39,7 @@
 <p class="lede">Esta investigación explora si la incomodidad de comunicar una ruptura se relaciona con la decisión de desaparecer sin dar explicaciones.</p>
 <div class="definition"><strong>Hipótesis de investigación (H1)</strong>A mayor nivel de incomodidad ante la confrontación interpersonal directa en personas jóvenes-adultas, mayor es la probabilidad de recurrir al ghosting como estrategia de finalización del vínculo.</div>
 <div class="definition"><strong>Hipótesis nula (H0)</strong>No existe asociación entre el nivel de incomodidad ante la confrontación interpersonal directa y la estrategia de finalización del vínculo.</div>
+<div class="definition"><strong>Hipótesis alternativa (Ha)</strong>A mayor nivel de incomodidad ante la confrontación interpersonal directa, menor es la probabilidad de recurrir al ghosting, y así optándose predominantemente por la ruptura explícita.</div>
 <div class="chips"><span class="chip">INCOMODIDAD</span><span class="chip">CONFRONTACIÓN</span><span class="chip">RUPTURA EXPLÍCITA</span><span class="chip">GHOSTING</span></div>
 </div>
 <div class="problem-visual reveal">
@@ -56,9 +57,9 @@
 <div class="sensors three">
 <article class="sensor reveal"><div class="num">X</div><h3>Incomodidad ante la confrontación</h3><p>Cuatro afirmaciones con escala de 1 a 5. La suma va de 4 a 20 puntos.</p><p><strong>Baja:</strong> 4 a 7 puntos.<br/><strong>Media:</strong> 8 a 14 puntos.<br/><strong>Alta:</strong> 15 a 20 puntos.</p><span class="measure">ORDINAL · INDEPENDIENTE</span></article>
 <article class="sensor reveal"><div class="num">Y</div><h3>Estrategia de finalización</h3><p>Cómo terminó la persona su último vínculo.</p><p><strong>Ruptura explícita:</strong> comunicó su decisión.<br/><strong>Ghosting:</strong> dejó de responder sin explicar.</p><span class="measure">NOMINAL · DEPENDIENTE</span></article>
-<article class="sensor reveal"><div class="num">Z</div><h3>Profundidad del vínculo</h3><p>Hasta dónde había llegado ese vínculo. Viene del TP1.</p><p><strong>Bajo:</strong> solo digital.<br/><strong>Medio:</strong> 1 a 5 citas.<br/><strong>Alto:</strong> más de 5 citas.</p><span class="measure">ORDINAL · CONTEXTUAL</span></article>
+<article class="sensor reveal"><div class="num">Z</div><h3>Profundidad del vínculo</h3><p>Hasta dónde había llegado ese vínculo. Viene del TP1.</p><p><strong>Baja:</strong> solo digital.<br/><strong>Media:</strong> 1 a 5 citas.<br/><strong>Alta:</strong> más de 5 citas.</p><span class="measure">ORDINAL · CONTEXTUAL</span></article>
 </div>
-<p class="unit reveal"><strong>Unidad de análisis:</strong> personas de 18 a 35 años que usan redes sociales, apps de mensajería o aplicaciones de citas.</p>
+<p class="unit reveal"><strong>Unidad de análisis:</strong> personas de 18 a 35 años que usan redes sociales, apps de mensajería o aplicaciones de citas, y que hayan decidido terminar al menos un vínculo afectivo o sexoafectivo.</p>
 </section>
 
 <section class="demo" id="encuesta">
@@ -85,8 +86,21 @@
 </div>
 </section>
 
+<section class="findings sample" id="muestra">
+<div class="center reveal"><div class="eyebrow">04 · Resultados de la muestra</div><h2 class="display">¿Qué encontramos?</h2><p class="lede">Resultados del TP 2 con la muestra cerrada el 25 de noviembre de 2026: 23 respuestas, de las cuales 18 entran en el análisis.</p><p class="sample-date">MUESTRA CERRADA · 25/11/2026 · n = 18</p></div>
+<div id="sampleRoot" class="results-root"></div>
+<article class="conclusions reveal" aria-labelledby="concTitle">
+<div class="eyebrow">Conclusiones</div>
+<h3 id="concTitle">Una tendencia en la dirección de H1</h3>
+<p>Los datos son consistentes con H1. Las 4 personas con incomodidad alta terminaron su último vínculo con ghosting, frente al 42,9% de las personas con incomodidad media, y el índice promedio fue más alto entre quienes hicieron ghosting (14 contra 10,4 puntos).</p>
+<p>Siguiendo la lógica del contraste de hipótesis de Peña y Romo, estos datos no alcanzan para rechazar H0. Con 18 casos, y solo 4 en el grupo de incomodidad alta, una diferencia de este tamaño puede aparecer por variación muestral.</p>
+<p>Ningún caso obtuvo incomodidad baja: el puntaje mínimo registrado fue 8, por lo que conviene revisar los cortes provisionales del índice en una próxima aplicación.</p>
+<p><strong>Con el tamaño muestral obtenido, el resultado es exploratorio: la evidencia es compatible con H1, pero no permite rechazar H0.</strong></p>
+</article>
+</section>
+
 <section class="findings" id="resultados">
-<div class="center reveal"><div class="eyebrow">04 · Resultados</div><h2 class="display">¿Qué muestran los datos hasta ahora?</h2><p class="lede">Los gráficos se calculan automáticamente con las respuestas recibidas. Nunca se muestran respuestas individuales.</p><p class="updated" id="resUpdated" aria-live="polite"></p></div>
+<div class="center reveal"><div class="eyebrow">05 · Resultados en tiempo real</div><h2 class="display">¿Qué muestran los datos hasta ahora?</h2><p class="lede">La encuesta sigue abierta. Estos gráficos se actualizan automáticamente con cada respuesta nueva, por eso pueden diferir de la muestra del TP. Nunca se muestran respuestas individuales.</p><p class="updated" id="resUpdated" aria-live="polite"></p></div>
 <div id="resultsRoot" class="results-root"><p class="res-loading">Cargando resultados…</p></div>
 </section>
 
@@ -105,6 +119,7 @@
 <script src="../assets/js/config.js"></script>
 <script src="../assets/js/api.js"></script>
 <script src="../assets/js/stats.js"></script>
+<script src="../assets/js/muestra-tp.js"></script>
 <script src="../assets/js/tp2.js"></script>
 </body>
 </html>
