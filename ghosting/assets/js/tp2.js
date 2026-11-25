@@ -435,9 +435,9 @@
     return `<span class="seg seg-${key}" style="width:${p}%;background:${COLORS[key]}" tabindex="0" data-tip="${esc(label)}" aria-label="${esc(label)}">${p >= 14 ? `<b>${S.pct(n, total, 0)}</b>` : ''}</span>`;
   }
 
-  function stackRow(label, sub, row) {
+  function stackRow(label, sub, row, st) {
     if (row.suppressed) {
-      return `<div class="srow"><div class="srow-label"><b>${esc(label)}</b><span>${esc(sub)}</span></div><div class="srow-bar suppressed">${lastStats.min_cell <= 1 ? 'Sin respuestas en este nivel' : 'Menos de ' + lastStats.min_cell + ' respuestas: no se publica'}</div><div class="srow-n">${lastStats.min_cell <= 1 ? 'n = 0' : 'n &lt; ' + lastStats.min_cell}</div></div>`;
+      return `<div class="srow"><div class="srow-label"><b>${esc(label)}</b><span>${esc(sub)}</span></div><div class="srow-bar suppressed">${st.min_cell <= 1 ? 'Sin respuestas en este nivel' : 'Menos de ' + st.min_cell + ' respuestas: no se publica'}</div><div class="srow-n">${st.min_cell <= 1 ? 'n = 0' : 'n &lt; ' + st.min_cell}</div></div>`;
     }
     return `<div class="srow"><div class="srow-label"><b>${esc(label)}</b><span>${esc(sub)}</span></div><div class="srow-bar">${seg('explicita', row.explicita, row.n, esc(label))}${seg('ghosting', row.ghosting, row.n, esc(label))}</div><div class="srow-n">n = ${row.n}</div></div>`;
   }
@@ -445,7 +445,7 @@
   const legend = () => `<div class="legend" aria-label="Referencias"><span><i style="background:var(--c-explicit)"></i>Ruptura explícita</span><span><i style="background:var(--c-ghost)" class="hatch"></i>Ghosting</span></div>`;
 
   function renderResults(st) {
-    if (!st) return;
+    if (!st || !root) return;
     stamp();
     const kpis = `<div class="kpis">
       <div class="kpi main"><span class="kpi-n">${st.n_eligible}</span><span class="kpi-l">respuestas válidas</span></div>
@@ -463,13 +463,20 @@
       </div>`;
       return;
     }
+    root.innerHTML = kpis + chartsHTML(st, depthFilter);
+  }
 
+  // Gráficos compartidos por los resultados en vivo y la muestra del TP.
+  // cap: epígrafes opcionales (como en el TP) { B, C, DE, F }
+  function chartsHTML(st, depth, cap) {
+    cap = cap || {};
+    const capHTML = k => cap[k] ? `<p class="fig-cap">${cap[k]}</p>` : '';
     const st2 = st.strategy, nb = st.n_binary;
     const dsc = st.discomfort, nd = dsc.baja + dsc.media + dsc.alta;
     const maxD = Math.max(dsc.baja, dsc.media, dsc.alta, 1);
 
     // B. Estrategias
-    const chartB = `<article class="chart-card">
+    const chartB = `<article class="chart-card">${capHTML('B')}
       <p class="chart-k">Estrategia de finalización</p>
       <h3>¿Cómo terminaron su último vínculo?</h3>
       <p class="chart-n">n = ${nb} (sin “otra situación”)</p>
@@ -479,7 +486,7 @@
     </article>`;
 
     // C. Incomodidad
-    const chartC = `<article class="chart-card">
+    const chartC = `<article class="chart-card">${capHTML('C')}
       <p class="chart-k">Incomodidad ante la confrontación</p>
       <h3>¿Cuánto incomoda comunicar una ruptura?</h3>
       <p class="chart-n">n = ${nd} (todas las respuestas válidas)</p>
@@ -488,41 +495,55 @@
 
     // D/E. Cruce X × Y (con filtro por Z)
     let rows;
-    if (depthFilter === 'todas') rows = st.crosstab;
-    else rows = st.crosstab_by_depth.filter(r => r.depth === depthFilter);
+    if (depth === 'todas') rows = st.crosstab;
+    else rows = st.crosstab_by_depth.filter(r => r.depth === depth);
     const filters = `<div class="filters" role="group" aria-label="Filtrar por profundidad del vínculo"><span>Profundidad del vínculo:</span>
-      ${[['todas', 'Todas'], ['digital', L.z.digital], ['citas_1_5', L.z.citas_1_5], ['citas_mas_5', L.z.citas_mas_5]].map(([v, t]) => `<button type="button" data-depth="${v}" aria-pressed="${depthFilter === v}">${esc(t)}</button>`).join('')}</div>`;
+      ${[['todas', 'Todas'], ['digital', L.z.digital], ['citas_1_5', L.z.citas_1_5], ['citas_mas_5', L.z.citas_mas_5]].map(([v, t]) => `<button type="button" data-depth="${v}" aria-pressed="${depth === v}">${esc(t)}</button>`).join('')}</div>`;
     const pub = rows.filter(r => !r.suppressed);
     const tot = pub.reduce((a, r) => ({ n: a.n + r.n, explicita: a.explicita + r.explicita, ghosting: a.ghosting + r.ghosting }), { n: 0, explicita: 0, ghosting: 0 });
     const table = `<div class="table-wrap"><table class="ctable">
-      <caption>Tabla de contingencia: incomodidad (X) × estrategia (Y)${depthFilter !== 'todas' ? ' · ' + esc(L.z[depthFilter]) : ''}. Frecuencias absolutas y porcentajes por fila.</caption>
+      <caption>Tabla de contingencia: incomodidad (X) × estrategia (Y)${depth !== 'todas' ? ' · ' + esc(L.z[depth]) : ''}. Frecuencias absolutas y porcentajes por fila.</caption>
       <thead><tr><th scope="col">Incomodidad</th><th scope="col">Ruptura explícita</th><th scope="col">Ghosting</th><th scope="col">Total</th></tr></thead>
       <tbody>${rows.map(r => r.suppressed
         ? `<tr class="supp"><th scope="row">${L.levelShort[r.level]} <small>${L.levelRange[r.level]}</small></th><td colspan="3">${st.min_cell <= 1 ? 'Sin respuestas en este nivel' : 'Grupo con menos de ' + st.min_cell + ' respuestas: no se publica'}</td></tr>`
         : `<tr><th scope="row">${L.levelShort[r.level]} <small>${L.levelRange[r.level]}</small></th><td>${r.explicita} <small>(${S.pct(r.explicita, r.n)})</small></td><td>${r.ghosting} <small>(${S.pct(r.ghosting, r.n)})</small></td><td>${r.n} <small>(100%)</small></td></tr>`).join('')}</tbody>
       <tfoot><tr><th scope="row">Total${pub.length < rows.length && st.min_cell > 1 ? ' publicado' : ''}</th><td>${tot.explicita} <small>(${S.pct(tot.explicita, tot.n)})</small></td><td>${tot.ghosting} <small>(${S.pct(tot.ghosting, tot.n)})</small></td><td>${tot.n}</td></tr></tfoot>
     </table></div>`;
-    const chartDE = `<article class="chart-card wide">
+    const chartDE = `<article class="chart-card wide">${capHTML('DE')}
       <p class="chart-k">Incomodidad × estrategia</p>
       <h3>¿Más incomodidad, más ghosting?</h3>
       <p class="chart-n">Proporción de cada estrategia dentro de cada nivel de incomodidad (barras apiladas al 100%).</p>
       ${filters}
       ${legend()}
-      <div class="stack">${rows.map(r => stackRow(L.levelShort[r.level], L.levelRange[r.level], r)).join('')}</div>
+      <div class="stack">${rows.map(r => stackRow(L.levelShort[r.level], L.levelRange[r.level], r, st)).join('')}</div>
       ${table}
     </article>`;
 
     // F. Por profundidad
-    const chartF = `<article class="chart-card wide">
+    const chartF = `<article class="chart-card wide">${capHTML('F')}
       <p class="chart-k">Profundidad del vínculo</p>
       <h3>¿Cambia según hasta dónde llegó el vínculo?</h3>
       <p class="chart-n">Exploración descriptiva · n = ${st.by_depth.filter(r => !r.suppressed).reduce((a, r) => a + r.n, 0)} publicadas</p>
       ${legend()}
-      <div class="stack">${st.by_depth.map(r => stackRow(L.z[r.depth], '', r)).join('')}</div>
+      <div class="stack">${st.by_depth.map(r => stackRow(L.z[r.depth], '', r, st)).join('')}</div>
     </article>`;
 
-    root.innerHTML = kpis + `<div class="charts">${chartB}${chartC}${chartDE}${chartF}</div>`;
+    return `<div class="charts">${chartB}${chartC}${chartDE}${chartF}</div>`;
   }
+
+  /* ------------------------------------------------------------------
+     Muestra analizada en el TP (números fijos, ver muestra-tp.js)
+     ------------------------------------------------------------------ */
+  const sampleRoot = $('#sampleRoot'), SAMPLE = window.GD_SAMPLE;
+  let sampleDepth = 'todas';
+  function renderSample() {
+    if (!sampleRoot || !SAMPLE) return;
+    sampleRoot.innerHTML = chartsHTML(SAMPLE.stats, sampleDepth, SAMPLE.captions);
+  }
+  if (sampleRoot) sampleRoot.addEventListener('click', e => {
+    const f = e.target.closest('[data-depth]');
+    if (f) { sampleDepth = f.dataset.depth; renderSample(); const nb = sampleRoot.querySelector(`[data-depth="${sampleDepth}"]`); if (nb) nb.focus(); }
+  });
 
   // Tooltip accesible (hover y foco)
   function showTip(el) {
@@ -535,13 +556,13 @@
     tip.style.left = x + 'px'; tip.style.top = y + 'px';
   }
   function hideTip() { tip.hidden = true; }
-  if (root) {
-  root.addEventListener('mouseover', e => { const el = e.target.closest('[data-tip]'); if (el) showTip(el); });
-  root.addEventListener('mouseout', e => { if (e.target.closest('[data-tip]')) hideTip(); });
-  root.addEventListener('focusin', e => { const el = e.target.closest('[data-tip]'); if (el) showTip(el); });
-  root.addEventListener('focusout', hideTip);
-  addEventListener('scroll', hideTip, { passive: true });
-  }
+  [root, sampleRoot].filter(Boolean).forEach(el0 => {
+    el0.addEventListener('mouseover', e => { const el = e.target.closest('[data-tip]'); if (el) showTip(el); });
+    el0.addEventListener('mouseout', e => { if (e.target.closest('[data-tip]')) hideTip(); });
+    el0.addEventListener('focusin', e => { const el = e.target.closest('[data-tip]'); if (el) showTip(el); });
+    el0.addEventListener('focusout', hideTip);
+  });
+  if (tip) addEventListener('scroll', hideTip, { passive: true });
 
   // Carga inicial y actualización automática
   const refreshMs = Math.max(10, CFG.RESULTS_REFRESH_SECONDS || 30) * 1000;
@@ -551,6 +572,7 @@
 
   // Arranque
   renderIntro();
+  renderSample();
   loadResults();
 
   // Utilidad para pruebas (no expone datos)
