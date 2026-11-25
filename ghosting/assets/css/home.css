@@ -19,3 +19,16 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offse
 .hero h1 .tm{font-size:.28em;vertical-align:top;position:relative;top:.35em;letter-spacing:0}
 .academic{bottom:92px}
 @media(max-width:900px){.academic{bottom:28px}}
+
+/* Imagen de portada propia de la home (el TP1 conserva la suya).
+   --hero-pos-*: encuadre de la imagen en tablet y celular (horizontal vertical). */
+:root{--hero-pos-tablet:50% center;--hero-pos-mobile:50% center}
+.hero-bg{background-image:url("https://raw.githubusercontent.com/inaki-ibargoyengarro/ghosting/refs/heads/main/assets/header-home.png")}
+@media(max-width:900px){.hero-bg{background-position:var(--hero-pos-tablet)}}
+@media(max-width:600px){.hero-bg{background-size:cover;background-position:var(--hero-pos-mobile)}}
+
+/* ---------- Ajustes finos de mobile ---------- */
+@media(max-width:600px){
+  .academic,.credits{font-size:11px!important;line-height:1.55}
+  .chip{font-size:11px}
+}
